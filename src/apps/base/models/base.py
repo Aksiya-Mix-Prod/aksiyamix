@@ -3,6 +3,8 @@ import uuid
 from django.db import models
 from django.conf import settings
 
+from apps.base.services import normalize_txt
+
 
 class AbstractBaseModel(models.Model):
     """ General abstract base model """
@@ -18,6 +20,7 @@ class AbstractBaseModel(models.Model):
     )
 
     def save(self, *args, **kwargs):
+        normalize_txt(self)
         super().save(*args, **kwargs)
 
     class Meta:
