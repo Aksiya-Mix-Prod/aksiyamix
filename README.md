@@ -1,0 +1,2 @@
+# aksiyamix
+FintechHub Aksiyamix project
