@@ -6,32 +6,8 @@ from src.apps.base.models.base import AbstractBaseModel
 from src.apps.categories.models import Category
 from src.apps.companies.models import Company, BranchCompany
 from src.apps.discounts.choices import Currency, DiscountChoices
-from src.apps.features.models import FeatureValue
+from src.apps.discounts.models.servicediscount import ServiceDiscount
 from src.apps.general.models import CurrencyRate
-from src.apps.general.normalize_text import normalize_text
-from src.apps.general.validate_file_size import validate_icon_size, validate_image_size
-
-
-class ServiceDiscount(AbstractBaseModel):
-    name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200)
-    icon = models.ImageField(upload_to='discount/icons/%Y/%m/%d/',
-                             validators=[validate_icon_size],
-                             blank=True, null=True)
-    is_active = models.BooleanField(default=False)
-
-    def get_normalize_fields(self):
-        return [
-            'name',
-            'slug'
-        ]
-
-    def save(self, *args, **kwargs):
-        normalize_text(self)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
 
 
 class Discount(AbstractBaseModel):
@@ -72,6 +48,7 @@ class Discount(AbstractBaseModel):
     is_active = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    ordering = models.DateTimeField(auto_now=True)
 
     #Standart discount
     discount_value = models.DecimalField(max_digits=20, decimal_places=1, blank=True, null=True)
@@ -87,24 +64,6 @@ class Discount(AbstractBaseModel):
 
     #Service discount
     service = models.ForeignKey(ServiceDiscount, on_delete=models.SET_NULL, null=True)
-
-    def get_features(self):
-        features = {}
-        feature_values = FeatureValue.objects.filter(discountfeature__discount__id=self.pk
-                                                     ).distinct().select_related('feature')
-        for feature_value in feature_values:
-            feature = feature_value.feature
-            feature_id = features.pk
-            feature_name = feature_id.name
-            value = {'id': feature_values.id, 'name': feature_value.value}
-
-            if feature_id not in features:
-                features[feature_id] = {'name': feature_name, 'values': [value]}
-            else:
-                features[feature_id]['values'].append(value)
-
-        return features
-
 
     def get_old_price_by_currency(self, currency):
         if currency != self.currency:

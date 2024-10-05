@@ -1,6 +1,6 @@
-from src.apps.base import models
+from django.db import models
 from src.apps.base.models.base import AbstractBaseModel
-from src.apps.discounts.views import Discount
+from src.apps.discounts.models import Discount
 
 
 class DiscountImage(AbstractBaseModel):
