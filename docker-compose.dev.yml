@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
 
   web_app:
-    build: ./src
+    build: .
     container_name: web_app
     command: python manage.py runserver 0.0.0.0:8000
     env_file:
@@ -17,7 +15,7 @@ services:
       - redis_db
 
   postgres_db:
-    image: postgres:15.8
+    image: postgres:16
     container_name: postgres_db
     env_file:
       - src/.env
