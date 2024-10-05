@@ -42,6 +42,7 @@ INSTALLED_APPS += [
     'apps.advertisements.apps.AdvertisementsConfig',
     'apps.appeals.apps.AppealsConfig',
     'apps.authentication.apps.AuthenticationConfig',
+    'apps.base.apps.BaseConfig',
     'apps.boosts.apps.BoostsConfig',
     'apps.branches.apps.BranchesConfig',
     'apps.categories.apps.CategoriesConfig',
