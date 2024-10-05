@@ -10,6 +10,7 @@ class TopCalendar(AbstractBaseModel):
     days = ArrayField(ArrayField(models.DateField()))
 
     class Meta:
+        db_table = 'top_calendar'
         unique_together = ('year', 'month')
 
     def __str__(self):

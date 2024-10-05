@@ -1,8 +1,4 @@
-from rest_framework import generics, views
-
-
-class CustomAPIView(views.APIView):
-    pass
+from rest_framework import generics
 
 
 class CustomGenericAPIView(generics.GenericAPIView):

@@ -10,5 +10,8 @@ class Service(AbstractBaseModel):
 
     is_active = models.BooleanField(default=False)
 
+    class Meta:
+        db_table = 'service'
+
     def __str__(self):
         return self.name

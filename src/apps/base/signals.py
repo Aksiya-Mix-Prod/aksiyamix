@@ -4,5 +4,6 @@ from apps.base.services import delete_file_after_delete_obj
 
 
 @receiver(post_delete)
-def delete_photo_on_delete_user(instance, *args, **kwargs):
+def base_post_delete(instance, *args, **kwargs):
+    """Deleting file after by object"""
     delete_file_after_delete_obj(instance)

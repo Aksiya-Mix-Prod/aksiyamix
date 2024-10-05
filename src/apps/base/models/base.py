@@ -20,6 +20,7 @@ class AbstractBaseModel(models.Model):
     )
 
     def save(self, *args, **kwargs):
+        """ Normalize text fields before saving """
         normalize_txt(self)
         super().save(*args, **kwargs)
 

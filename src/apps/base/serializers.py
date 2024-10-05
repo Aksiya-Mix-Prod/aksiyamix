@@ -7,7 +7,3 @@ class CustomSerializer(serializers.Serializer):
 
 class CustomModelSerializer(serializers.ModelSerializer):
     pass
-
-
-class CustomListSerializer(serializers.ListSerializer):
-    pass

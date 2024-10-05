@@ -11,5 +11,8 @@ class Notification(AbstractBaseModel):
     
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'notification'
+
     def __str__(self):
         return self.title

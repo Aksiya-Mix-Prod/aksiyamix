@@ -1,6 +1,7 @@
 from django.db import models
 
 class Regions(models.IntegerChoices):
+    """Region Choices"""
     SIRDARYO = 1, 'Sirdaryo'
     NAVOIY = 2, 'Navoiy'
     JIZZAX = 3, 'Jizzax'
@@ -17,6 +18,7 @@ class Regions(models.IntegerChoices):
 
 
 class District(models.TextChoices):
+    """District Choices"""
     #SIRDARYO
     BOYOVUT = '1X1', 'BOYOVUT' 	
     GULISTON_SHAXRI = '1X2', 'GULISTON_SHAXRI' 	

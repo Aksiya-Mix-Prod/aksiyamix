@@ -12,5 +12,8 @@ class TopDiscount(AbstractBaseModel):
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     quantity = models.PositiveIntegerField()
 
+    class Meta:
+        db_table = 'top_discount'
+
     def __str__(self):
         return f"{self.price}-{self.quantity}"
