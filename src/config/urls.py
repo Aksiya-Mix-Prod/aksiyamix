@@ -7,11 +7,11 @@ from .yasg import schema_view
 
 
 urlpatterns = [
-    #Django
+    #======== Django ========
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
 
-    # Swagger
+    #======== Swagger ========
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

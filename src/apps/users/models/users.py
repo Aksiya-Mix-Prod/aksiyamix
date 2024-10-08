@@ -62,6 +62,7 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
             "Unselect this instead of deleting accounts."
         ),
     )
+    is_spam = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         """Normalize the email address"""
