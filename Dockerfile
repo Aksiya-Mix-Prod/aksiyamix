@@ -7,3 +7,4 @@ COPY ./requirements/. .
 RUN pip install -r dev.txt
 
 COPY ./src /app
+
