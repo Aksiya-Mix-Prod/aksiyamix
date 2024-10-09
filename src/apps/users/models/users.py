@@ -63,6 +63,7 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
         ),
     )
     is_spam = models.BooleanField(default=False)
+    spam_counts = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
         """Normalize the email address"""

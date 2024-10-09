@@ -7,7 +7,7 @@ from apps.base.models import AbstractBaseModel
 class TopCalendar(AbstractBaseModel):
     year = models.PositiveSmallIntegerField()
     month = models.PositiveSmallIntegerField()
-    days = ArrayField(ArrayField(models.DateField()))
+    days = ArrayField(ArrayField(models.BooleanField()))
 
     class Meta:
         db_table = 'top_calendar'
