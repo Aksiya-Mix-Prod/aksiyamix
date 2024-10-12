@@ -8,4 +8,3 @@ class DiscountImage(AbstractBaseModel):
     image = models.ImageField(upload_to='discount/images/%Y/%m/%d/',
                               validators=[validate_image_size])
     ordering_number = models.PositiveIntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)

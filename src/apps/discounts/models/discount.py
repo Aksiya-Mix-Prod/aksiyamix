@@ -15,6 +15,7 @@ class Discount(AbstractBaseModel):
         PROCESS = 1, 'Process'
         REJECTED = 2, 'Rejected'
 
+    id = models.PositiveSmallIntegerField()
     company = models.ForeignKey(Company, on_delete=models.SET_NULL,
                                 null=True)
     branch_company = models.ManyToManyField(BranchCompany, related_name='discounts', blank=True)
@@ -95,8 +96,8 @@ class Discount(AbstractBaseModel):
                 raise ValidationError('Quantity discount requires min_quantity and bonus_discount_value.')
 
         elif self.discount_type == DiscountChoices.SERVICE_DISCOUNT:
-            if self.min_quantity is None or self.service is None:
-                raise ValidationError('Service discount requires min_quantity and a service.')
+            if self.service is None:
+                raise ValidationError('Service discount requires a service.')
 
     def __str__(self):
         return self.title

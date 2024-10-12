@@ -1,2 +1,2 @@
 from .discount import *
-from .discountimage import *
+from .discount_image import *
