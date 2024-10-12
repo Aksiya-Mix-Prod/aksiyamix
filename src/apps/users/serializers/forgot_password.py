@@ -10,17 +10,26 @@ from apps.base import serializers
 from apps.base.exceptions import CustomExceptionError
 from apps.authentication.utils import generate_jwt_tokens
 from apps.users.utils import EskizUz
-from apps.users.validators import phone_validate
+from apps.authentication.services import check_username_type
 
 
 class ForgotPasswordSerializer(serializers.CustomSerializer):
-    username = serializers.CharField(validators=[phone_validate])
+    username = serializers.CharField()
     link = serializers.CharField(read_only=True)
 
-    def validate_username(self, phone_number):
-        if not get_user_model().objects.filter(phone_number=phone_number).exists():
+    def validate_username(self, username):
+        #======== checking username type ========
+        username_type = check_username_type(username)
+
+        #======== checking user exists ========
+        if username_type == 'phone_number':
+            user = get_user_model().objects.filter(phone_number=username)
+        else:
+            user = get_user_model().objects.filter(email=username)
+        if not user.exists():
             raise CustomExceptionError(code=404, detail="User with this phone number does not exist.")
-        return phone_number
+        
+        return username
     
     @classmethod
     def check_limit(cls, request):
@@ -37,18 +46,24 @@ class ForgotPasswordSerializer(serializers.CustomSerializer):
 
     def save(self, *args, **kwargs):
         """
-        Send forgot password link to phone number user. 
+        Send forgot password link to phone number or email user. 
         """
+        username_type = check_username_type(username=self.validated_data['username'])
+
         # self.check_limit(self.context['request'])
-        user = get_object_or_404(get_user_model(), phone_number=self.validated_data['username'])
+        if username_type == 'phone_number':
+            user = get_object_or_404(get_user_model(), phone_number=self.validated_data['username'])
+        else:
+            user = get_object_or_404(get_user_model(), email=self.validated_data['username'])
+
         token_generator = PasswordResetTokenGenerator()
         token = token_generator.make_token(user)
 
-        reset_url =self.context['request'].build_absolute_uri(f'confirm/?token={token}')
+        reset_url = self.context['request'].build_absolute_uri(f'confirm/?token={token}')
 
         EskizUz.send_sms(
             send_type='FORGOT_PASSWORD', 
-            phone_number=self.validated_data['username'],
+            username=self.validated_data['username'],
             token=token,
             link=reset_url,
             )
@@ -67,12 +82,17 @@ class NewPasswordSerializer(serializers.CustomSerializer):
         context = self.context
 
         token  = context['token']
-        phone_number = cache.get(EskizUz.FORGOT_PASSWORD_KEY.format(token=token))
+        username = cache.get(EskizUz.FORGOT_PASSWORD_KEY.format(token=token))
         
-        if not phone_number:
+        if not username:
             raise CustomExceptionError(code=404, detail='not found')
         
-        user = get_object_or_404(get_user_model(), phone_number=phone_number)
+        username_type = check_username_type(username)
+        
+        if username_type == 'phone_number':
+            user = get_object_or_404(get_user_model(), phone_number=username)
+        else:
+            user = get_object_or_404(get_user_model(), email=username)
         user.set_password(attrs['password'])
         user.save()
 
