@@ -14,7 +14,7 @@ from src.apps.companies.validators.company_video_size import validate_company_vi
 from src.apps.companies.validators.company_logo_size import (validate_company_logo_size, validate_logo_size)
 from src.apps.companies.validators.company_banner_size import validate_company_banner_size, validate_banner_size
 
-
+"""Company model"""
 class Company(AbstractBaseModel):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     category = models.ManyToManyField(Category, blank=True, related_name='companies')
