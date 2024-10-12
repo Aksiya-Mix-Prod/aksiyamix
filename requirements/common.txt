@@ -1,3 +1,4 @@
+celery==5.4.0
 Django==5.0.7
 django-celery-beat==2.7.0
 django-celery-results==2.5.1
@@ -7,11 +8,13 @@ django-debug-toolbar==4.4.5
 django-jazzmin==3.0.0
 django-modeltranslation==0.19.2
 django-redis==5.4.0
+django-timezone-field==7.0
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
-ipython==8.26.0
+drf-yasg==1.21.7
 pillow==10.4.0
 psycopg2-binary==2.9.9
 python-dotenv==1.0.1
-drf-yasg==1.21.7
-requests==2.32.3
+redis==5.1.1
+profanity-check==1.0.3
+joblib==1.4.2
