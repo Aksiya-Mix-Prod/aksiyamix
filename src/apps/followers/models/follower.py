@@ -19,7 +19,3 @@ class Follower(AbstractBaseModel):
                                 on_delete=models.SET_NULL,
                                 related_name='follower_of_companies')
 
-
-
-    def __str__(self):
-        return f'{self.user}'

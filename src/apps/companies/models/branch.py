@@ -11,8 +11,9 @@ class BranchCompany(AbstractBaseModel):
     """
     company = models.ForeignKey('Company', on_delete=models.PROTECT)
 
-    name = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=13, validators=[phone_validate])
+    title = models.CharField(max_length=255)
+    phone_number1 = models.CharField(max_length=13, validators=[phone_validate])
+    phone_number2 = models.CharField(max_length=13, validators=[phone_validate])
     address = models.CharField(max_length=255)
 
     country = models.PositiveSmallIntegerField(choices=Country.choices)
@@ -22,8 +23,6 @@ class BranchCompany(AbstractBaseModel):
 
     longitude = models.FloatField()
     latitude = models.FloatField()
-
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def get_address(self):
         return {

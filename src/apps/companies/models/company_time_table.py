@@ -11,8 +11,12 @@ class CompanyTimeTable(AbstractBaseModel):
     """
     Here creating company timetable
     """
-    company = models.ForeignKey(Company, on_delete=models.PROTECT, blank=True, null=True)
-    branch_company = models.ForeignKey(BranchCompany, on_delete=models.PROTECT, blank=True, null=True)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT,
+                                blank=True, null=True)
+    branch_company = models.ForeignKey(BranchCompany,
+                                       on_delete=models.PROTECT,
+                                       blank=True,
+                                       null=True)
 
     week_day = models.PositiveSmallIntegerField(choices=WeekDay.choices)
 
