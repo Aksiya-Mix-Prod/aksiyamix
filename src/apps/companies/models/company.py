@@ -5,6 +5,7 @@ from django.core.validators import FileExtensionValidator
 from django.core.validators import ValidationError
 
 from src.apps.categories.models.category import Category
+from src.apps.users.validators.phone_number import phone_validate
 from src.apps.base.models.base import AbstractBaseModel
 from src.apps.companies.choice.country import Country
 from src.apps.companies.choice.disctrict import District
