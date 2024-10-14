@@ -1,1 +1,1 @@
-from comment import *
+from .comment import *
