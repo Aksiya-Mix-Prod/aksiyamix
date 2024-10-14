@@ -4,9 +4,9 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.password_validation import validate_password
 
-from rest_framework import exceptions
+from rest_framework import serializers
 
-from apps.base import serializers
+from apps.base.serializers import CustomSerializer
 from apps.base.exceptions import CustomExceptionError
 from apps.authentication.utils import generate_jwt_tokens
 from apps.users.utils import EskizUz
@@ -40,7 +40,7 @@ class ForgotPasswordSerializer(serializers.CustomSerializer):
 
         limit = cache.get(ip_address, 0)
         if limit >= 3:
-            raise exceptions.PermissionDenied('try after one hour')
+            raise CustomExceptionError(code=403, detail='Try after one hour')
         else:
             cache.set(ip_address, limit + 1, 60 * 60)
 

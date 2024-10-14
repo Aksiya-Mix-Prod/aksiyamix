@@ -1,222 +1,260 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
 
 class Regions(models.IntegerChoices):
     """Region Choices"""
-    SIRDARYO = 1, 'Sirdaryo'
-    NAVOIY = 2, 'Navoiy'
-    JIZZAX = 3, 'Jizzax'
-    XORAZM = 4, 'Xorazm'
-    BUXORO = 5, 'Buxoro'
-    SURXONDARYO = 6, 'Surxondaryo'
-    NAMANGAN = 7, 'Namangan'
-    ANDIJON = 8, 'Andijon'
-    QASHQADARYO = 9, 'Qashqadaryo'
-    SAMARQAND = 10, 'Samarqand'
-    FARGONA = 11, 'Fargʻona'
-    TOSHKENT = 12, 'Toshkent'
-    QORAQALPOGISTON = 13, 'Qoraqalpog‘iston'
+    QORAQALPOGISTON = 1, _('Qoraqalpog‘iston Respublikasi')
+    ANDIJON = 2, _('Andijon viloyati')
+    BUXORO = 3, _('Buxoro viloyati')
+    JIZZAX = 4, _('Jizzax viloyati')
+    QASHQADARYO = 5, _('Qashqadaryo viloyati')
+    NAVOIY = 6, _('Navoiy viloyati')
+    NAMANGAN = 7, _('Namangan viloyati')
+    SAMARQAND = 8, _('Samarqand viloyati')
+    SURXANDARYO = 9, _('Surxandaryo viloyati')
+    SIRDARYO = 10, _('Sirdaryo viloyati')
+    TOSHKENT = 11, _('Toshkent viloyati')
+    FARGONA = 12, _('Farg‘ona viloyati')
+    XORAZM = 13, _('Xorazm viloyati')
+    TOSHKENT_SHAHRI = 14, _('Toshkent shahri')
 
 
 class District(models.TextChoices):
     """District Choices"""
-    #SIRDARYO
-    BOYOVUT = '1X1', 'BOYOVUT' 	
-    GULISTON_SHAXRI = '1X2', 'GULISTON_SHAXRI' 	
-    GULISTON = '1X3', 'GULISTON' 	
-    OQOLTIN = '1X4', 'OQOLTIN' 	
-    SARDOBA = '1X5', 'SARDOBA' 
-    SAYXUNOBOD = '1X6', 'SAYXUNOBOD' 	
-    SHIRIN = '1X7', 'SHIRIN' 	
-    SIRDARYO = '1X8', 'SIRDARYO' 	
-    XOVOS = '1X9', 'XOVOS' 	
-    YANGIYER = '1X10', 'YANGIYER'
-
-    #NAVOI
-    KARMANA = '2X1', 'KARMANA'
-    KONIMEX = '2X2', 'KONIMEX'
-    NAVBAHOR = '2X3', 'NAVBAHOR'
-    NAVOIY = '2X4', 'NAVOIY'
-    NUROTA = '2X5', 'NUROTA'
-    QIZILTEPA = '2X6', 'QIZILTEPA'
-    TOMDI = '2X7', 'TOMDI'
-    UCHQUDUQ = '2X8', 'UCHQUDUQ'
-    XATIRCHI = '2X9', 'XATIRCHI'
-    ZARAFSHON = '2X10', 'ZARAFSHON'
-
-    # JIZZAX
-    ARNASOY = '3X1', 'ARNASOY'
-    BAXMAL = '3X2', 'BAXMAL'
-    DOSTLIK = '3X3', 'DOSTLIK'
-    FORISH = '3X4', 'FORISH'
-    GALLAOROL = '3X5', 'GALLAOROL'
-    JIZZAX = '3X6', 'JIZZAX'
-    JIZZAX_SHAXRI = '3X7', 'JIZZAX_SHAXRI'
-    MIRZACHOL = '3X8', 'MIRZACHOL'
-    PAXTAKOR = '3X9', 'PAXTAKOR'
-    YANGIOBOD = '3X10', 'YANGIOBOD'
-    ZAFAROBOD = '3X11', 'ZAFAROBOD'
-    ZARBAND = '3X12', 'ZARBAND'
-    ZOMIN = '3X13', 'ZOMIN'
-
-    # XORAZM
-    BOGOT = '4X1', 'BOGOT'
-    GURLAN = '4X2', 'GURLAN'
-    QOSHKOPIR = '4X3', 'QOSHKOPIR'
-    SHOVOT = '4X4', 'SHOVOT'
-    URGANCH_SHAHRI = '4X5', 'URGANCH_SHAHRI'
-    URGANCH = '4X6', 'URGANCH'
-    XAZORASP = '4X7', 'XAZORASP'
-    XIVA = '4X8', 'XIVA'
-    XONQA = '4X9', 'XONQA'
-    YANGIARIQ = '4X10', 'YANGIARIQ'
-    YANGIBOZOR = '4X11', 'YANGIBOZOR'
-
-    # BUXORO
-    BUXORO_SHAHRI = '5X1', 'BUXORO_SHAHRI'
-    BUXORO = '5X2', 'BUXORO'
-    GIJDUVON = '5X3', 'GIJDUVON'
-    JONDOR = '5X4', 'JONDOR'
-    KOGON_SHAHRI = '5X5', 'KOGON_SHAHRI'
-    KOGON = '5X6', 'KOGON'
-    OLOT = '5X7', 'OLOT'
-    PESHKU = '5X8', 'PESHKU'
-    QORAKOL = '5X9', 'QORAKOL'
-    QOROVULBOZOR = '5X10', 'QOROVULBOZOR'
-    ROMITAN = '5X11', 'ROMITAN'
-    SHOFIRKON = '5X12', 'SHOFIRKON'
-    VOBKENT = '5X13', 'VOBKENT'
-
-    # SURXONDARYO
-    ANGOR = '6X1', 'ANGOR'
-    BANDIXON = '6X2', 'BANDIXON'
-    BOYSUN = '6X3', 'BOYSUN'
-    DENOV = '6X4', 'DENOV'
-    JARQORGON = '6X5', 'JARQORGON'
-    MUZROBOT = '6X6', 'MUZROBOT'
-    OLTINSOY = '6X7', 'OLTINSOY'
-    QIZIRIQ = '6X8', 'QIZIRIQ'
-    QUMQORGON = '6X9', 'QUMQORGON'
-    SARIOSIYO = '6X10', 'SARIOSIYO'
-    SHEROBOD = '6X11', 'SHEROBOD'
-    SHORCHI = '6X12', 'SHORCHI'
-    TERMIZ_SHAHRI = '6X13', 'TERMIZ_SHAHRI'
-    TERMIZ = '6X14', 'TERMIZ'
-    UZUN = '6X15', 'UZUN'
-
-    # NAMANGAN
-    CHORTOQ = '7X1', 'CHORTOQ'
-    CHUST = '7X2', 'CHUST'
-    KOSONSOY = '7X3', 'KOSONSOY'
-    MINGBULOQ = '7X4', 'MINGBULOQ'
-    NAMANGAN_SHAHRI = '7X5', 'NAMANGAN_SHAHRI'
-    NAMANGAN = '7X6', 'NAMANGAN'
-    NORIN = '7X7', 'NORIN'
-    POP = '7X8', 'POP'
-    TORAQORGON = '7X9', 'TORAQORGON'
-    UCHQORGON = '7X10', 'UCHQORGON'
-    UYCHI = '7X11', 'UYCHI'
-    YANGIQORGON = '7X12', 'YANGIQORGON'
+    # QORAQALPOGISTON
+    AMUDARYO = '1X1', _('Amudaryo tumani')
+    BERUNIY = '1X2', _('Beruniy tumani')
+    KEGAYLI = '1X3', _('Kegayli tumani')
+    QONLIKOL = '1X4', _('Qonliko‘l tumani')
+    QORAOZAK = '1X5', _('Qorao‘zak tumani')
+    QONGIROT = '1X6', _('Qo‘ng‘irot tumani')
+    MOYNOQ = '1X7', _('Mo‘ynoq tumani')
+    NUKUS = '1X8', _('Nukus tumani')
+    NUKUS_SHAHRI = '1X9', _('Nukus shahri')
+    TAXTAKOPIR = '1X10', _('Taxtako‘pir tumani')
+    TORTKOL = '1X11', _('To‘rtko‘l tumani')
+    XOJAYLI = '1X12', _('Xo‘jayli tumani')
+    CHIMBOY = '1X13', _('Chimboy tumani')
+    SHUMANAY = '1X14', _('Shumanay tumani')
+    ELLIKQALA = '1X15', _('Ellikqal‘a tumani')
+    TAXIATOSH = '1X16', _('Taxiatosh shahri')
+    BOZATOV = '1X17', _('Bo‘zatov tumani')
 
     # ANDIJON
-    ANDIJON_SHAHRI = '8X1', 'ANDIJON_SHAHRI'
-    ANDIJON = '8X2', 'ANDIJON'
-    ASAKA = '8X3', 'ASAKA'
-    BALIQCHI = '8X4', 'BALIQCHI'
-    BOZ = '8X5', 'BOZ'
-    BULOQBOSHI = '8X6', 'BULOQBOSHI'
-    IZBOSKAN = '8X7', 'IZBOSKAN'
-    JALOLQUDUQ = '8X8', 'JALOLQUDUQ'
-    MARHAMAT = '8X9', 'MARHAMAT'
-    OLTINKOL = '8X10', 'OLTINKOL'
-    PAXTAOBOD = '8X11', 'PAXTAOBOD'
-    QORGONTEPA = '8X12', 'QORGONTEPA'
-    SHAHRIXON = '8X13', 'SHAHRIXON'
-    ULUGNOR = '8X14', 'ULUGNOR'
-    XOJAOBOD = '8X15', 'XOJAOBOD'
-    XONOBOD_SHAHRI = '8X16', 'XONOBOD_SHAHRI'
+    ANDIJON_SHAHRI = '2X1', _('Andijon shahri')
+    ANDIJON = '2X2', _('Andijon tumani')
+    ASAKA = '2X3', _('Asaka tumani')
+    BALIQCHI = '2X4', _('Baliqchi tumani')
+    BULOQBOSHI = '2X5', _('Buloqboshi tumani')
+    BOZ = '2X6', _('Bo‘z tumani')
+    JALAQUDUQ = '2X7', _('Jalaquduq tumani')
+    IZBOSGAN = '2X8', _('Izbosgan tumani')
+    QORASUV = '2X9', _('Qorasuv shahri')
+    QORGONTEPA = '2X10', _('Qo‘rg‘ontepa tumani')
+    MARHAMAT = '2X11', _('Marhamat tumani')
+    OLTINKOL = '2X12', _('Oltinko‘l tumani')
+    PAXTAOBOD = '2X13', _('Paxtaobod tumani')
+    ULUGNOR = '2X14', _('Ulug‘nor tumani')
+    XONABOD = '2X15', _('Xonabod tumani')
+    XOJAOBOD = '2X16', _('Xo‘jaobod tumani')
+    SHAHRIXON = '2X17', _('Shahrixon tumani')
+    ASAKA = '2X18', _('Asaka shahri')
 
-    # QASHQADARYO
-    CHIROQCHI = '9X1', 'CHIROQCHI'
-    DEHQONOBOD = '9X2', 'DEHQONOBOD'
-    GUZOR = '9X3', 'GUZOR'
-    KASBI = '9X4', 'KASBI'
-    KITOB = '9X5', 'KITOB'
-    KOSON = '9X6', 'KOSON'
-    MIRISHKOR = '9X7', 'MIRISHKOR'
-    MUBORAK = '9X8', 'MUBORAK'
-    NISHON = '9X9', 'NISHON'
-    QAMASHI = '9X10', 'QAMASHI'
-    QARSHI_SHAHRI = '9X11', 'QARSHI_SHAHRI'
-    QARSHI = '9X12', 'QARSHI'
-    SHAHRISABZ_SHAHRI = '9X13', 'SHAHRISABZ_SHAHRI'
-    YAKKABOG = '9X14', 'YAKKABOG'
+    # BUXORO
+    BUXORO_SHAHRI = '3X1', _('Buxoro shahri')
+    BUXORO = '3X2', _('Buxoro tumani')
+    VOBKENT = '3X3', _('Vobkent tumani')
+    GIJDUVON = '3X4', _('G‘ijduvon tumani')
+    JONDOR = '3X5', _('Jondor tumani')
+    KOGON = '3X6', _('Kogon tumani')
+    KOGON_SHAHRI = '3X7', _('Kogon shahri')
+    QORAKOL = '3X8', _('Qorako‘l tumani')
+    QOROVULBOZOR = '3X9', _('Qorovulbozor tumani')
+    OLOT = '3X10', _('Olot tumani')
+    PESHKU = '3X11', _('Peshku tumani')
+    ROMITAN = '3X12', _('Romitan tumani')
+    SHOFIRKON = '3X13', _('Shofirkon tumani')
 
-    # SAMARQAND
-    BULUNGUR = '10X1', 'BULUNGUR'
-    ISHTIXON = '10X2', 'ISHTIXON'
-    JOMBOY = '10X3', 'JOMBOY'
-    KATTAQORGON_SHAXRI = '10X4', 'KATTAQORGON_SHAXRI'
-    KATTAQORGON = '10X5', 'KATTAQORGON'
-    NARPAY = '10X6', 'NARPAY'
-    NUROBOD = '10X7', 'NUROBOD'
-    OQDARYO = '10X8', 'OQDARYO'
-    PAST_DARGOM = '10X9', 'PAST_DARGOM'
-    PAXTACHI = '10X10', 'PAXTACHI'
-    POYARIQ = '10X11', 'POYARIQ'
-    QOSHRABOT = '10X12', 'QOSHRABOT'
-    SAMARQAND_SHAXRI = '10X13', 'SAMARQAND'
-    SAMARQAND = '10X14', 'SAMARQAND'
-    TOYLOQ = '10X15', 'TOYLOQ'
-    URGUT = '10X16', 'URGUT'
+    # JIZZAX
+    ARNASOY = '4X1', _('Arnasoy tumani')
+    BAXMAL = '4X2', _('Baxmal tumani')
+    GALLAOROL = '4X3', _('G‘allaorol tumani')
+    DOSTLIK = '4X4', _('Do‘stlik tumani')
+    RASHIDOV = '4X5', _('Sh.Rashidov tumani')
+    JIZZAX = '4X6', _('Jizzax shahri')
+    ZARBDOR = '4X7', _('Zarbdor tumani')
+    ZAFAROBOD = '4X8', _('Zafarobod tumani')
+    ZOMIN = '4X9', _('Zomin tumani')
+    MIRZACHOL = '4X10', _('Mirzacho‘l tumani')
+    PAXTAKOR = '4X11', _('Paxtakor tumani')
+    FORISH = '4X12', _('Forish tumani')
+    YANGIOBOD = '4X13', _('Yangiobod tumani')
+
+    #QASHQADARYO
+    GUZOR = '5X1', _('G‘uzor tumani')
+    DEHQONOBOD = '5X2', _('Dehqonobod tumani')
+    QAMASHI = '5X3', _('Qamashi tumani')
+    QARSHI = '5X4', _('Qarshi tumani')
+    QARSHI_SHAHRI = '5X5', _('Qarshi shahri')
+    KASBI = '5X6', _('Kasbi tumani')
+    KITOB = '5X7', _('Kitob tumani')
+    KOSON = '5X8', _('Koson tumani')
+    MIRISHKOR = '5X9', _('Mirishkor tumani')
+    MUBORAK = '5X10', _('Muborak tumani')
+    NISHON = '5X11', _('Nishon tumani')
+    CHIROQCHI = '5X12', _('Chiroqchi tumani')
+    SHAHRISABZ = '5X13', _('Shahrisabz tumani')
+    YAKKABOG = '5X14', _('Yakkabog‘ tumani')
+    SHAHRISABZ_SHAHRI = '5X15', _('Shahrisabz shahri')
+    KOKDALA = '5X16', _('Ko‘kdala tumani')
+
+    #NAVOIY
+    ZARAFSHON = '6X1', _('Zarafshon shahri')
+    KARMANA = '6X2', _('Karmana tumani')
+    QIZILTEPA = '6X3', _('Qiziltepa tumani')
+    KONIMEX = '6X4', _('Konimex tumani')
+    NAVBAHOR = '6X5', _('Navbahor tumani')
+    NAVOIY = '6X6', _('Navoiy shahri')
+    NUROTA = '6X7', _('Nurota tumani')
+    TOMDI = '6X8', _('Tomdi tumani')
+    UCHQUDUQ = '6X9', _('Uchquduq tumani')
+    XATIRCHI = '6X10', _('Xatirchi tumani')
+    GOZGON = '6X11', _('G‘ozg‘on shahri')
+
+    #NAMANGAN
+    KOSONSOY = '7X1', _('Kosonsoy tumani')
+    MINGBULOQ = '7X2', _('Mingbuloq tumani')
+    NAMANGAN = '7X3', _('Namangan tumani')
+    NAMANGAN_SHAHRI = '7X4', _('Namangan shahri')
+    NORIN = '7X5', _('Norin tumani')
+    POP = '7X6', _('Pop tumani')
+    TORAQORGON = '7X7', _('To‘raqo‘rg‘on tumani')
+    UYCHI = '7X8', _('Uychi tumani')
+    UCHQORGON = '7X9', _('Uchqo‘rg‘on tumani')
+    CHORTOQ = '7X10', _('Chortoq tumani')
+    CHUST = '7X11', _('Chust tumani')
+    YANGIQORGON = '7X12', _('Yangiqo‘rg‘on tumani')
+    DAVLATOBOD = '7X13', _('Davlatobod tumani')
+
+    #SAMARQAND
+    BULUNGUR = '8X1', _('Bulung‘ur tumani')
+    JOMBOY = '8X2', _('Jomboy tumani')
+    ISHTIXON = '8X3', _('Ishtixon tumani')
+    KATTAQORGON = '8X4', _('Kattaqo‘rg‘on tumani')
+    KATTAQORGON_SHAHRI = '8X5', _('Kattaqo‘rg‘on shahri')
+    QOSHRABOT = '8X6', _('Qo‘shrabot tumani')
+    NARPAY = '8X7', _('Narpay tumani')
+    NURABOD = '8X8', _('Nurabod tumani')
+    OQDARYO = '8X9', _('Oqdaryo tumani')
+    PAYARIQ = '8X10', _('Payariq tumani')
+    PASTARGOM = '8X11', _('Pastarg‘om tumani')
+    PAXTACHI = '8X12', _('Paxtachi tumani')
+    SAMARQAND = '8X13', _('Samarqand tumani')
+    SAMARQAND_SHAHRI = '8X14', _('Samarqand shahri')
+    TOYLOQ = '8X15', _('Toyloq tumani')
+    URGUT = '8X16', _('Urgut tumani')
     
-    # FARGONA
-    BESHARIQ = '11X1', 'BESHARIQ'
-    BOGDOD = '11X2', 'BOGDOD'
-    BUVAYDA = '11X3', 'BUVAYDA'
-    DANGARA = '11X4', 'DANGARA'
-    FARGONA_SHAHRI = '11X5', 'FARGONA_SHAHRI'
-    FARGONA = '11X6', 'FARGONA'
-    FURQAT = '11X7', 'FURQAT'
-    MARGILON_SHAHRI = '11X8', 'MARGILON_SHAHRI'
-    OZBEKISTON = '11X9', 'OZBEKISTON'
-    OLTIARIQ = '11X10', 'OLTIARIQ'
-    QOQON_SHAHRI = '11X11', 'QOQON_SHAHRI'
-    QOSHTEPA = '11X12', 'QOSHTEPA'
-    QUVA = '11X13', 'QUVA'
-    QUVASOY_SHAHRI = '11X14', 'QUVASOY_SHAHRI'
-    RISHTON = '11X15', 'RISHTON'
-    SOX = '11X16', 'SOX'
-    TOSHLOQ = '11X17', 'TOSHLOQ'
-    UCHKOPRIK = '11X18', 'UCHKOPRIK'
-    YOZYOVON = '11X19', 'YOZYOVON'
-
+    #SURXANDARYO
+    ANGOR = '9X1', _('Angor tumani')
+    BOYSUN = '9X2', _('Boysun tumani')
+    DENOV = '9X3', _('Denov tumani')
+    JARQORGON = '9X4', _('Jarqo‘rg‘on tumani')
+    QIZIRIQ = '9X5', _('Qiziriq tumani')
+    QOMQORGON = '9X6', _('Qo‘mqo‘rg‘on tumani')
+    MUZRABOT = '9X7', _('Muzrabot tumani')
+    OLTINSOY = '9X8', _('Oltinsoy tumani')
+    SARIOSIYO = '9X9', _('Sariosiyo tumani')
+    TERMIZ = '9X10', _('Termiz tumani')
+    TERMIZ_SHAHRI = '9X11', _('Termiz shahri')
+    UZUN = '9X12', _('Uzun tumani')
+    SHEROBOD = '9X13', _('Sherobod tumani')
+    SHORCHI = '9X14', _('Sho‘rchi tumani')
+    BANDIXON = '9X15', _('Bandixon tumani')
+    
+    #SIRDARYO
+    BOYOVUT = '10X1', _('Boyovut tumani')
+    GULISTON = '10X2', _('Guliston tumani')
+    GULISTON_SHAHRI = '10X3', _('Guliston shahri')
+    MIRZAOBOD = '10X4', _('Mirzaobod tumani')
+    OQOLTIN = '10X5', _('Oqoltin tumani')
+    SAYXUNOBOD = '10X6', _('Sayxunobod tumani')
+    SARDOBA = '10X7', _('Sardoba tumani')
+    SIRDARYO = '10X8', _('Sirdaryo tumani')
+    XAVOS = '10X9', _('Xavos tumani')
+    SHIRIN = '10X10', _('Shirin shahri')
+    YANGIYER = '10X11', _('Yangiyer shahri')
+    
     #TOSHKENT
-    BEKTEMIR = '12X1', 'BEKTEMIR' 	
-    MIROBOD = '12X2', 'MIROBOD' 
-    MIRZO_ULUGBEK = '12X3', 'MIRZO_ULUG‘BEK'
-    SERGELI = '12X4', 'SERGELI' 
-    OLMAZOR = '12X5', 'OLMAZOR' 
-    UCHTEPA = '12X6', 'UCHTEPA' 
-    SHAYXONTOHUR = '12X7', 'SHAYXONTOHUR' 
-    YASHNOBOD = '12X8', 'YASHNOBOD' 
-    CHILONZOR = '12X9', 'CHILONZOR' 
-    YUNUSOBOD = '12X10', 'YUNUSOBOD' 
-    YAKKASAROY = '12X11', 'YAKKASAROY'
+    ANGIREN = '11X1', _('Angiren shahri')
+    BEKABOD = '11X2', _('Bekabod tumani')
+    BEKABOD_SHAHRI = '11X3', _('Bekabod shahri')
+    BOKA = '11X4', _('Bo‘ka tumani')
+    BOSTONLIQ = '11X5', _('Bo‘stonliq tumani')
+    ZANGIOTA = '11X6', _('Zangiota tumani')
+    QIBRAY = '11X7', _('Qibray tumani')
+    QUYICHIRCHIQ = '11X8', _('Quyichirchiq tumani')
+    OQQORGON = '11X9', _('Oqqo‘rg‘on tumani')
+    OLMALIQ = '11X10', _('Olmaliq shahri')
+    OHANGARON = '11X11', _('Ohangaron tumani')
+    PARKENT = '11X12', _('Parkent tumani')
+    PISKENT = '11X13', _('Piskent tumani')
+    ORTACHIRCHIQ = '11X14', _('O‘rtachirchiq tumani')
+    CHINOZ = '11X15', _('Chinoz tumani')
+    CHIRCHIQ = '11X16', _('Chirchiq shahri')
+    YUQORICHIRCHIQ = '11X17', _('Yuqorichirchiq tumani')
+    YANGIYOL = '11X18', _('Yangiyo‘l tumani')
+    OHANGARON_SHAHRI = '11X19', _('Ohangaron shahri')
+    YANGIYOL_SHAHRI = '11X20', _('Yangiyo‘l shahri')
+    TOSHKENT = '11X21', _('Toshkent tumani')
+    
+    #FARGONA
+    BESHARIQ = '12X1', _('Beshariq tumani')
+    BOGDOD = '12X2', _('Bog‘dod tumani')
+    BUVAYDA = '12X3', _('Buvayda tumani')
+    DANGARA = '12X4', _('Dang‘ara tumani')
+    YOZYOVON = '12X5', _('Yozyovon tumani')
+    QUVA = '12X6', _('Quva tumani')
+    QUVASOY = '12X7', _('Quvasoy shahri')
+    QOQON = '12X8', _('Qo‘qon shahri')
+    QOSHTEPA = '12X9', _('Qo‘shtepa tumani')
+    MARGILON = '12X10', _('Marg‘ilon shahri')
+    OLTIARIQ = '12X11', _('Oltiariq tumani')
+    RISHTON = '12X12', _('Rishton tumani')
+    SOX = '12X13', _('So‘x tumani')
+    TOSHLOQ = '12X14', _('Toshloq tumani')
+    UCHKOPRIK = '12X15', _('Uchko‘prik tumani')
+    OZBEKISTON = '12X16', _('O‘zbekiston tumani')
+    FARGONA = '12X17', _('Farg‘ona tumani')
+    FARGONA_SHAHRI = '12X18', _('Farg‘ona shahri')
+    FURQAT = '12X19', _('Furqat tumani')
+    
+    #XORAZM
+    BOGOT = '13X1', _('Bog‘ot tumani')
+    GURLAN = '13X2', _('Gurlan tumani')
+    QOSHKOPIR = '13X3', _('Qo‘shko‘pir tumani')
+    URGANCH = '13X4', _('Urganch tumani')
+    URGANCH_SHAHRI = '13X5', _('Urganch shahri')
+    XIVA = '13X6', _('Xiva tumani')
+    XAZARASP = '13X7', _('Xazarasp tumani')
+    XONQA = '13X8', _('Xonqa tumani')
+    SHAVOT = '13X9', _('Shavot tumani')
+    YANGIARIQ = '13X10', _('Yangiariq tumani')
+    YANGIBOZOR = '13X11', _('Yangibozor tumani')
+    XIVA_SHAHRI = '13X12', _('Xiva shahri')
+    DOSTLIK = '13X13', _('Do‘stlik shahri')
+    TUPROQQALA = '13X14', _('Tuproqqala tumani')
 
-    # QORAQALPOGISTON
-    AMUDARYO = '13X1', 'AMUDARYO'
-    BERUNIY = '13X2', 'BERUNIY'
-    CHIMBOY = '13X3', 'CHIMBOY'
-    ELLIKQALA = '13X4', 'ELLIKQALA'
-    KEGEYLI = '13X5', 'KEGEYLI'
-    MOYNOQ = '13X6', 'MOYNOQ'
-    NUKUS_SHAHRI = '13X7', 'NUKUS_SHAHRI'
-    NUKUS = '13X8', 'NUKUS'
-    QONLIKOL = '13X9', 'QONLIKOL'
-    QORAUZAQ = '13X10', 'QORAUZAQ'
-    QUNGIROT = '13X11', 'QUNGIROT'
-    SHUMANAY = '13X12', 'SHUMANAY'
-    TAXIATOSH_SHAHRI = '13X13', 'TAXIATOSH_SHAHRI'
-    TAXTAKOPIR = '13X14', 'TAXTAKOPIR'
-    TORTKOL = '13X15', 'TORTKOL'
-    XOJAYLI = '13X16', 'XOJAYLI'
+    #TOSHKENT_SHAHRI
+    BEKTIMER = '14X1', _('Bektimer tumani')
+    MIRZO = '14X2', _('Mirzo Ulug‘bek tumani')
+    MIROBOD = '14X3', _('Mirobod tumani')
+    OLMAZOR = '14X4', _('Olmazor tumani')
+    SIRGALI = '14X5', _('Sirg‘ali tumani')
+    UCHTEPA = '14X6', _('Uchtepa tumani')
+    YASHNOBOD = '14X7', _('Yashnobod tumani')
+    CHILONZOR = '14X8', _('Chilonzor tumani')
+    SHAYXONTOHUR = '14X9', _('Shayxontohur tumani')
+    YUNUSOBOD = '14X10', _('Yunusobod tumani')
+    YAKKASAROY = '14X11', _('Yakkasaroy tumani')
+    YANGIHAYOT = '14X12', _('Yangihayot tumani')

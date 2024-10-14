@@ -15,13 +15,14 @@ class AbstractBaseModel(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='+'
     )
     updated_at = models.DateTimeField(auto_now=True)
-    modified_by = models.ForeignKey(
+    updated_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='+'
     )
 
     def save(self, *args, **kwargs):
         """ Normalize text fields before saving """
         normalize_txt(self)
+        self.full_clean()
         super().save(*args, **kwargs)
 
     class Meta:

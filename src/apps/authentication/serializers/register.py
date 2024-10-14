@@ -3,14 +3,16 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.db.models import Q
 
+from rest_framework import serializers
+
 from apps.authentication.services.username_type import check_username_type
-from apps.base import serializers
+from apps.base.serializers import CustomSerializer
 from apps.base.exceptions import CustomExceptionError
 from apps.authentication.utils import generate_jwt_tokens
 from apps.users.utils.sms_providers import EskizUz
 
 
-class SendCodeSerializer(serializers.CustomSerializer):
+class SendCodeSerializer(CustomSerializer):
     username = serializers.CharField()
 
     def validate_username(self, username):
@@ -42,7 +44,7 @@ class SendCodeSerializer(serializers.CustomSerializer):
         self.validated_data['code'] = code
 
 
-class VerifyCodeSerializer(serializers.CustomSerializer):
+class VerifyCodeSerializer(CustomSerializer):
     username = serializers.CharField()
     code = serializers.IntegerField()
 
