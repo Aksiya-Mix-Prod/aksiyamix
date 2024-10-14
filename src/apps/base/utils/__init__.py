@@ -1,2 +1,2 @@
-from .backends import *
+from .authenticate import *
 from .region_choices import *

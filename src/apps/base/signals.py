@@ -15,10 +15,5 @@ def base_post_delete(instance, *args, **kwargs):
 @receiver(pre_save)
 def base_pre_save(instance, *args, **kwargs):
     """Deleting file after by object"""
-    if not instance.pk:
-        return
-    old_instance = instance.__class__.objects.filter(pk=instance.pk)
-    if not old_instance.exists():
-        return
-    delete_file_after_update_obj(old_instance.first(), instance)
+    delete_file_after_update_obj(instance)
     
