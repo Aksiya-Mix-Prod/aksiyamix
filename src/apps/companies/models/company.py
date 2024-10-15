@@ -1,22 +1,28 @@
-from django.conf import settings
 from django.db import models
+from django.conf import settings
 from django.db.models import TextField
-from django.core.validators import FileExtensionValidator
 from django.core.validators import ValidationError
+from django.core.validators import FileExtensionValidator
 
-from src.apps.categories.models.category import Category
-from src.apps.users.validators.phone_number import phone_validate
-from src.apps.base.models.base import AbstractBaseModel
 from src.apps.companies.choice.country import Country
+from src.apps.base.models.base import AbstractBaseModel
+from src.apps.categories.models.category import Category
 from src.apps.companies.choice.disctrict import District
+from src.apps.users.validators.phone_number import phone_validate
 
 from src.apps.companies.validators.company_video_size import validate_company_video_size
 from src.apps.companies.validators.company_logo_size import (validate_company_logo_size, validate_logo_size)
 from src.apps.companies.validators.company_banner_size import validate_company_banner_size, validate_banner_size
 
+
 """Company model"""
 class Company(AbstractBaseModel):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
+                              on_delete=models.PROTECT,
+                              limit_choices_to={
+                                  'is_active': True
+                            }
+    )
     category = models.ManyToManyField(Category, blank=True, related_name='companies')
 
     #   BIO FOR CREATE COMPANY ------ Here create of Owner
@@ -79,9 +85,12 @@ class Company(AbstractBaseModel):
     finished_discount_counts = models.PositiveSmallIntegerField(max_length=40,
                                                      default=0)  # Finished discount counts
 
-    top_tariff_counts = models.PositiveSmallIntegerField(max_length=40, default=0)
-    boost_tariff_counts = models.PositiveSmallIntegerField(max_length=40, default=0)
-    discount_tariff_counts = models.PositiveSmallIntegerField(max_length=40, default=0)
+    top_tariff_counts = models.PositiveSmallIntegerField(max_length=40,
+                                                         default=0) # Top tariff counts of integer
+    boost_tariff_counts = models.PositiveSmallIntegerField(max_length=40,
+                                                         default=0) # Boost tariff counts of integer
+    discount_tariff_counts = models.PositiveSmallIntegerField(max_length=40,
+                                                         default=0) # discount tariff counts of integer
 
     delivery = models.BooleanField(default=False)
     installment = models.BooleanField(default=False)

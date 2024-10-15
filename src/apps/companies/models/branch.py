@@ -3,13 +3,20 @@ from django.db import models
 from src.apps.companies.choice.country import Country
 from src.apps.companies.choice.disctrict import District
 from src.apps.base.models.base import AbstractBaseModel
+from src.apps.users.validators.phone_number import phone_validate
 
 
 class BranchCompany(AbstractBaseModel):
     """
     Here creating branch Company
     """
-    company = models.ForeignKey('Company', on_delete=models.PROTECT)
+    company = models.ForeignKey('Company', on_delete=models.PROTECT,
+                                related_name='branch_companies',
+                                limit_choices_to={
+                                    'is_active': True,
+                                    'is_verified': True,
+                                    'is_deleted': False
+                                })
 
     title = models.CharField(max_length=255)
     phone_number1 = models.CharField(max_length=13, validators=[phone_validate])
@@ -32,4 +39,4 @@ class BranchCompany(AbstractBaseModel):
         }
 
     def __str__(self):
-        return self.name
+        return self.title
