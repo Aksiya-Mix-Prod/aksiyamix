@@ -22,3 +22,4 @@ class Follower(AbstractBaseModel):
     company = models.ForeignKey(Company,
                                 on_delete=models.SET_NULL,
                                 related_name='follower_of_companies')
+
