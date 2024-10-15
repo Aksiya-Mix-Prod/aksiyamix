@@ -14,6 +14,12 @@ class Feature(AbstractBaseModel):
     # measure of feature
     measure = models.CharField(max_length=100, blank=True)
 
+    # to check features
+    is_active = models.BooleanField(default=False)
+
+    # order of feature
+    ordering = models.PositiveSmallIntegerField()
+
     # name information
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
@@ -33,6 +39,12 @@ class FeatureValue(AbstractBaseModel):
 
     # which value
     value = models.CharField(max_length=255)
+
+    # to check feature values
+    is_active = models.BooleanField(default=False)
+
+    # order of feature values
+    ordering = models.PositiveSmallIntegerField()
 
     class Meta:
         db_table = "feature_value"
