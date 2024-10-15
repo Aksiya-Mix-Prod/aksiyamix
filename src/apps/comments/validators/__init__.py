@@ -1,1 +1,1 @@
-from comment_max_length import *
+from .comment_max_length import *
