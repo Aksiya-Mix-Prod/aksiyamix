@@ -14,16 +14,18 @@ class Advertisement(models.Model):
                               validators=[validate_image_size])
 
     url_link = models.CharField(max_length=200,
-                                validators=[URLValidator()])
+                                validators=[URLValidator()]
+                                )
 
     ordering = models.PositiveSmallIntegerField()
 
     start_date = models.DateField()
     end_date = models.DateField()
 
-
     class Meta:
-        unique_together = (('category', 'discount'),)
+        constraint = [
+            models.UniqueConstraint(fields=['category', 'discount'], name='unique_category_discount')
+        ]
 
     def __str__(self):
         return self.title
