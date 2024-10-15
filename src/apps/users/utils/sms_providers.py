@@ -16,8 +16,8 @@ class EskizUz:
     FORGOT_PASSWORD_MESSAGE = "parolingizni tiklash uchun quyidagi havolaga o'ting {link}"
     AUTH_CODE_MESSAGE = "Aksiyamix websaytiga kirish uchun tasdiqlash kodingiz: {code}"
 
-    EMAIL = settings.ESKIZ_UZ_EMAIL
-    PASSWORD = settings.ESKIZ_UZ_PASSWORD
+    EMAIL = "settings.ESKIZ_UZ_EMAIL"
+    PASSWORD = "settings.ESKIZ_UZ_PASSWORD"
 
     @classmethod
     def get_token(cls):
