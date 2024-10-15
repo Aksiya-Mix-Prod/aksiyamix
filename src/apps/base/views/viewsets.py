@@ -11,3 +11,6 @@ class CustomGenericViewSet(viewsets.GenericViewSet):
 
 class CustomModelViewSet(viewsets.ModelViewSet):
     pass
+
+class CustomReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
+    pass

@@ -65,21 +65,22 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
     is_spam = models.BooleanField(default=False)
     spam_counts = models.PositiveIntegerField(default=0)
 
+    def clean(self):
+        """Check email or phone number"""
+        if not self.email and not self.phone_number:
+            raise CustomExceptionError(code=400, detail='Email or phone number is required')
+
     def save(self, *args, **kwargs):
         """Normalize the email address"""
-        if self.email is not None:
-            self.email = self.__class__.objects.normalize_email(self.email)
+        self.email = self.objects.normalize_email(self.email)
         
         """Saving username if not username"""
         if not self.username:
             self.username = self.phone_number or self.email
 
-        """Check district and region"""
-        self.check_district(self.region, self.district)
-
-        """Check email or phone number"""
-        if not self.email and not self.phone_number:
-            raise CustomExceptionError(code=400, detail='Email or phone number is required')
+        """Saving region if exist district"""
+        if self.district:
+            self.region = self.district.split('X')[0]
 
         super().save(*args, **kwargs)
     
@@ -87,12 +88,6 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
         db_table = "user"
         verbose_name = _("user")
         verbose_name_plural = _("users")
-
-    @staticmethod
-    def check_district(region: int, district: str):
-        """Check if the district belongs to the specified region."""
-        if district and district.split('X')[0] != str(region):
-            raise CustomExceptionError(code=400, detail='District and region do not match')
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""

@@ -5,7 +5,7 @@ class CustomExceptionError(APIException):
     default_detail = 'Error'
     default_code = 'invalid'
 
-    def __init__(self, code: int = None, detail = None) -> None:
+    def __init__(self, code: int = None, detail: str | dict | list | tuple = None) -> None:
         if detail is None:
             detail = self.default_detail
         if code is None:

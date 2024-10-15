@@ -1,1 +1,1 @@
-from comment_manager import *
+from .comment_manager import *
