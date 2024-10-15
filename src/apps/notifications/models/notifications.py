@@ -15,7 +15,7 @@ class Notification(AbstractBaseModel):
         ADVERTISING = 7, 'Advertising'
         OTHER = 8, 'Other'
 
-    notification_type = models.PositiveIntegerField(max_length=50, choices=Type.choices)
+    notification_type = models.PositiveIntegerField(choices=Type.choices)
 
     company = models.ForeignKey("companies.Company", on_delete=models.SET_NULL, null=True)
 
