@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import URLValidator
 
-from src.apps.advertisements.validators import validate_image_size
+from ..validators import validate_image_size
 
 
 class Advertisement(models.Model):
@@ -23,7 +23,7 @@ class Advertisement(models.Model):
     end_date = models.DateField()
 
     class Meta:
-        constraint = [
+        constraints = [
             models.UniqueConstraint(fields=['category', 'discount'], name='unique_category_discount')
         ]
 
