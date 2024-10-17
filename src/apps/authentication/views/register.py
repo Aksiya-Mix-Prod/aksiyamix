@@ -8,6 +8,7 @@ class SendCodeAPIView(CustomGenericAPIView):
     """
     This view is send verification code to the phone number.
     """
+    queryset = []
     permission_classes = ()
     authentication_classes = ()
 
@@ -25,6 +26,7 @@ class VerifyCodeAPIView(CustomGenericAPIView):
     """
     This view is check verify code 
     """
+    queryset = []
     permission_classes = ()
     authentication_classes = ()
 
@@ -40,6 +42,7 @@ class RegisterAPIView(CustomGenericAPIView):
     """
     This view is register a new user.
     """
+    queryset = []
     permission_classes = ()
     authentication_classes = ()
 
