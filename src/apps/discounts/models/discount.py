@@ -6,15 +6,16 @@ from src.apps.base.models.base import AbstractBaseModel
 from src.apps.categories.models import Category
 from src.apps.companies.models import Company, BranchCompany
 from src.apps.discounts.choices import Currency, DiscountChoices
-from src.apps.discounts.models.servicediscount import ServiceDiscount
-from src.apps.general.models import CurrencyRate
+from src.apps.services.models import Service
+from src.apps.likes.models import DiscountLike, DiscountDislike
+from src.apps.comments.models import Comment
 
 
 class Discount(AbstractBaseModel):
     class Status(IntegerChoices):
         PROCESS = 1, 'Process'
         REJECTED = 2, 'Rejected'
-        ACCEPTED = 3, 'Accepted'
+        APPROVED = 3, 'Approved'
 
     id = models.PositiveSmallIntegerField()
     company = models.ForeignKey(Company, on_delete=models.SET_NULL,
@@ -43,8 +44,8 @@ class Discount(AbstractBaseModel):
     video_url = models.URLField(upload_to='discount/videos/%Y/%m/%d/')
     image =  models.ImageField(upload_to='discount/images/%Y/%m/%d/')
 
-    quantity = models.PositiveIntegerField()#   nechtadan rasrochka
-    remainder = models.PositiveIntegerField()#  mavjud rasrochka
+    quantity = models.PositiveIntegerField(help_text='Enter the discount quantity')#   nechtadan rasrochka
+    remainder = models.PositiveIntegerField(help_text='Enter the remaining quantity')#  mavjud rasrochka
 
     view_counts = models.PositiveIntegerField()
     like_counts = models.PositiveIntegerField()
@@ -76,12 +77,8 @@ class Discount(AbstractBaseModel):
 
     #Service discount
     # min_quantity = models.PositiveIntegerField(blank=True, null=True)
-    service = models.ForeignKey(ServiceDiscount, on_delete=models.SET_NULL, null=True)
+    service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
 
-    def get_old_price_by_currency(self, currency):
-        if currency != self.currency:
-            return CurrencyRate.objects.get(currency=currency).in_sum * self.old_price
-        return self.old_price
 
     def clean(self):
 
@@ -115,15 +112,13 @@ class Discount(AbstractBaseModel):
             if self.category.parent.parent:
                 self.first_category = self.category.parent.parent
 
-        if self.discount_features.exists():
-            distinct_prices = self.discount_features.values_list('price', flat=True).distinct()
-            distinct_old_prices = self.discount_features.values_list('old_price', flat=True).distinct()
+        like_counts = DiscountLike.objects.filter(discount=self).count()
+        dislike_counts = DiscountDislike.objects.filter(discount=self).count()
+        comment_counts = Comment.objects.filter(discount=self).count()
 
-            if distinct_prices:
-                self.price = distinct_prices[0]
-            if distinct_old_prices:
-                self.old_price = distinct_old_prices[0]
-
+        self.like_counts = like_counts
+        self.dislike_counts = dislike_counts
+        self.comment_counts = comment_counts
         super().save(*args, **kwargs)
 
     def __str__(self):
