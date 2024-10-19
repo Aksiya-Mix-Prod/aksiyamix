@@ -1,7 +1,7 @@
 from django.db import models
 
-from src.apps.base.models import AbstractBaseModel
-from src.apps.base.exceptions import CustomExceptionError
+from apps.base.models import AbstractBaseModel
+from apps.base.exceptions import CustomExceptionError
 
 
 class Category(AbstractBaseModel):

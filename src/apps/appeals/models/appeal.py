@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-from src.apps.base.models import AbstractBaseModel
+from apps.base.models import AbstractBaseModel
 
 
 class Appeal(AbstractBaseModel):
