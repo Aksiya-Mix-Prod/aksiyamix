@@ -11,6 +11,7 @@ class ForgotPasswordAPIView(CustomCreateAPIView):
     """
     This view is send link to phone number.
     """
+    queryset = []
     permission_classes = ()
     authentication_classes = ()
 

@@ -59,6 +59,7 @@ class VerifyCodeSerializer(CustomSerializer):
     
 
 class RegisterSerializer(VerifyCodeSerializer):
+    fullname = serializers.CharField(max_length=128)
     password = serializers.CharField(max_length=128, validators=[validate_password], write_only=True)
     refresh = serializers.CharField(read_only=True)
     access = serializers.CharField(read_only=True)
@@ -66,14 +67,14 @@ class RegisterSerializer(VerifyCodeSerializer):
     def validate(self, attrs):
         attrs = super().validate(attrs)
 
-        username, password = attrs['username'], attrs['password']
+        username, password, fullname = attrs['username'], attrs['password'], attrs['fullname']
         username_type = check_username_type(username)
 
         if username_type == 'phone_number':
-            user = get_user_model().objects.create_user(username=username, phone_number=username, password=password)
+            user = get_user_model().objects.create_user(username=username, fullname=fullname, phone_number=username, password=password)
         
         else:
-            user = get_user_model().objects.create_user(username=username, email=username, password=password)
+            user = get_user_model().objects.create_user(username=username, fullname=fullname, email=username, password=password)
 
         cache.delete(EskizUz.AUTH_CODE_KEY.format(username=username))
 

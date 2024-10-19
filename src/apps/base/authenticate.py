@@ -1,18 +1,22 @@
-from django.contrib.auth import get_user_model
-
 from rest_framework import serializers
 from rest_framework.response import Response
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 from apps.authentication.utils.services import generate_jwt_tokens
-from apps.base.serializers import CustomModelSerializer
 from apps.base.exceptions import CustomExceptionError
-from apps.base.views import CustomAPIView
+from apps.base.views import CustomGenericAPIView
+from apps.users.models import CustomUser
 
-User = get_user_model()
+# User = get_user_model()
+User = CustomUser
 
-class CustomTokenObtainPairSerializer(CustomModelSerializer):
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'password')
 
     def validate(self, attrs):
         username = attrs.get('username')
@@ -35,9 +39,12 @@ class CustomTokenObtainPairSerializer(CustomModelSerializer):
         tokens = generate_jwt_tokens(user)
 
         return tokens
+    
 
+class CustomTokenObtainPairView(CustomGenericAPIView):
+    serializer_class = CustomTokenObtainPairSerializer
+    queryset = []
 
-class CustomTokenObtainPairView(CustomAPIView):
     def post(self, request, *args, **kwargs):
         serializer = CustomTokenObtainPairSerializer(data=request.data)
         if serializer.is_valid():
