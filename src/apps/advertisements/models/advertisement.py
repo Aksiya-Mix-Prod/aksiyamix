@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import URLValidator
 
-from apps.advertisements.validators import validate_image_size
+from src.apps.advertisements.validators import validate_image_size
 
 
 class Advertisement(models.Model):
