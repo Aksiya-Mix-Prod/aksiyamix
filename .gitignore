@@ -6,6 +6,16 @@ __pycache__/
 # C extensions
 *.so
 
+
+
+# Ignore all files in apps' migrations folders
+**/apps/**/migrations/*
+# But do not ignore the migrations folder itself
+!**/apps/**/migrations/
+# Do not ignore __init__.py files inside migrations folders
+!**/apps/**/migrations/__init__.py
+
+
 # Distribution / packaging
 .Python
 build/
@@ -129,6 +139,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+Pipfile
 
 # Spyder project settings
 .spyderproject

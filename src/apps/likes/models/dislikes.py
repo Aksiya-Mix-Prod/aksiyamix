@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
-from apps.discounts.models import Discount
 from apps.base.models import  AbstractBaseModel
 
 
@@ -29,7 +29,7 @@ class DiscountDislike(AbstractBaseModel):
         related_name='discount_dislikes',
         limit_choices_to={
             'is_active': True,
-            'status': Discount.Status.PROCESS
+            'status': 3
         }
     )
 
@@ -48,3 +48,10 @@ class DiscountDislike(AbstractBaseModel):
     def __str__(self):
         """String representation for the DiscountDisLike model."""
         return f"Dislike: {self.user} disliked {self.discount.id} on {self.created_at}"
+
+    def clean(self):
+        """ Override the clean() method to validate status dynamically."""
+        from apps.discounts.models import Discount
+        if self.discount.status != Discount.Status.APPROVED:
+            raise ValidationError('You can only dislike a approved discount.')
+

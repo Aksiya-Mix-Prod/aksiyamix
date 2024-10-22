@@ -2,17 +2,18 @@ from django.db import models
 from django.conf import settings
 from django.db.models import TextField
 from django.core.validators import ValidationError
-from django.core.validators import FileExtensionValidator
 
-from src.apps.companies.choice.country import Country
-from src.apps.base.models.base import AbstractBaseModel
-from src.apps.categories.models.category import Category
-from src.apps.companies.choice.disctrict import District
-from src.apps.users.validators.phone_number import phone_validate
 
-from src.apps.companies.validators.company_video_size import validate_company_video_size
-from src.apps.companies.validators.company_logo_size import (validate_company_logo_size, validate_logo_size)
-from src.apps.companies.validators.company_banner_size import validate_company_banner_size, validate_banner_size
+from apps.companies.choice.country import Country
+from apps.base.models.base import AbstractBaseModel
+from apps.categories.models.category import Category
+from apps.companies.choice.disctrict import District
+from apps.users.validators.phone_number import phone_validate
+from apps.general.validators.youtobe_url import validate_youtube_url
+
+from apps.companies.validators.company_video_size import validate_company_video_size
+from apps.companies.validators.company_logo_size import (validate_company_logo_size, validate_logo_size)
+from apps.companies.validators.company_banner_size import validate_company_banner_size, validate_banner_size
 
 
 """Company model"""
@@ -40,11 +41,11 @@ class Company(AbstractBaseModel):
                                          validate_logo_size],
                              blank=True, null=True)
 
-    video_url = models.FileField(upload_to='company/videos/%Y/%m/%d/',
-                                 validators=[
-                                     FileExtensionValidator(allowed_extensions=['mp4']),
-                                     validate_company_video_size],
-                                 blank=True, null=True)
+    video_url = models.URLField(
+        validators=[validate_youtube_url],
+        blank=True,
+        null=True
+    )
 
     banner = models.ImageField(upload_to='company/banners/%Y/%m/%d/',
                                validators=[validate_company_banner_size,
@@ -72,25 +73,16 @@ class Company(AbstractBaseModel):
     dislike_counts = models.CharField(max_length=40, default='0')
     comment_counts = models.CharField(max_length=40, default='0')
     view_counts = models.CharField(max_length=50, default='0')
-    spam_counts = models.PositiveSmallIntegerField(max_length=40,
-                                                   default=0)  # Spam counts as integer
-    branch_counts = models.PositiveSmallIntegerField(max_length=40,
-                                                     default=0)  # Branches companies counts as integer
-    product_counts = models.PositiveSmallIntegerField(max_length=40,
-                                                     default=0)  # Product counts as integer
-    rating_counts = models.PositiveSmallIntegerField(max_length=40,
-                                                     default=0)  # Rating counts as integer
-    active_discount_counts = models.PositiveSmallIntegerField(max_length=40,
-                                                     default=0)  # Active discount counts
-    finished_discount_counts = models.PositiveSmallIntegerField(max_length=40,
-                                                     default=0)  # Finished discount counts
+    spam_counts = models.PositiveSmallIntegerField(default=0)  # Spam counts as integer
+    branch_counts = models.PositiveSmallIntegerField(default=0)  # Branches companies counts as integer
+    product_counts = models.PositiveSmallIntegerField(default=0)  # Product counts as integer
+    rating_counts = models.PositiveSmallIntegerField(default=0)  # Rating counts as integer
+    active_discount_counts = models.PositiveSmallIntegerField(default=0)  # Active discount counts
+    finished_discount_counts = models.PositiveSmallIntegerField(default=0)  # Finished discount counts
 
-    top_tariff_counts = models.PositiveSmallIntegerField(max_length=40,
-                                                         default=0) # Top tariff counts of integer
-    boost_tariff_counts = models.PositiveSmallIntegerField(max_length=40,
-                                                         default=0) # Boost tariff counts of integer
-    discount_tariff_counts = models.PositiveSmallIntegerField(max_length=40,
-                                                         default=0) # discount tariff counts of integer
+    top_tariff_counts = models.PositiveSmallIntegerField(default=0) # Top tariff counts of integer
+    boost_tariff_counts = models.PositiveSmallIntegerField(default=0) # Boost tariff counts of integer
+    discount_tariff_counts = models.PositiveSmallIntegerField(default=0) # discount tariff counts of integer
 
     delivery = models.BooleanField(default=False)
     installment = models.BooleanField(default=False)

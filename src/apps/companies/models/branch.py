@@ -1,9 +1,9 @@
 from django.db import models
 
-from src.apps.companies.choice.country import Country
-from src.apps.companies.choice.disctrict import District
-from src.apps.base.models.base import AbstractBaseModel
-from src.apps.users.validators.phone_number import phone_validate
+from apps.companies.choice.country import Country
+from apps.companies.choice.disctrict import District
+from apps.base.models.base import AbstractBaseModel
+from apps.users.validators.phone_number import phone_validate
 
 
 class BranchCompany(AbstractBaseModel):
