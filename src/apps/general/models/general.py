@@ -8,7 +8,12 @@ class General(models.Model):
     """
 
     # howmuch is one usd in one uzs
-    one_usd_in_uzs = models.DecimalField(max_length=5, max_digits=2, validators=[MinValueValidator(0)])
+    one_usd_in_uzs = models.DecimalField(
+        max_length=5,
+        max_digits=2,
+        validators=[MinValueValidator(0)],
+        decimal_places=2
+    )
 
     # date when usd value for uzs updated
     date = models.DateField(auto_now_add=True)

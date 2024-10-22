@@ -1,8 +1,8 @@
 from django.db import models
 from django.conf import settings
 
-from src.apps.companies.models import Company
-from src.apps.base.models.base import AbstractBaseModel
+from apps.companies.models import Company
+from apps.base.models.base import AbstractBaseModel
 
 
 class Follower(AbstractBaseModel):
@@ -21,5 +21,7 @@ class Follower(AbstractBaseModel):
 
     company = models.ForeignKey(Company,
                                 on_delete=models.SET_NULL,
-                                related_name='follower_of_companies')
+                                related_name='follower_of_companies',
+                                null=True,
+                                )
 

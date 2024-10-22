@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.db import models
 
-from src.apps.discounts.models.discount import Discount
-from src.apps.base.models.base import AbstractBaseModel
-from src.apps.companies.models import Company
+from apps.discounts.models.discount import Discount
+from apps.base.models.base import AbstractBaseModel
+from apps.companies.models import Company
 
 
 class Complaint(AbstractBaseModel):

@@ -2,10 +2,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 
-from src.apps.companies.models.company import Company
-from src.apps.companies.enums.week_day import WeekDay
-from src.apps.base.models.base import AbstractBaseModel
-from src.apps.companies.models.branch import BranchCompany
+from apps.companies.models.company import Company
+from apps.companies.enums.week_day import WeekDay
+from apps.base.models.base import AbstractBaseModel
+from apps.companies.models.branch import BranchCompany
 
 
 class CompanyTimeTable(AbstractBaseModel):

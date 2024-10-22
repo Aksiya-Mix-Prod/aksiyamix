@@ -1,14 +1,14 @@
 from django.db import models
 from django.db.models import IntegerChoices, TextField
 from django.core.validators import ValidationError
+from django.apps import apps
 
-from src.apps.base.models.base import AbstractBaseModel
-from src.apps.categories.models import Category
-from src.apps.companies.models import Company, BranchCompany
-from src.apps.discounts.choices import Currency, DiscountChoices
-from src.apps.services.models import Service
-from src.apps.likes.models import DiscountLike, DiscountDislike
-from src.apps.comments.models import Comment
+from apps.services.models import Service
+from apps.general.validators.youtobe_url import validate_youtube_url
+from apps.discounts.utils.unique_id import generate_unique_id
+from apps.base.models.base import AbstractBaseModel
+from apps.discounts.choices import Currency, DiscountChoices
+
 
 
 class Discount(AbstractBaseModel):
@@ -17,14 +17,32 @@ class Discount(AbstractBaseModel):
         REJECTED = 2, 'Rejected'
         APPROVED = 3, 'Approved'
 
-    id = models.PositiveSmallIntegerField()
-    company = models.ForeignKey(Company, on_delete=models.SET_NULL,
-                                null=True)
-    first_category = models.ForeignKey(Category, on_delete=models.PROTECT)
-    second_category = models.ForeignKey(Category, on_delete=models.PROTECT)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT,
-                                 limit_choices_to={"parent__parent_is_null": False})
-    branch_company = models.ManyToManyField(BranchCompany, related_name='discounts', blank=True)
+    id_generate = models.CharField(
+        unique=True,
+        max_length=8,
+        editable=False,
+        default=generate_unique_id
+    )
+    company = models.ForeignKey(to='companies.Company', on_delete=models.SET_NULL, null=True)
+    first_category = models.ForeignKey(
+        to='categories.Category',
+        on_delete=models.PROTECT,
+        related_name='first_category',
+    )
+    second_category = models.ForeignKey(
+        to='categories.Category',
+        on_delete=models.PROTECT,
+        related_name='second_category',
+    )
+    category = models.ForeignKey(
+        to='categories.Category',
+        on_delete=models.PROTECT,
+        related_name='discount_category',
+        limit_choices_to={
+            "parent__parent_is_null": False
+        }
+    )
+    branch_company = models.ManyToManyField(to='companies.BranchCompany', related_name='discounts', blank=True)
 
     tags = models.ManyToManyField('tags.Tag',  related_name='discounts', blank=True)
 
@@ -41,7 +59,7 @@ class Discount(AbstractBaseModel):
 
     description = TextField(max_length=2500)
 
-    video_url = models.URLField(upload_to='discount/videos/%Y/%m/%d/')
+    video_url = models.URLField(validators=[validate_youtube_url], blank=True)
     image =  models.ImageField(upload_to='discount/images/%Y/%m/%d/')
 
     quantity = models.PositiveIntegerField(help_text='Enter the discount quantity')#   nechtadan rasrochka
@@ -112,13 +130,15 @@ class Discount(AbstractBaseModel):
             if self.category.parent.parent:
                 self.first_category = self.category.parent.parent
 
-        like_counts = DiscountLike.objects.filter(discount=self).count()
-        dislike_counts = DiscountDislike.objects.filter(discount=self).count()
-        comment_counts = Comment.objects.filter(discount=self).count()
+        # ======== # Use get_model to prevent circular import errors ========
+        DiscountLike = apps.get_model(app_label='likes', model_name='DiscountLike')
+        DiscountDislike = apps.get_model(app_label='likes', model_name='DiscountDislike')
+        Comment = apps.get_model(app_label='comments', model_name='Comment')
 
-        self.like_counts = like_counts
-        self.dislike_counts = dislike_counts
-        self.comment_counts = comment_counts
+        self.like_counts = DiscountLike.objects.filter(discount=self).count()
+        self.dislike_counts = DiscountDislike.objects.filter(discount=self).count()
+        self.comment_counts = Comment.objects.filter(discount=self).count()
+
         super().save(*args, **kwargs)
 
     def __str__(self):

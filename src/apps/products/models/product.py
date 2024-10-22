@@ -1,7 +1,8 @@
 from itertools import product
 
 from django.db import models
-from src.apps.base.models.base import AbstractBaseModel
+from apps.base.models.base import AbstractBaseModel
+from apps.products.validators.image_size import product_image_size
 
 class Product(AbstractBaseModel):
     company = models.ForeignKey('companies.Company', on_delete=models.CASCADE, related_name='products')
@@ -9,7 +10,7 @@ class Product(AbstractBaseModel):
 
     title = models.CharField(max_length=200)
     image  = models.ImageField(upload_to='product/images/%Y/%m/%d/',
-                              validators=[validate_image_size])
+                              validators=[product_image_size])
 
     def __str__(self):
         return self.title

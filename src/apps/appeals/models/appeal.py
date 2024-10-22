@@ -10,7 +10,7 @@ class Appeal(AbstractBaseModel):
     """
 
     # which user is sending appeal
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
     # appeal for which company
     company = models.ForeignKey('companies.Company', on_delete=models.CASCADE)
