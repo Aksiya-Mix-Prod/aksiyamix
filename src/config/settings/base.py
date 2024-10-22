@@ -11,6 +11,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
+REDIS_PORT_URL = os.environ['REDIS_PORT_URL']
+
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']

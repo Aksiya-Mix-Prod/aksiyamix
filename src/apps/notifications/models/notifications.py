@@ -17,14 +17,19 @@ class Notification(AbstractBaseModel):
 
     notification_type = models.PositiveIntegerField(choices=Type.choices)
 
-    company = models.ForeignKey("companies.Company", on_delete=models.SET_NULL, null=True)
+    company = models.ForeignKey(to="companies.Company", 
+                                on_delete=models.SET_NULL, 
+                                null=True,
+                                related_name='notifications',
+                                limit_choices_to={
+                                                  "is_active":True,
+                                                  "is_deleted":False
+                                                 })
 
     title = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='notification/images/%Y/%m/%d', blank=True, null=True)
+    image = models.ImageField(upload_to='notifications/images/%Y/%m/%d', blank=True, null=True)
     message = models.CharField(max_length=255)
     
-    created_at = models.DateTimeField(auto_now_add=True)
-
     class Meta:
         db_table = 'notification'
 
