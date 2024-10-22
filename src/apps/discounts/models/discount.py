@@ -44,8 +44,8 @@ class Discount(AbstractBaseModel):
     video_url = models.URLField(upload_to='discount/videos/%Y/%m/%d/')
     image =  models.ImageField(upload_to='discount/images/%Y/%m/%d/')
 
-    quantity = models.PositiveIntegerField(help_text='Enter the discount quantity')#   nechtadan rasrochka
-    remainder = models.PositiveIntegerField(help_text='Enter the remaining quantity')#  mavjud rasrochka
+    quantity = models.PositiveIntegerField(help_text='Enter the discount quantity')
+    remainder = models.PositiveIntegerField(help_text='Enter the remaining quantity')
 
     view_counts = models.PositiveIntegerField()
     like_counts = models.PositiveIntegerField()
@@ -55,6 +55,7 @@ class Discount(AbstractBaseModel):
 
     start_date = models.DateField()
     end_date = models.DateField()
+
 
     delivery = models.BooleanField(default=False)
     installment = models.BooleanField(default=False)
