@@ -1,6 +1,6 @@
-# AksitaMix: Проект на Django REST Framework
+# AksiyaMix: Проект на Django REST Framework
 
-Добро пожаловать в проект **AksitaMix** — API-приложение на базе Django Rest Framework. Для разработки и развертывания используется Docker.
+Добро пожаловать в проект **AksiyaMix** — API-приложение на базе Django Rest Framework. Для разработки и развертывания используется Docker.
 
 ## Требования
 
@@ -30,11 +30,17 @@ docker compose -f docker-compose.dev.yml up --build
 
 http://localhost:8000
 
+## Структура проекта
+
+Проект имеет следующую структуру:
+
+```bash
 aksiyamix/
 ├── src/                     # Django-приложение с реализацией API
-├── src/config/              # Основные настройки проекта
+│   └── config/              # Основные настройки проекта
 ├── docker-compose.dev.yml   # Файл конфигурации для Docker Compose
 ├── Dockerfile               # Dockerfile для сборки образа проекта
-└── requirements/dev.txt     # Зависимости Python
+└── requirements/dev.txt     # Зависимости Python для разработки
+```
 
 Этот `README.md` содержит все необходимые инструкции для запуска проекта с использованием Python 3.12 и Docker, а также общие сведения о проекте.
