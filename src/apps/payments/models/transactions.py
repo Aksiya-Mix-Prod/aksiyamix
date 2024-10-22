@@ -33,7 +33,12 @@ class Transaction(AbstractBaseModel):
         ('Uzum', 'Uzum'),
         ('Click', 'Click'),
     )
-    order = models.ForeignKey(to='payments.Order', on_delete=models.SET_NULL, related_name='transactions')
+    order = models.ForeignKey(
+        to='payments.Order',
+        on_delete=models.SET_NULL,
+        related_name='transactions',
+        null=True,
+    )
     payment_system = models.CharField(choices=PAYMENT_SYSTEM_CHOICES, max_length=10)
     date_time = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)

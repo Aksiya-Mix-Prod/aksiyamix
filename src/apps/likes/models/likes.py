@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
+from django.core.validators import ValidationError
 
-from apps.discounts.models import Discount
 from apps.base.models import AbstractBaseModel
 
 
@@ -27,7 +27,7 @@ class DiscountLike(AbstractBaseModel):
         related_name='discount_likes',
         limit_choices_to={
             'is_active': True,
-            'status': Discount.Status.PROCESS
+            'status': 3
         }
     )
 
@@ -47,3 +47,9 @@ class DiscountLike(AbstractBaseModel):
     def __str__(self):
         """String representation for the DiscountLike model."""
         return f"Like: {self.user} liked {self.discount.title} on {self.created_at}"
+
+    def clean(self):
+        """ Override the clean method to validate status dynamically."""
+        from apps.discounts.models import Discount
+        if self.discount.status != Discount.Status.APPROVED:
+            raise ValidationError("You can only like an approved discount.")
