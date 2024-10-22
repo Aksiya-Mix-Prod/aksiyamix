@@ -1,9 +1,11 @@
+from django.conf import settings
+
 from celery.schedules import crontab
 
 
-CELERY_BROKER_URL = 'redis://redis_db:6379/0'
+CELERY_BROKER_URL = f'{settings.REDIS_PORT_URL}/0'
 
-CELERY_RESULT_BACKEND = 'redis://redis_db:6379/1'
+CELERY_RESULT_BACKEND = f'{settings.REDIS_PORT_URL}/1'
 
 CELERY_TIMEZONE = "Asia/Tashkent"
 

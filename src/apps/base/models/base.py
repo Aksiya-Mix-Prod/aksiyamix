@@ -13,14 +13,14 @@ class AbstractBaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, 
-        on_delete=models.SET_NULL, 
+        on_delete=models.PROTECT, 
         null=True,
         related_name='+'
     )
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, 
-        on_delete=models.SET_NULL, 
+        on_delete=models.PROTECT, 
         null=True,
         related_name='+'
     )

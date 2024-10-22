@@ -13,15 +13,18 @@
 
 Чтобы запустить проект локально, выполните следующие шаги:
 
+
 ### 1. Клонируйте репозиторий
 
 ```bash
 git clone https://github.com/Aksiya-Mix/aksiyamix/
+```
 
 ### 2. Запустите docker compose
 
 ```bash
 docker compose -f docker-compose.dev.yml up --build
+```
 
 ### После завершения сборки, проект будет доступен по адресу:
 
