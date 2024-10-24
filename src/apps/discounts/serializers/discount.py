@@ -1,8 +1,10 @@
+from django.db import transaction
 from rest_framework import serializers
-from django.core.exceptions import ValidationError as DjangoValidationError
 
-from src.apps.discounts.models import Discount
-from src.apps.discounts.models import DiscountImage
+from apps.base.exceptions import CustomExceptionError
+from apps.discounts.models import Discount, DiscountFeature
+from apps.discounts.models import DiscountImage
+from apps.discounts.serializers import DiscountFeatureReceiveSerializer
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -11,24 +13,52 @@ class ProductImageSerializer(serializers.ModelSerializer):
         fields = ['id', 'image']
 
 
-class DiscountSerializer(serializers.ModelSerializer):
+class DiscountCreateUpdateSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
+    features = DiscountFeatureReceiveSerializer(many=True, write_only=True)
 
     class Meta:
         model = Discount
-        fields = ['company', 'category', 'branch_company', 'tags', 'discount_type', 'currency', 'is_active',
+        fields = ['id', 'features', 'company', 'category', 'branch_company', 'tags', 'discount_type', 'currency',
+                  'is_active',
                   'is_deleted', 'title', 'description', 'video_url', 'image', 'start_date', 'end_date', 'delivery',
                   'installment', 'discount_value', 'discount_value_is_percent', 'min_quantity', 'free_product',
                   'bonus_quantity', 'service',
                   ]
-        read_only_fields = ['created_at',]
+        read_only_fields = ['created_at', ]
 
     def validate(self, data):
         discount_instance = Discount(**data)
 
         try:
             discount_instance.clean()
-        except DjangoValidationError as e:
-            raise serializers.ValidationError(e.message_dict)
+        except Exception as e:
+            raise CustomExceptionError(code=400, detail=str(e))
 
         return data
+
+    @transaction.atomic
+    def create(self, validated_data):
+        features_data = validated_data.pop('features', [])
+        discount = super().create(validated_data)
+
+        DiscountFeature.objects.bulk_create([
+            DiscountFeature(discount=discount, **feature)
+            for feature in features_data
+        ])
+
+        return discount
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        features_data = validated_data.pop('features', [])
+        discount = super().update(instance, validated_data)
+
+        DiscountFeature.objects.filter(discount_id=discount.pk).delete()
+
+        DiscountFeature.objects.bulk_create([
+            DiscountFeature(discount_id=discount.pk, **feature)
+            for feature in features_data
+        ])
+
+        return discount

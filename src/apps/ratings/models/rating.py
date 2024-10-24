@@ -12,7 +12,7 @@ class Rating(models.Model):
     company = models.ForeignKey('companies.Company', on_delete=models.CASCADE)
 
     # which user is rating
-    user = models.ForeignKey(UserModel, on_delete=models.SET_NULL)
+    user = models.ForeignKey(UserModel, on_delete=models.SET_NULL, null=True)
 
     # rating of user
     rating_value = models.PositiveSmallIntegerField()
