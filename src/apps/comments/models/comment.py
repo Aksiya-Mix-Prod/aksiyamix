@@ -1,10 +1,11 @@
 from django.db import models
 from django.conf import settings
-from django.core.exceptions import ValidationError
 
+from apps.base.exceptions import CustomExceptionError
 from apps.base.models.base import AbstractBaseModel
 from apps.comments.validators import CommentValidator
 from apps.comments.managers import CommentManager
+from apps.discounts.models import Discount
 
 
 class Comment(AbstractBaseModel):
@@ -18,16 +19,17 @@ class Comment(AbstractBaseModel):
         limit_choices_to={
             'is_active': True,
             'is_spam': False,
+            'is_deleted': False,
         }
     )
     discount = models.ForeignKey(
         to='discounts.Discount',
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
         related_name='comments',
         limit_choices_to={
             'is_active': True,
-            'status': 3
+            'status': Discount.Status.APPROVED,
         }
     )
     parent = models.ForeignKey(
@@ -37,7 +39,7 @@ class Comment(AbstractBaseModel):
         blank=True,
         null=True,
         limit_choices_to={
-            'is_active': True,
+            'is_deleted': False,
         }
     )
     is_deleted = models.BooleanField(default=False)
@@ -52,11 +54,11 @@ class Comment(AbstractBaseModel):
         verbose_name_plural = 'Comments'
 
     def __str__(self):
-        return f"Comment: {self.user} commented on {self.discount.title} on {self.created_at}"
+        return self.text
 
 
     def clean(self):
         """ Override clean method to validate discount status dynamically."""
         from apps.discounts.models import Discount
         if self.discount.status != Discount.Status.APPROVED:
-            raise ValidationError('You can only comment on APPROVED discounts.')
+            raise CustomExceptionError(code=403, detail='You can only comment on APPROVED discounts.')
