@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from src.apps.discounts.models import DiscountImage
+from apps.discounts.models import DiscountImage
 
 
 

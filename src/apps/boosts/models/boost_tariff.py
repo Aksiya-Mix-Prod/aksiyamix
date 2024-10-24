@@ -1,6 +1,6 @@
 from django.db import models
 
-from src.apps.base.models import AbstractBaseModel
+from apps.base.models import AbstractBaseModel
 
 
 class BoostTariff(AbstractBaseModel):

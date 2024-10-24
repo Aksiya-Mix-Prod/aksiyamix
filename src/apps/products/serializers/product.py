@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from src.apps.products.models import Product
+from apps.products.models import Product
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
