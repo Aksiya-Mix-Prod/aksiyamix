@@ -25,7 +25,7 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ["email", "fullname"]
+    REQUIRED_FIELDS = ["fullname"]
 
     objects = CustomUserManager()
 
@@ -66,13 +66,12 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
     spam_counts = models.PositiveIntegerField(default=0)
 
     def clean(self):
+        pass
+
+    def save(self, *args, **kwargs):
         """Check email or phone number"""
         if not self.email and not self.phone_number:
             raise CustomExceptionError(code=400, detail='Email or phone number is required')
-
-    def save(self, *args, **kwargs):
-        """Normalize the email address"""
-        self.email = self.objects.normalize_email(self.email)
         
         """Saving username if not username"""
         if not self.username:

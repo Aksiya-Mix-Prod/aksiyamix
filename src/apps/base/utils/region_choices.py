@@ -59,7 +59,7 @@ class District(models.TextChoices):
     XONABOD = '2X15', _('Xonabod tumani')
     XOJAOBOD = '2X16', _('Xo‘jaobod tumani')
     SHAHRIXON = '2X17', _('Shahrixon tumani')
-    ASAKA = '2X18', _('Asaka shahri')
+    ASAKA_SHAHRI = '2X18', _('Asaka shahri')
 
     # BUXORO
     BUXORO_SHAHRI = '3X1', _('Buxoro shahri')
@@ -242,7 +242,7 @@ class District(models.TextChoices):
     YANGIARIQ = '13X10', _('Yangiariq tumani')
     YANGIBOZOR = '13X11', _('Yangibozor tumani')
     XIVA_SHAHRI = '13X12', _('Xiva shahri')
-    DOSTLIK = '13X13', _('Do‘stlik shahri')
+    DOSTLIK_SHAHRI = '13X13', _('Do‘stlik shahri')
     TUPROQQALA = '13X14', _('Tuproqqala tumani')
 
     #TOSHKENT_SHAHRI

@@ -3,7 +3,7 @@ from django.utils.text import slugify
 
 from apps.base.models import AbstractBaseModel
 from apps.base.exceptions import CustomExceptionError
-
+from apps.categories.validators.image_size import parent_category_image_size
 
 class Category(AbstractBaseModel):
     """
@@ -23,6 +23,7 @@ class Category(AbstractBaseModel):
     )
 
     icon = models.ImageField(upload_to='categories/icons/%Y/%m/%d', blank=True, null=True)
+
 
     def clean(self):
         self.slug = slugify(self.name)

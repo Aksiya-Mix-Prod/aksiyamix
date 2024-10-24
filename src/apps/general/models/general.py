@@ -14,6 +14,7 @@ class General(models.Model):
     max_replenishment_amount = models.CharField(max_length=100,
                                                 help_text='maximum amount of company balance replenishment')
 
+
     def save(self, *args, **kwargs):
         if self.min_replenishment_amount >= self.max_replenishment_amount:
             raise CustomExceptionError(

@@ -13,10 +13,10 @@ def delete_file_after_delete_obj(instance: Model):
 
 def delete_file_after_update_obj(instance: Model):
     """Delete file after update object"""
-    if not instance.pk:
+    try:
+        old_instance = instance.__class__.objects.get(pk=instance.pk)
+    except:
         return
-    
-    old_instance = instance.__class__.objects.get(pk=instance.pk)
 
     for field in instance._meta.get_fields():
         if isinstance(field, (FileField, ImageField)):

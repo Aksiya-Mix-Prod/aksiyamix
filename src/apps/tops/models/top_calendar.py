@@ -1,13 +1,25 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from apps.base.models import AbstractBaseModel
 
 
 class TopCalendar(AbstractBaseModel):
+    """ 
+        This model shows booked days in month section!
+
+        Fields:
+                year: (int): A PositiveSmallIntegerField representing the year.
+                month: (int): A PositiveSmallIntegerField representing the month (between 1 and 12).
+                days: (List[List[bool]]): An ArrayField of ArrayField of BooleanField representing the booked days in the month. 
+    """
+
     year = models.PositiveSmallIntegerField()
-    month = models.PositiveSmallIntegerField()
-    days = ArrayField(ArrayField(models.BooleanField()))
+    month = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(12)])
+    days = ArrayField(
+        base_field=ArrayField(
+            base_field=models.BooleanField(default=False)))
 
     class Meta:
         db_table = 'top_calendar'

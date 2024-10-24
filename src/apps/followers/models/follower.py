@@ -1,8 +1,8 @@
 from django.db import models
 from django.conf import settings
 
-from src.apps.base.models.base import AbstractBaseModel
-from src.apps.companies.models import Company
+from apps.companies.models import Company
+from apps.base.models.base import AbstractBaseModel
 
 
 class Follower(AbstractBaseModel):
@@ -12,10 +12,16 @@ class Follower(AbstractBaseModel):
     
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                                  on_delete=models.CASCADE,
-                                 related_name='followers')
+                                 related_name='followers',
+                                 limit_choices_to={
+                                     'is_active': True,
+                                     'is_spam': False
+                                 })
 
 
     company = models.ForeignKey(Company,
                                 on_delete=models.SET_NULL,
-                                related_name='follower_of_companies')
+                                related_name='follower_of_companies',
+                                null=True,
+                                )
 

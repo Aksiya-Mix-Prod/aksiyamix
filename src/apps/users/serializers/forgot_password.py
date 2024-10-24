@@ -13,7 +13,7 @@ from apps.users.utils import EskizUz
 from apps.authentication.services import check_username_type
 
 
-class ForgotPasswordSerializer(serializers.CustomSerializer):
+class ForgotPasswordSerializer(CustomSerializer):
     username = serializers.CharField()
     link = serializers.CharField(read_only=True)
 
@@ -27,7 +27,7 @@ class ForgotPasswordSerializer(serializers.CustomSerializer):
         else:
             user = get_user_model().objects.filter(email=username)
         if not user.exists():
-            raise CustomExceptionError(code=404, detail="User with this phone number does not exist.")
+            raise CustomExceptionError(code=404, detail="User with this phone number or email does not exist.")
         
         return username
     
@@ -71,7 +71,7 @@ class ForgotPasswordSerializer(serializers.CustomSerializer):
         self.validated_data['link'] = reset_url
 
 
-class NewPasswordSerializer(serializers.CustomSerializer):
+class NewPasswordSerializer(CustomSerializer):
     password = serializers.CharField(validators=[validate_password], write_only=True)
     
     refresh = serializers.CharField(read_only=True)
