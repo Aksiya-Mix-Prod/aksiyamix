@@ -3,7 +3,7 @@ from rest_framework.exceptions import APIException, _get_error_details
 
 class CustomExceptionError(APIException):
     default_detail = 'Error'
-    default_code = 'invalid'
+    default_code = 400
 
     def __init__(self, code: int = None, detail: str | dict | list | tuple = None) -> None:
         if detail is None:

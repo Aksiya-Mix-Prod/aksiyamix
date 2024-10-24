@@ -1,6 +1,7 @@
 import os
 from django.conf import settings
 
+
 POSTGRES = True
 
 if POSTGRES:
@@ -26,6 +27,6 @@ else:
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://redis_db:6379/2',
+        'LOCATION': f'{settings.REDIS_PORT_URL}/2',
     }
 }

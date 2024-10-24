@@ -17,6 +17,7 @@ class Complaint(AbstractBaseModel):
                                  'is_active': True,
                                  'is_spam': False,
                              })
+
     discount = models.ForeignKey(Discount,
                                  on_delete=models.SET_NULL,
                                  null=True)
@@ -33,6 +34,7 @@ class Complaint(AbstractBaseModel):
         constraints = [
             models.UniqueConstraint(fields=['user', 'discount'], name='unique_user_discount')
         ]
+
 
     def __str__(self):
         return self.first_name
