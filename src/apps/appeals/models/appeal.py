@@ -6,23 +6,27 @@ from apps.base.models import AbstractBaseModel
 
 class Appeal(AbstractBaseModel):
     """
-    Model for clients to send appeals to admins.
+    Appeal Model
     """
 
-    # which user is sending appeal
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL)
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        help_text='which user is sending appeal',
+        limit_choices_to={"is_active": True, "is_spam": False},
+    )
 
-    # appeal for which company
-    company = models.ForeignKey('companies.Company', on_delete=models.CASCADE)
+    company = models.ForeignKey(
+        to='companies.Company',
+        on_delete=models.CASCADE,
+        help_text='appeal for which company'
+    )
 
-    # phone number of user
-    phone_number = models.CharField(max_length=13)
+    phone_number = models.CharField(max_length=13, help_text='phone number of user')
 
-    # subject of user
-    subject = models.CharField(max_length=100)
+    subject = models.CharField(max_length=100, help_text='subject of user')
 
-    # message of appeal
-    message = models.CharField(max_length=255)
+    message = models.CharField(max_length=255, help_text='message of appeal')
 
     class Meta:
         db_table = "appeal"
