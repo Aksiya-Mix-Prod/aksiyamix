@@ -5,8 +5,8 @@ from apps.base.models import AbstractBaseModel
 
 
 class TopTariff(AbstractBaseModel):
-    quantity = models.PositiveSmallIntegerField()
-    price = models.DecimalField(default=0, max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    quantity = models.PositiveSmallIntegerField(validators=[MinValueValidator(1)])
+    price = models.PositiveIntegerField(default=0)
 
     class Meta:
         db_table = 'top_tariff'
