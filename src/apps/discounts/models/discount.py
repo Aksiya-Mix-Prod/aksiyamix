@@ -1,6 +1,3 @@
-from distutils.command.check import check
-
-from celery.bin.worker import detach
 from django.db import models
 from django.core.validators import MinValueValidator
 
@@ -12,7 +9,6 @@ from apps.discounts.choices import Currency, DiscountChoices
 
 from apps.base.exceptions import CustomExceptionError
 from apps.features.models import FeatureValue
-from pygments.lexer import default
 
 
 class Discount(AbstractBaseModel):
@@ -73,11 +69,11 @@ class Discount(AbstractBaseModel):
     quantity = models.PositiveIntegerField(help_text='Enter the discount quantity', editable=False, default=0)
     remainder = models.PositiveIntegerField(help_text='Enter the remaining quantity', editable=False, default=0)
 
-    view_counts = models.PositiveIntegerField()
-    like_counts = models.PositiveIntegerField()
-    dislike_counts = models.PositiveIntegerField()
-    comment_counts = models.PositiveIntegerField()
-    spam_counts = models.PositiveIntegerField()
+    view_counts = models.PositiveIntegerField(default=0)
+    like_counts = models.PositiveIntegerField(default=0)
+    dislike_counts = models.PositiveIntegerField(default=0)
+    comment_counts = models.PositiveIntegerField(default=0)
+    spam_counts = models.PositiveIntegerField(default=0)
 
     start_date = models.DateField()
     end_date = models.DateField()

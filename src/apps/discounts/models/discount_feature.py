@@ -1,9 +1,8 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from src.apps.base.exceptions import CustomExceptionError
-from src.apps.base.models import AbstractBaseModel
-from src.apps.base.serializers import CustomModelSerializer
+from apps.base.exceptions import CustomExceptionError
+from apps.base.models import AbstractBaseModel
 
 
 class DiscountFeature(AbstractBaseModel):

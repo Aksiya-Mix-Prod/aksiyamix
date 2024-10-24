@@ -1,5 +1,5 @@
-from src.apps.base.serializers import CustomModelSerializer
-from src.apps.discounts.models import DiscountFeature
+from apps.base.serializers import CustomModelSerializer
+from apps.discounts.models import DiscountFeature
 
 
 class DiscountFeatureReceiveSerializer(CustomModelSerializer):
