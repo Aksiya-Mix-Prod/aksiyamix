@@ -12,7 +12,7 @@ class BranchCompany(AbstractBaseModel):
     """
     Here creating branch Company
     """
-    company = models.ForeignKey('Company', on_delete=models.PROTECT,
+    company = models.ForeignKey('companies.Company', on_delete=models.PROTECT,
                                 related_name='branch_companies',
                                 limit_choices_to={
                                     'is_active': True,
