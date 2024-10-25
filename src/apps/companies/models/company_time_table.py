@@ -1,12 +1,12 @@
 import random
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import ValidationError
 
+from apps.base.exceptions import CustomExceptionError
 from apps.companies.models.company import Company
 from apps.companies.enums.week_day import WeekDay
 from apps.base.models.base import AbstractBaseModel
-from apps.companies.models.branch import BranchCompany
+from apps.branches.models.branch import BranchCompany
 
 
 class CompanyTimeTable(AbstractBaseModel):
@@ -63,4 +63,4 @@ class CompanyTimeTable(AbstractBaseModel):
 
     def clean(self):
         if self.start_time > self.end_time:
-            raise ValidationError(_('start_time must be lower than end_time!'))
+            raise CustomExceptionError(_(code=400, detail='start_time must be lower than end_time!'))
