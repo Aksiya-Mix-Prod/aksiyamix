@@ -3,17 +3,14 @@ import random
 from django.db import models
 from django.conf import settings
 from django.db.models import TextField
-from django.core.validators import ValidationError
 
-
-from apps.companies.choice.country import Country
+from apps.base.exceptions import CustomExceptionError
 from apps.base.models.base import AbstractBaseModel
 from apps.categories.models.category import Category
-from apps.companies.choice.disctrict import District
+from apps.base.utils.region_choices import District, Regions
 from apps.users.validators.phone_number import phone_validate
 from apps.general.validators.youtobe_url import validate_youtube_url
 
-from apps.companies.validators.company_video_size import validate_company_video_size
 from apps.companies.validators.company_logo_size import (validate_company_logo_size, validate_logo_size)
 from apps.companies.validators.company_banner_size import validate_company_banner_size, validate_banner_size
 
@@ -35,7 +32,8 @@ class Company(AbstractBaseModel):
     owner_first_name = models.CharField(max_length=120)
     owner_father_name = models.CharField(max_length=120)
     owner_phone_number1 = models.CharField(max_length=13, validators=[phone_validate])
-    owner_phone_number2 = models.CharField(max_length=13, validators=[phone_validate])
+    owner_phone_number2 = models.CharField(max_length=13, validators=[phone_validate],
+                                           blank=True, null=True)
 
     #   CREATE COMPANY ------- Here files of Company
 
@@ -57,8 +55,8 @@ class Company(AbstractBaseModel):
 
     #   CREATE COMPANY ---------- Here all need things of Company
 
-    country = models.PositiveSmallIntegerField(choices=Country.choices)
-    district = models.PositiveSmallIntegerField(choices=District.choices)
+    regions = models.PositiveSmallIntegerField(choices=Regions.choices)
+    districts = models.PositiveSmallIntegerField(choices=District.choices)
 
     name = models.CharField(max_length=250)
     username = models.SlugField(max_length=50, unique=True)
@@ -112,8 +110,8 @@ class Company(AbstractBaseModel):
 
     def get_address(self):
         return {
-            'country': self.country,
-            'district': self.district,
+            'country': self.regions,
+            'district': self.districts,
             'address': self.address,
             'longitude': self.longitude,
             'latitude': self.latitude
@@ -138,9 +136,11 @@ class Company(AbstractBaseModel):
             if not Company.objects.filter(id_company=new_id).exitsts():
                 return new_id
 
-    def clean(self):
-        if self.district and self.district.split('X')[0] != str(self.region):
-            raise ValidationError({'region': 'District and region do not match'})
+    def check_district(region: int, district: str):
+        """Check if the district belongs to the specified region."""
+        if district and district.split('X')[0] != str(region):
+            raise CustomExceptionError(code=400, detail='District and region do not match')
+
 
     def __str__(self):
         return self.name
