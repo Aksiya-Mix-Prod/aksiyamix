@@ -19,3 +19,4 @@ redis==5.1.1
 profanity-check==1.0.3
 joblib==1.4.2
 moviepy==1.0.3
+setuptools==68.1.2
