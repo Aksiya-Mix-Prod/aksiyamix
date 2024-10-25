@@ -10,6 +10,7 @@ class Tag(AbstractBaseModel):
 
     class Meta:
         db_table = 'tag'
+        unique_together = ('name', 'is_active',)
 
     def __str__(self):
         return self.name

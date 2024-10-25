@@ -4,7 +4,6 @@ from apps.base.models import AbstractBaseModel
 from apps.services.validators.image_size import service_image_size
 
 
-
 class Service(AbstractBaseModel):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
@@ -16,6 +15,7 @@ class Service(AbstractBaseModel):
 
     class Meta:
         db_table = 'service'
+        unique_together = ('is_active', 'slug')
 
     def __str__(self):
         return self.name
