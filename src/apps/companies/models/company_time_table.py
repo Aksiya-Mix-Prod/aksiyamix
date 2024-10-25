@@ -1,19 +1,18 @@
 import random
 from django.db import models
+from django.db.models import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
 from apps.base.exceptions import CustomExceptionError
-from apps.companies.models.company import Company
 from apps.companies.enums.week_day import WeekDay
 from apps.base.models.base import AbstractBaseModel
-from apps.branches.models.branch import BranchCompany
 
 
 class CompanyTimeTable(AbstractBaseModel):
     """
     Here creating company timetable
     """
-    company = models.ForeignKey(Company, on_delete=models.PROTECT,
+    company = models.ForeignKey('companies.Company', on_delete=models.PROTECT,
                                 blank=True, null=True,
                                 limit_choices_to={
                                     'is_active': True,
@@ -21,7 +20,7 @@ class CompanyTimeTable(AbstractBaseModel):
                                     'is_deleted': False
                                 }
     )
-    branch_company = models.ForeignKey(BranchCompany,
+    branch_company = models.ForeignKey('branches.BranchCompany',
                                        on_delete=models.PROTECT,
                                        blank=True,
                                        null=True,
@@ -38,8 +37,10 @@ class CompanyTimeTable(AbstractBaseModel):
     end_time = models.TimeField()
 
     class Meta:
-        unique_together = (('company', 'week_day'),
-                           ('branch_company', 'week_day'))
+        constraints = [
+            UniqueConstraint(fields=['company', 'week_day'], name='unique_company_week_day'),
+            UniqueConstraint(fields=['branch_company', 'week_day'], name='unique_branch_company_week_day'),
+        ]
 
     def save(self, *args, **kwargs):
         """

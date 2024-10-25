@@ -6,7 +6,6 @@ from django.db.models import TextField
 
 from apps.base.exceptions import CustomExceptionError
 from apps.base.models.base import AbstractBaseModel
-from apps.categories.models.category import Category
 from apps.base.utils.region_choices import District, Regions
 from apps.users.validators.phone_number import phone_validate
 from apps.general.validators.youtobe_url import validate_youtube_url
@@ -24,7 +23,7 @@ class Company(AbstractBaseModel):
                                   'is_deleted': False
                             }
     )
-    categories = models.ManyToManyField(Category, blank=True, related_name='companies')
+    categories = models.ManyToManyField('categories.Category', blank=True, related_name='companies')
 
     #   BIO FOR CREATE COMPANY ------ Here create of Owner
 
