@@ -12,13 +12,16 @@ class BranchCompany(AbstractBaseModel):
     """
     Here creating branch Company
     """
-    company = models.ForeignKey('Company', on_delete=models.PROTECT,
-                                related_name='branch_companies',
-                                limit_choices_to={
-                                    'is_active': True,
-                                    'is_verified': True,
-                                    'is_deleted': False
-                                })
+    company = models.ForeignKey(
+        to='companies.Company',
+        on_delete=models.PROTECT,
+        related_name='branch_companies',
+        limit_choices_to={
+            'is_active': True,
+            'is_verified': True,
+            'is_deleted': False
+        }
+    )
 
     id_branch = models.PositiveSmallIntegerField(unique=True, editable=False)
     title = models.CharField(max_length=255)

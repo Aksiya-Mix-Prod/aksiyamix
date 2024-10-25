@@ -12,6 +12,7 @@ class Appeal(AbstractBaseModel):
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
+        null=True,
         help_text='which user is sending appeal',
         limit_choices_to={"is_active": True, "is_spam": False},
     )

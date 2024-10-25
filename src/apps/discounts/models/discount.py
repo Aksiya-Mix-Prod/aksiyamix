@@ -46,7 +46,7 @@ class Discount(AbstractBaseModel):
             "parent__parent_is_null": False
         }
     )
-    branches = models.ManyToManyField(to='companies.BranchCompany', related_name='discounts', blank=True)
+    branches = models.ManyToManyField(to='branches.BranchCompany', related_name='discounts', blank=True)
 
     tags = models.ManyToManyField('tags.Tag', related_name='discounts', blank=True)
 

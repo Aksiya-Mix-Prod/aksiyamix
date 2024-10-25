@@ -71,7 +71,7 @@ class Company(AbstractBaseModel):
     is_deleted = models.BooleanField(default=False)
     is_spammed = models.BooleanField(default=False)
 
-    id_company = models.PositiveSmallIntegerField(unique=True, editable=False)
+    id_company = models.PositiveSmallIntegerField(unique=True, editable=False, null=True)
 
     follower_counts = models.CharField(max_length=40, default='0')
     like_counts = models.CharField(max_length=40, default='0')

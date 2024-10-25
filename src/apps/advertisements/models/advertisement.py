@@ -21,11 +21,6 @@ class Advertisement(models.Model):
 
     start_date = models.DateField()
     end_date = models.DateField()
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['category', 'discount'], name='unique_category_discount')
-        ]
     
     def save(self, *args, **kwargs):
         """

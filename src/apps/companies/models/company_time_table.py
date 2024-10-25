@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from apps.companies.models.company import Company
 from apps.companies.enums.week_day import WeekDay
 from apps.base.models.base import AbstractBaseModel
-from apps.companies.models.branch import BranchCompany
+from apps.branches.models.branch import BranchCompany
 
 
 class CompanyTimeTable(AbstractBaseModel):

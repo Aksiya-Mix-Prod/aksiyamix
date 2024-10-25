@@ -16,6 +16,8 @@ urlpatterns = [
     path('api/v1/auth/', include('apps.authentication.urls')),
     # ========= user =========
     path('api/v1/users/', include('apps.users.urls')),
+    # ======== comments ========
+    path('api/v1/', include('apps.comments.urls')),
 
 ]
 urlpatterns += [
