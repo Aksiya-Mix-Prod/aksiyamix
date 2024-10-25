@@ -18,6 +18,8 @@ urlpatterns = [
     path('api/v1/users/', include('apps.users.urls')),
     # ========= tags =========
     path('api/v1/tags/', include('apps.tags.urls')),
+    # ========= services =========
+    path('api/v1/services/', include('apps.services.urls')),
 
 ]
 urlpatterns += [
