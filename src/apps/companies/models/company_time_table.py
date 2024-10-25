@@ -1,11 +1,12 @@
+import random
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import ValidationError
 
+from apps.base.exceptions import CustomExceptionError
 from apps.companies.models.company import Company
 from apps.companies.enums.week_day import WeekDay
 from apps.base.models.base import AbstractBaseModel
-from apps.companies.models.branch import BranchCompany
+from apps.branches.models.branch import BranchCompany
 
 
 class CompanyTimeTable(AbstractBaseModel):
@@ -29,6 +30,8 @@ class CompanyTimeTable(AbstractBaseModel):
                                            'is_deleted': False
                                        })
 
+    id_company_time_table = models.PositiveSmallIntegerField(unique=True, editable=False)
+
     week_day = models.PositiveSmallIntegerField(choices=WeekDay.choices)
 
     start_time = models.TimeField()
@@ -38,6 +41,26 @@ class CompanyTimeTable(AbstractBaseModel):
         unique_together = (('company', 'week_day'),
                            ('branch_company', 'week_day'))
 
+    def save(self, *args, **kwargs):
+        """
+        Generate a unique advertisement ID for new instances before saving
+        """
+        if self.pk is None:
+            self.id_company_time_table = self.generate_company_time_table_id()
+        super().save(*args, **kwargs)
+
+    def generate_company_time_table_id(self):
+        """
+        Generate a unique 8-digit advertisement ID.
+        """
+        while True:
+            # Generate an 8-digit number
+
+            new_id = random.randint(10000000, 99999999)
+            # Check for uniqueness
+            if not CompanyTimeTable.objects.filter(id_company_time_table=new_id).exists():
+                return new_id
+
     def clean(self):
         if self.start_time > self.end_time:
-            raise ValidationError(_('start_time must be lower than end_time!'))
+            raise CustomExceptionError(_(code=400, detail='start_time must be lower than end_time!'))

@@ -1,21 +1,27 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.conf import settings
 
-UserModel = get_user_model()
 
 class Rating(models.Model):
     """
-    Model to rate company. Company is rated by user only one time.
+    Rating Model
     """
 
-    # which company to rate
-    company = models.ForeignKey('companies.Company', on_delete=models.CASCADE)
+    company = models.ForeignKey(
+        to='companies.Company',
+        on_delete=models.CASCADE,
+        help_text='which company to rate',
+        limit_choices_to={'is_active': True, 'is_verified': True, 'is_deleted': False},
+    )
 
-    # which user is rating
-    user = models.ForeignKey(UserModel, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        help_text='which user is rating',
+        limit_choices_to={'is_active': True, 'is_spam': False},
+    )
 
-    # rating of user
-    rating_value = models.PositiveSmallIntegerField()
+    rating_value = models.PositiveSmallIntegerField(help_text='rating of user', editable=False)
 
     class Meta:
         db_table = "rating"
