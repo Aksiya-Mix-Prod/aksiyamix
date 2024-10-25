@@ -5,9 +5,10 @@ from django.core.validators import URLValidator
 from django.utils.translation import gettext_lazy as _
 
 from apps.base.exceptions import CustomExceptionError
+from apps.base.models import AbstractBaseModel
 
 
-class Advertisement(models.Model):
+class Advertisement(AbstractBaseModel):
     """
     Here creating Advertisement model of Companies
     """

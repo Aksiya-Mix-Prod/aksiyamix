@@ -24,7 +24,7 @@ class Follower(AbstractBaseModel):
         for company in self.company.all():
             if Follower.objects.filter(user=self.user, company=company).exists():
                 raise CustomExceptionError(code=400,
-                                           detail={'user': f'You are already following the company {company}.'})
+                                           detail={'user': f'You are already following the {company} company.'})
 
     def save(self, *args, **kwargs):
         # Call the clean method before saving to ensure validations are run
