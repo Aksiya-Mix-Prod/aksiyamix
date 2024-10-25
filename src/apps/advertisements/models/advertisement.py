@@ -1,6 +1,10 @@
 import random
+
 from django.db import models
 from django.core.validators import URLValidator
+from django.utils.translation import gettext_lazy as _
+
+from apps.base.exceptions import CustomExceptionError
 
 
 class Advertisement(models.Model):
@@ -21,7 +25,8 @@ class Advertisement(models.Model):
 
     start_date = models.DateField()
     end_date = models.DateField()
-    
+
+
     def save(self, *args, **kwargs):
         """
         Generate a unique advertisement ID for new instances before saving
@@ -43,7 +48,7 @@ class Advertisement(models.Model):
 
     def clean(self):
         if self.start_date > self.end_date:
-            raise
+            raise CustomExceptionError(_(code=400, detail='start_date must be lower that end_date!!!'))
 
     def __str__(self):
         return self.title
