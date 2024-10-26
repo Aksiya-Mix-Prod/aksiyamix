@@ -20,7 +20,7 @@ urlpatterns = [
     path('api/v1/tags/', include('apps.tags.urls')),
 
     # ======== comments ========
-    path('api/v1/', include('apps.comments.urls')),
+    path('api/v1/comments/', include('apps.comments.urls')),
 
     # ========= services =========
     path('api/v1/services/', include('apps.services.urls')),
