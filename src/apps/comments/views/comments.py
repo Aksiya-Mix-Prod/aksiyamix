@@ -33,6 +33,8 @@ class DiscountCommentViewSet(CustomGenericViewSet):
         base_queryset = Comment.active_objects.select_related('user', 'discount', 'parent')
 
         if self.action in ['list_comments', 'add_comment', 'delete_comment']:
+            # ======== prefetch_related() (used for 'children') handles many-to-many and reverse foreign key
+            # relationships ========
             return base_queryset.filter(parent__isnull=True).prefetch_related('children').order_by('-created_at')
         elif self.action in ['list_replies', 'add_reply', 'delete_reply']:
             return base_queryset.filter(parent__isnull=False).order_by('-created_at')
