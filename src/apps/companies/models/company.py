@@ -8,7 +8,7 @@ from apps.base.exceptions import CustomExceptionError
 from apps.base.models.base import AbstractBaseModel
 from apps.base.utils.region_choices import District, Regions
 from apps.users.validators.phone_number import phone_validate
-from apps.general.validators.youtobe_url import validate_youtube_url
+from apps.base.validators.validators import validate_youtube_url
 
 from apps.companies.validators.company_logo_size import (validate_company_logo_size, validate_logo_size)
 from apps.companies.validators.company_banner_size import validate_company_banner_size, validate_banner_size

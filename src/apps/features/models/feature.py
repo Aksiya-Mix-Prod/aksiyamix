@@ -14,13 +14,15 @@ class Feature(AbstractBaseModel):
         to='categories.Category',
         on_delete=models.PROTECT,
         limit_choices_to={'parent__parent__isnull': False},
-        help_text='to which category',
-
+        help_text='to which category'
     )
 
     measure = models.CharField(max_length=100, blank=True, help_text='measure of feature')
+
     is_active = models.BooleanField(default=False)
+
     ordering = models.PositiveSmallIntegerField(help_text='order of feature')
+
     name = models.CharField(max_length=255, help_text='name')
     slug = models.SlugField(max_length=255, editable=False)
 
@@ -48,7 +50,9 @@ class FeatureValue(AbstractBaseModel):
 
     value = models.CharField(max_length=255, help_text='which value')
     slug = models.SlugField(max_length=255, editable=False)
-    is_active = models.BooleanField(default=False, help_text='to check feature values')
+
+    is_active = models.BooleanField(default=False)
+
     ordering = models.PositiveSmallIntegerField(help_text='order of feature values')
 
     def clean(self):

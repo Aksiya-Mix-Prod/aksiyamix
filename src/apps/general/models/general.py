@@ -9,10 +9,15 @@ class General(models.Model):
     General Model
     """
 
-    min_replenishment_amount = models.CharField(max_length=100,
-                                                help_text='minimum amount of company balance replenishment')
-    max_replenishment_amount = models.CharField(max_length=100,
-                                                help_text='maximum amount of company balance replenishment')
+    min_replenishment_amount = models.CharField(
+        max_length=100,
+        help_text='minimum amount of company balance replenishment'
+    )
+
+    max_replenishment_amount = models.CharField(
+        max_length=100,
+        help_text='maximum amount of company balance replenishment'
+    )
 
 
     def save(self, *args, **kwargs):

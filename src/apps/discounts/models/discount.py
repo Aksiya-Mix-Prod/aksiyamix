@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 
 from apps.services.models import Service
-from apps.general.validators.youtobe_url import validate_youtube_url
+from apps.base.validators.validators import validate_youtube_url
 from apps.discounts.utils.unique_id import generate_unique_id
 from apps.base.models.base import AbstractBaseModel
 from apps.discounts.choices import Currency, DiscountChoices
