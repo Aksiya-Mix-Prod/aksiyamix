@@ -1,4 +1,5 @@
 from rest_framework import mixins, status
+from django.db.models import QuerySet
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
@@ -27,7 +28,7 @@ class CommentViewSet(mixins.CreateModelMixin,
     permission_classes = [IsAuthenticated, IsAdminOrCommentOwner]
     pagination_class = CustomPageNumberPagination
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         """
         Filter queryset based on the action being performed:
         - Returns parent comments for comment-related actions

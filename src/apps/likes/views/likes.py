@@ -1,4 +1,5 @@
 from rest_framework import status
+from django.db.models import QuerySet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -25,7 +26,7 @@ class DiscountReactionViewSet(CustomGenericViewSet):
     permission_classes = [IsAdminOrLikeOrDislikeOwner]
     serializer_class = DiscountLikeSerializer
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         """
         Filter queryset based on the action being performed:
         - Returns user's likes for like-related actions
