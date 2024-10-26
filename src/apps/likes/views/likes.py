@@ -59,6 +59,7 @@ class DiscountReactionViewSet(CustomGenericViewSet):
             like.delete()
             return Response({"message": "Like removed 😞"}, status=status.HTTP_201_CREATED)
 
+        return Response({"message": "Like added!😉"}, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=['post'], url_path='dislike')
     def dislike(self, request, pk=None) -> Response:
@@ -81,7 +82,8 @@ class DiscountReactionViewSet(CustomGenericViewSet):
 
         if not created:
             dislike.delete()
-            return Response({"message": "Dislike removed"}, status=status.HTTP_201_CREATED)
+            return Response({"message": "Dislike removed!😉"}, status=status.HTTP_201_CREATED)
+        return Response({"message": "Dislike added 😞"}, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=['get'], url_path='stats')
     def stats(self, request, pk=None) -> Response:
@@ -114,7 +116,6 @@ class DiscountReactionViewSet(CustomGenericViewSet):
         """
         queryset = self.get_queryset().filter(user=request.user)
         serializer = self.get_serializer(queryset, many=True)
-
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'], url_path='user-dislikes')

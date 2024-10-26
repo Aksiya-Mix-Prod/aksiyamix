@@ -3,14 +3,12 @@ from django.db.models import QuerySet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
 
 from apps.comments.models import Comment
 from apps.discounts.models import Discount
 from apps.base.views.viewsets import CustomGenericViewSet
 from apps.base.pagination import CustomPageNumberPagination
 from apps.comments.permissions.permissions import IsAdminOrCommentOwner
-from apps.base.pagination import CustomPageNumberPagination
 from apps.comments.serializers.comments import CommentSerializer, CommentReplySerializer
 
 
@@ -89,17 +87,8 @@ class DiscountCommentViewSet(CustomGenericViewSet):
         )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
-class CommentReplyViewSet(mixins.CreateModelMixin,
-                          mixins.RetrieveModelMixin,
-                          mixins.ListModelMixin,
-                          CustomGenericViewSet
-                          ):
-    """
-     ViewSet for handling comment replies:
-    - List all replies
-    - Create new replies
-    - Delete replies (admin or owner only)
+    @action(detail=True, methods=['delete'], url_path='delete-comment')
+    def delete_comment(self, request, pk=None) -> Response:
         """
         Delete a parent comment:
         - Only admin or comment owner can delete
@@ -136,11 +125,9 @@ class CommentReplyViewSet(mixins.CreateModelMixin,
         """
         parent = get_object_or_404(Comment, id=request.data.get('parent'))
 
-        # ======== Create serializer with the user and validated parent ========
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        # ========= Save with the current user and parent ========
         serializer.save(
             user=request.user, discount=parent.discount, parent=parent
         )
