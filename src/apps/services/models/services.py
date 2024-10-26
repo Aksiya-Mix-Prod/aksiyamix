@@ -1,6 +1,8 @@
 from django.db import models
+from django.utils.text import slugify
 
 from apps.base.models import AbstractBaseModel
+from apps.base.exceptions import CustomExceptionError
 from apps.services.validators.image_size import service_image_size
 
 
@@ -15,7 +17,14 @@ class Service(AbstractBaseModel):
 
     class Meta:
         db_table = 'service'
-        unique_together = ('is_active', 'slug')
+
+    def clean(self):
+        self.slug = slugify(self.name)
+        not_unique = Service.objects.filter(slug=self.slug, is_active=True).exists()
+        if not_unique:
+            raise CustomExceptionError(code=400, detail={'slug': 'Slug and is active must be unique'})
+        if self.is_active and not self.icon:
+            raise CustomExceptionError(code=400, detail={'icon': 'Icon is required when service is active'})            
 
     def __str__(self):
         return self.name
