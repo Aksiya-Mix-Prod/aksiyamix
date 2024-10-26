@@ -9,7 +9,7 @@ from apps.base.models.base import AbstractBaseModel
 from apps.categories.models.category import Category
 from apps.companies.choice.disctrict import District
 from apps.users.validators.phone_number import phone_validate
-from apps.general.validators.youtobe_url import validate_youtube_url
+from apps.base.validators.validators import validate_youtube_url
 
 from apps.companies.validators.company_video_size import validate_company_video_size
 from apps.companies.validators.company_logo_size import (validate_company_logo_size, validate_logo_size)
