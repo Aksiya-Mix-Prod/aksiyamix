@@ -3,7 +3,6 @@ from django.db.models import QuerySet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
 
 from apps.discounts.models import Discount
 from apps.likes.models.likes import DiscountLike
@@ -113,7 +112,7 @@ class DiscountReactionViewSet(CustomGenericViewSet):
         - Returns paginated list of discounts
         - Ordered by most recent likes first
         """
-        queryset = self.get_queryset()
+        queryset = self.get_queryset().filter(user=request.user)
         serializer = self.get_serializer(queryset, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -127,7 +126,4 @@ class DiscountReactionViewSet(CustomGenericViewSet):
         """
         queryset = DiscountDislike.objects.filter(user=request.user)
         serializer = DiscountDislikeSerializer(queryset, many=True)
-
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-
