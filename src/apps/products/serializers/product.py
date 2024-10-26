@@ -1,18 +1,42 @@
 from rest_framework import serializers
+from apps.base.exceptions import CustomExceptionError
 from apps.products.models import Product
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['company', 'name', 'image']
+        fields = ['id', 'company', 'category', 'title', 'image', 'created_at', 'updated_at']
+        read_only_fields = ['created_at', 'updated_at']
 
     def validate(self, attrs):
-        company = attrs.get('company')
-        product_count = Product.objects.filter(company=company).count()
+        company = attrs.get('company', None) or self.instance.company
+        user = self.context['request'].user
 
-        if product_count >= 10:
-            raise serializers.ValidationError(
-                {"company": "This company already has 4 products. No more products can be added."}
+        # Check user permissions
+        if user != company.owner and not user.is_staff:
+            raise CustomExceptionError(code=400, detail="You do not have permission to perform this action.")
+
+        # Check the product count for the company
+        product_count = Product.objects.filter(company=company).count()
+        if product_count >= 10 and self.instance is None:
+            raise CustomExceptionError(
+                code=400,
+                detail='Maximum number of products for this company reached. Please remove a product before adding a new one.'
             )
 
         return attrs
+
+    def create(self, validated_data):
+        return Product.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        user = self.context['request'].user
+
+        # Check user permissions
+        if user != instance.company.owner and not user.is_staff:
+            raise CustomExceptionError(code=400, detail="You do not have permission to perform this action.")
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance

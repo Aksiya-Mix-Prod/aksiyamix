@@ -1,13 +1,13 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 
+from apps.discounts.validators import discount
 from apps.services.models import Service
 from apps.base.validators.validators import validate_youtube_url
 from apps.discounts.utils.unique_id import generate_unique_id
 from apps.base.models.base import AbstractBaseModel
 from apps.discounts.choices import Currency, DiscountChoices
 
-from apps.base.exceptions import CustomExceptionError
 from apps.features.models import FeatureValue
 
 
@@ -46,7 +46,7 @@ class Discount(AbstractBaseModel):
             "parent__parent_is_null": False
         }
     )
-    branches = models.ManyToManyField(to='companies.BranchCompany', related_name='discounts', blank=True)
+    branches = models.ManyToManyField(to='branches.BranchCompany', related_name='discounts', blank=True)
 
     tags = models.ManyToManyField('tags.Tag', related_name='discounts', blank=True)
 
@@ -131,53 +131,11 @@ class Discount(AbstractBaseModel):
         return sorted_features
 
     def clean(self):
-        # Checking the standard deduction
+        discount.validate_standard_discount(self)
+        discount.validate_free_product_discount(self)
+        discount.validate_quantity_discount(self)
+        discount.validate_service_discount(self)
 
-        if self.discount_type == DiscountChoices.STANDARD:
-            if self.discount_value is None:
-                raise CustomExceptionError(code=400, detail="Standard discount must be required a discount_value")
-
-            if self.discount_value_is_percent and self.discount_value:
-                if not (0 <= self.discount_value <= 100):
-                    raise CustomExceptionError(code=400, detail="Discount must be a percentage between 0 and 100")
-
-        # Free discount check
-
-        if self.discount_type == DiscountChoices.FREE_PRODUCT:
-            if self.min_quantity is None or self.bonus_quantity is None or not self.free_product:
-                raise CustomExceptionError(code=400,
-                                           detail='Free product discount requires min_quantity, bonus_quantity, and a free product.')
-
-            elif self.bonus_quantity > self.min_quantity:
-                raise CustomExceptionError(code=400,
-                                           detail='Bonus quantity must be less than or equal to min_quantity.')
-
-            elif self.min_quantity <= 0 or self.bonus_quantity <= 0:
-                raise CustomExceptionError(code=400, detail='Min quantity and bonus quantity must be greater than 0.')
-
-        # Quantity discount check
-
-        if self.discount_type == DiscountChoices.QUANTITY_DISCOUNT:
-            if self.min_quantity is None:
-                raise CustomExceptionError(code=400, detail='Quantity discount requires a min_quantity')
-
-            if self.discount_value_is_percent and self.discount_value:
-                if not (0 <= self.discount_value <= 100):
-                    raise CustomExceptionError(code=400, detail="Discount must be a percentage between 0 and 100")
-
-        # Service discount check
-        if self.discount_type == DiscountChoices.SERVICE_DISCOUNT:
-            if self.service is None:
-                raise CustomExceptionError(
-                    code=400,
-                    detail='Service discount requires a valid service.'
-                )
-
-            if self.min_quantity is None:
-                raise CustomExceptionError(
-                    code=400,
-                    detail='Service discount requires a min_quantity.'
-                )
 
     def save(self, *args, **kwargs):
         if self.category and self.category.parent:
