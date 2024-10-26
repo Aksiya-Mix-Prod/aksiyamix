@@ -12,8 +12,9 @@ class Appeal(AbstractBaseModel):
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
-        help_text='which user is sending appeal',
+        null=True,
         limit_choices_to={"is_active": True, "is_spam": False},
+        help_text='which user is sending appeal'
     )
 
     company = models.ForeignKey(
@@ -30,5 +31,9 @@ class Appeal(AbstractBaseModel):
 
     class Meta:
         db_table = "appeal"
+
+
+    def __str__(self):
+        return self.message
 
 

@@ -1,9 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from apps.discounts.models.discount import Discount
 from apps.base.models.base import AbstractBaseModel
-from apps.companies.models import Company
 
 
 class Complaint(AbstractBaseModel):
@@ -17,10 +15,11 @@ class Complaint(AbstractBaseModel):
                                  'is_active': True,
                                  'is_spam': False,
                              })
-    discount = models.ForeignKey(Discount,
+
+    discount = models.ForeignKey('discounts.Discount',
                                  on_delete=models.SET_NULL,
                                  null=True)
-    company = models.ForeignKey(Company, on_delete=models.SET_NULL,
+    company = models.ForeignKey('companies.Company', on_delete=models.SET_NULL,
                                 blank=True, null=True)
 
     message = models.CharField(max_length=200)
@@ -33,6 +32,7 @@ class Complaint(AbstractBaseModel):
         constraints = [
             models.UniqueConstraint(fields=['user', 'discount'], name='unique_user_discount')
         ]
+
 
     def __str__(self):
         return self.first_name
