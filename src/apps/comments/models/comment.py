@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-from apps.base.exceptions import CustomExceptionError
 from apps.base.models.base import AbstractBaseModel
 from apps.comments.validators import CommentValidator
 from apps.comments.managers import CommentManager
@@ -55,10 +54,3 @@ class Comment(AbstractBaseModel):
 
     def __str__(self):
         return self.text
-
-
-    def clean(self):
-        """ Override clean method to validate discount status dynamically."""
-        from apps.discounts.models import Discount
-        if self.discount.status != Discount.Status.APPROVED:
-            raise CustomExceptionError(code=403, detail='You can only comment on APPROVED discounts.')
