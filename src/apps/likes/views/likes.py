@@ -71,10 +71,9 @@ class DiscountReactionViewSet(CustomGenericViewSet):
         """
         discount = get_object_or_404(Discount, pk=pk)
 
-        # ========= Remove any existing like ========
+        # ========== Remove any existing like ========
         DiscountDislike.objects.filter(user=self.request.user, discount=discount).delete()
 
-        # ========= Toggle dislike ========
         dislike, created = DiscountDislike.objects.get_or_create(
             user=request.user,
             discount=discount

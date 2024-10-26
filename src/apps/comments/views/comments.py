@@ -77,11 +77,9 @@ class DiscountCommentViewSet(CustomGenericViewSet):
         """
         discount = get_object_or_404(Discount, id=request.data.get('discount'))
 
-        # ======== Create serializer with the user and validated discount ========
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        # ======== Save with the current user ========
         serializer.save(
             user=request.user, discount=discount
         )
