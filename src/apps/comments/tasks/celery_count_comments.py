@@ -6,7 +6,7 @@ from apps.discounts.models import Discount
 
 
 @shared_task(bind=True, max_retries=3)
-def update_discount_comment_count(self, discount_id, action):
+def update_discount_comment_count(discount_id, action):
     """
     Celery task to update the comment count of a specific discount.
 
@@ -21,24 +21,17 @@ def update_discount_comment_count(self, discount_id, action):
         - If action is 'increment', the comment count will be increased by 1.
         - If action is 'decrement', the comment count will be decreased by 1.
         - The update uses F() expressions to perform atomic increments or decrements directly in the database.
-
-    Retries:
-        - If the Discount with the given discount_id does not exist, the task will be retried up to 3 times.
-        - Retry attempts are managed by `self.retry()` with the specified `max_retries`.
-
-    Raises:
-        Discount.DoesNotExist: If the discount is not found, the task will retry up to 3 times.
     """
 
     try:
         discount = Discount.objects.get(id=discount_id)
 
         if action == 'increment':
-            discount.comment_count = F('comment_counts') + 1
+            discount.comment_counts = F('comment_counts') + 1
         else:  # ==== action is 'decrement' ====
-            discount.comment_count = F('comment_counts') - 1
+            discount.comment_counts = F('comment_counts') - 1
 
         discount.save()
 
-    except Discount.DoesNotExist as e:
-        raise self.retry(exc=e, max_retries=3)
+    except Discount.DoesNotExist:
+        pass

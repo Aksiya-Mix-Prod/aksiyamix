@@ -1,11 +1,11 @@
 from django.conf import settings
 
 from apps.comments.models import Comment
-from apps.base.serializers import CustomSerializer
+from apps.base.serializers.model_serializer import CustomModelSerializer
 from apps.comments.paginations.paginations import CommentReplyPagination
 
 
-class UserSerializer(CustomSerializer):
+class UserSerializer(CustomModelSerializer):
     """
 
     """
@@ -14,7 +14,7 @@ class UserSerializer(CustomSerializer):
         fields = ['id', 'username']
 
 
-class CommentReplySerializer(CustomSerializer):
+class CommentReplySerializer(CustomModelSerializer):
     """
     Serializer for child comments
     """
@@ -26,7 +26,7 @@ class CommentReplySerializer(CustomSerializer):
         read_only_fields = ['is_deleted']
 
 
-class CommentSerializer(CustomSerializer):
+class CommentSerializer(CustomModelSerializer):
     """
     Serializer for Parent comments
     """

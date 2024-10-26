@@ -1,4 +1,3 @@
-from django.db.models import F
 from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 
@@ -8,7 +7,7 @@ from apps.comments.tasks.celery_count_comments import update_discount_comment_co
 
 
 @receiver(post_save, sender=Comment)
-def update_discount_comment_count_on_delete(sender, instance, created, **kwargs):
+def update_discount_comment_count_on_delete(sender, instance, created, **kwargs) -> None:
     """
     Signal to handle comment count updates when a comment is created or updated.
         Delegates the actual count update to a Celery task.
@@ -29,7 +28,7 @@ def update_discount_comment_count_on_delete(sender, instance, created, **kwargs)
         )
     elif not created:
         # ======== Handle case where comment is being updated (e.g., marked as deleted) ========
-        old_instance = Comment.objects.get(pk=instance.pk)
+        old_instance = Comment.objects.get(id=instance.id)
         if old_instance.is_deleted != instance.is_deleted:
             # ======== If deletion status changed, update the count accordingly ========
             action = 'decrement'if instance.is_deleted else 'increment'
@@ -43,7 +42,7 @@ def update_discount_comment_count_on_delete(sender, instance, created, **kwargs)
 def update_discount_comment_count_on_delete(sender, instance, **kwargs):
     """
     Signal to handle comment count updates when a comment is permanently deleted.
-    Delegates the actual count update to a Celery task.
+        Delegates the actual count update to a Celery task.
     """
     if not instance.discount or instance.is_deleted:
         return
