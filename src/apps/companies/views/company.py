@@ -9,6 +9,24 @@ from apps.companies.serializers.company import (CompanyListSerializer, CompanyCr
                                                 CompanyRetrieveSerializer, CompanyDeleteSerializer)
 
 
+class CheckUsernameViewSet(CustomViewSet):
+    """
+    ViewSet to check if a given username is available
+    """
+
+    def list(self, request):
+        username = request.query_params.get('username', None)
+
+        if not username:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if Company.objects.filter(username=username).exists():
+            return Response({'detail': 'Username is already taken.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'detail': 'Username is available'}, status=status.HTTP_200_OK)
+
+
+
 class CompanyListViewSet(CustomViewSet):
     permission_classes = [IsAuthenticated]
 

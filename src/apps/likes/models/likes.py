@@ -3,13 +3,16 @@ from django.conf import settings
 from django.core.validators import ValidationError
 
 from apps.base.models import AbstractBaseModel
+from apps.discounts.models import Discount
 
 
 class DiscountLike(AbstractBaseModel):
     """
     :what: Model to track which user liked what discount.
     :does: This connects a user and a discount with a like, and ensures
-        each user can only like a specific discount once.
+        each user can only like a specific discount once and cannot
+        simultaneously like and dislike the same discount.
+
     """
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
@@ -27,7 +30,7 @@ class DiscountLike(AbstractBaseModel):
         related_name='discount_likes',
         limit_choices_to={
             'is_active': True,
-            'status': 3
+            'status': Discount.Status.APPROVED
         }
     )
 
@@ -46,10 +49,17 @@ class DiscountLike(AbstractBaseModel):
 
     def __str__(self):
         """String representation for the DiscountLike model."""
-        return f"Like: {self.user} liked {self.discount.title} on {self.created_at}"
+        return self.user or self.discount
 
     def clean(self):
-        """ Override the clean method to validate status dynamically."""
-        from apps.discounts.models import Discount
-        if self.discount.status != Discount.Status.APPROVED:
-            raise ValidationError("You can only like an approved discount.")
+        """Ensure user cannot simultaneously like and dislike a discount."""
+        if self.user and self.discount:
+            if self.discount.discount_dislikes.filter(user=self.user).exists():
+                raise ValidationError(
+                    "User cannot like and dislike the same discount simultaneously."
+                )
+        super().clean()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)

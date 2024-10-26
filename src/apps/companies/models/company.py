@@ -55,7 +55,7 @@ class Company(AbstractBaseModel):
     #   CREATE COMPANY ---------- Here all need things of Company
 
     regions = models.PositiveSmallIntegerField(choices=Regions.choices)
-    districts = models.PositiveSmallIntegerField(choices=District.choices)
+    districts = models.CharField(choices=District.choices)
 
     name = models.CharField(max_length=250)
     username = models.SlugField(max_length=50, unique=True)

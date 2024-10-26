@@ -2,7 +2,8 @@ import random
 
 from django.db import models
 
-from apps.base.utils.region_choices import Regions, District
+from apps.companies.choice.country import Country
+from apps.companies.choice.disctrict import District
 from apps.base.models.base import AbstractBaseModel
 from apps.users.validators.phone_number import phone_validate
 
@@ -25,7 +26,7 @@ class BranchCompany(AbstractBaseModel):
     phone_number2 = models.CharField(max_length=13, validators=[phone_validate])
     address = models.CharField(max_length=255)
 
-    region = models.PositiveSmallIntegerField(choices=Regions.choices)
+    country = models.PositiveSmallIntegerField(choices=Country.choices)
     district = models.PositiveSmallIntegerField(choices=District.choices)
 
     delivery = models.BooleanField(default=False)

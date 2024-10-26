@@ -3,14 +3,15 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 
 from apps.base.models import  AbstractBaseModel
-
+from apps.discounts.models import Discount
 
 
 class DiscountDislike(AbstractBaseModel):
     """
     :what: Model to track which user disliked what discount.
     :does: This connects a user and a discount with a dislike, and ensures
-        each user can only dislike a specific discount once.
+        each user can only dislike a specific discount once and and cannot
+        simultaneously like and dislike the same discount.
     """
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
@@ -18,18 +19,18 @@ class DiscountDislike(AbstractBaseModel):
         null=True,
         related_name='user_dislikes',
         limit_choices_to={
-            'is_active': True,
+            'is_active':True,
             'is_spam':False,
+            'is_deleted':False
         }
     )
     discount = models.ForeignKey(
         to='discounts.Discount',
         on_delete=models.CASCADE,
-        null=True,
         related_name='discount_dislikes',
         limit_choices_to={
             'is_active': True,
-            'status': 3
+            'status': Discount.Status.APPROVED
         }
     )
 
@@ -46,12 +47,22 @@ class DiscountDislike(AbstractBaseModel):
         verbose_name_plural = 'Discount Dislikes'
 
     def __str__(self):
-        """String representation for the DiscountDisLike model."""
-        return f"Dislike: {self.user} disliked {self.discount.id} on {self.created_at}"
+        """String representation for the DiscountDislike model."""
+        return self.user or self.discount
 
     def clean(self):
-        """ Override the clean() method to validate status dynamically."""
-        from apps.discounts.models import Discount
-        if self.discount.status != Discount.Status.APPROVED:
-            raise ValidationError('You can only dislike a approved discount.')
+        """Ensure user cannot simultaneously like and dislike a discount."""
+        if self.user and self.discount:
+            if self.discount.discount_dislikes.filter(user=self.user).exists():
+                raise ValidationError(
+                    """User cannot like and dislike the same discount simultaneously."""
+                )
+        super().clean()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+
+
 
