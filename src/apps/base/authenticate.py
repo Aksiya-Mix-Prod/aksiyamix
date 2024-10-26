@@ -42,8 +42,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     
 
 class CustomTokenObtainPairView(CustomGenericAPIView):
+    permission_classes = []
     serializer_class = CustomTokenObtainPairSerializer
     queryset = []
+
 
     def post(self, request, *args, **kwargs):
         serializer = CustomTokenObtainPairSerializer(data=request.data)

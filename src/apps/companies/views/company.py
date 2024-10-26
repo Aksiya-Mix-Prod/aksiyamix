@@ -28,6 +28,10 @@ class CheckUsernameViewSet(CustomViewSet):
 
 
 class CompanyListViewSet(CustomViewSet):
+
+    """
+    Company List View
+    """
     permission_classes = [IsAuthenticated]
 
     def list(self, request):
