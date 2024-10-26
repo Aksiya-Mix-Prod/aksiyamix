@@ -11,6 +11,6 @@ class SearchTagsGenericAPIView(CustomGenericAPIView):
     queryset = Tag.objects.all()
 
     def get(self, request, *args, **kwargs):
-        data = self.queryset.filter(name__startswith=request.query_params.get('q', ''), 
-                                    is_active=True).values('id', 'name')
+        data = self.queryset.filter(name__startswith=request.query_params.get('q', '')
+                                    ).values('id', 'name')
         return Response(data, status=200)
