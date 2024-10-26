@@ -30,6 +30,9 @@ class DiscountCommentViewSet(CustomGenericViewSet):
         - Returns parent comments for comment-related actions
         - Returns replies for reply-related actions
         """
+
+        # ======== With 'select-related', we limit to Total: 1 database query instead of Total: 4 db queries.
+        # select_related() uses JOINs and is for foreign key and one-to-one relationships ========
         base_queryset = Comment.active_objects.select_related('user', 'discount', 'parent')
 
         if self.action in ['list_comments', 'add_comment', 'delete_comment']:
