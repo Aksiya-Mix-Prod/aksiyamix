@@ -27,8 +27,15 @@ urlpatterns = [
     path('api/v1/likes/', include('apps.likes.urls'))
 
 
+
+
+
+
+
+
     # ========= Mukhsin's Apps finish line ========
 ]
+
 urlpatterns += [
     # ========= category ================
     path('api/v1/categories/', include('apps.categories.urls')),
