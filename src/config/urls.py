@@ -18,13 +18,23 @@ urlpatterns = [
     path('api/v1/users/', include('apps.users.urls')),
     # ========= tags =========
     path('api/v1/tags/', include('apps.tags.urls')),
+
     # ======== comments ========
     path('api/v1/', include('apps.comments.urls')),
+
+    # ========= services =========
+    path('api/v1/services/', include('apps.services.urls')),
+
 
 ]
 urlpatterns += [
     # ========= category ================
     path('api/v1/categories/', include('apps.categories.urls')),
+]
+
+urlpatterns += [
+    # ========= company =========
+    path('api/v1/companies/', include('apps.companies.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

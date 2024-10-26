@@ -8,7 +8,7 @@ from apps.base.exceptions import CustomExceptionError
 from apps.base.models.base import AbstractBaseModel
 from apps.base.utils.region_choices import District, Regions
 from apps.users.validators.phone_number import phone_validate
-from apps.general.validators.youtobe_url import validate_youtube_url
+from apps.base.validators.validators import validate_youtube_url
 
 from apps.companies.validators.company_logo_size import (validate_company_logo_size, validate_logo_size)
 from apps.companies.validators.company_banner_size import validate_company_banner_size, validate_banner_size
@@ -55,7 +55,7 @@ class Company(AbstractBaseModel):
     #   CREATE COMPANY ---------- Here all need things of Company
 
     regions = models.PositiveSmallIntegerField(choices=Regions.choices)
-    districts = models.PositiveSmallIntegerField(choices=District.choices)
+    districts = models.CharField(choices=District.choices)
 
     name = models.CharField(max_length=250)
     username = models.SlugField(max_length=50, unique=True)
@@ -76,16 +76,16 @@ class Company(AbstractBaseModel):
     comment_counts = models.CharField(max_length=40, default='0')
     view_counts = models.CharField(max_length=50, default='0')
 
-    spam_counts = models.CharField(max_length=40, default=0)  # Spam counts as integer
-    branch_counts = models.CharField(max_length=40, default=0)  # Branches companies counts as integer
-    product_counts = models.CharField(max_length=40, default=0)  # Product counts as integer
-    rating_counts = models.CharField(max_length=40, default=0)  # Rating counts as integer
-    active_discount_counts = models.CharField(max_length=40, default=0)  # Active discount counts
-    finished_discount_counts = models.CharField(max_length=40, default=0)  # Finished discount counts
+    spam_counts = models.CharField(max_length=40, default='0')  # Spam counts as integer
+    branch_counts = models.CharField(max_length=40, default='0')  # Branches companies counts as integer
+    product_counts = models.CharField(max_length=40, default='0')  # Product counts as integer
+    rating_counts = models.CharField(max_length=40, default='0')  # Rating counts as integer
+    active_discount_counts = models.CharField(max_length=40, default='0')  # Active discount counts
+    finished_discount_counts = models.CharField(max_length=40, default='0')  # Finished discount counts
 
-    top_tariff_counts = models.CharField(max_length=40, default=0) # Top tariff counts of integer
-    boost_tariff_counts = models.CharField(max_length=40, default=0) # Boost tariff counts of integer
-    discount_tariff_counts = models.CharField(max_length=40, default=0) # discount tariff counts of integer
+    top_tariff_counts = models.CharField(max_length=40, default='0') # Top tariff counts of integer
+    boost_tariff_counts = models.CharField(max_length=40, default='0') # Boost tariff counts of integer
+    discount_tariff_counts = models.CharField(max_length=40, default='0') # discount tariff counts of integer
 
     delivery = models.BooleanField(default=False)
     installment = models.BooleanField(default=False)
@@ -101,11 +101,11 @@ class Company(AbstractBaseModel):
     balance = models.DecimalField(max_digits=30, decimal_places=1, default=0)
 
     #   Rating fields of Company
-    rating5 = models.CharField(max_length=50, default=0)
-    rating4 = models.CharField(max_length=50, default=0)
-    rating3 = models.CharField(max_length=50, default=0)
-    rating2 = models.CharField(max_length=50, default=0)
-    rating1 = models.CharField(max_length=50, default=0)
+    rating5 = models.CharField(max_length=50, default='0')
+    rating4 = models.CharField(max_length=50, default='0')
+    rating3 = models.CharField(max_length=50, default='0')
+    rating2 = models.CharField(max_length=50, default='0')
+    rating1 = models.CharField(max_length=50, default='0')
 
     def get_address(self):
         return {
