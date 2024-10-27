@@ -1,16 +1,23 @@
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from apps.comments.models import Comment
 from apps.base.serializers.model_serializer import CustomModelSerializer
 from apps.comments.paginations.paginations import CommentReplyPagination
 
-
 class UserSerializer(CustomModelSerializer):
     """
+    Serializer for User data to be included in Comment and CommentReply serializers.
+    Using a separate UserSerializer provides flexibility and reusability, making it easier
+    to include user-related fields and control user data representation in nested serializers.
 
+    get_user_model() returns the actual user model class, so you can work directly with it. This is essential in
+        serializers because model = settings.AUTH_USER_MODEL alone would raise an error,
+        as it only provides a string, not a model reference.
     """
     class Meta:
-        user = settings.AUTH_USER_MODEL
+        # ======== Specify the user model to dynamically handle custom user models if used. ========
+        model = get_user_model()
         fields = ['id', 'username']
 
 
