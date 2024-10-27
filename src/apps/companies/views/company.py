@@ -1,7 +1,7 @@
-from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from apps.base.views import CustomViewSet
 from apps.companies.models.company import Company
@@ -11,7 +11,7 @@ from apps.companies.serializers.company import (CompanyListSerializer, CompanyCr
 
 class CheckUsernameViewSet(CustomViewSet):
     """
-    ViewSet to check if a given username is available
+    ViewSet to check if a given username is available.
     """
 
     def list(self, request):
@@ -26,11 +26,9 @@ class CheckUsernameViewSet(CustomViewSet):
         return Response({'detail': 'Username is available'}, status=status.HTTP_200_OK)
 
 
-
 class CompanyListViewSet(CustomViewSet):
-
     """
-    Company List View
+    ViewSet to list all companies.
     """
     permission_classes = [IsAuthenticated]
 
@@ -41,6 +39,9 @@ class CompanyListViewSet(CustomViewSet):
 
 
 class CompanyRetrieveViewSet(CustomViewSet):
+    """
+    ViewSet to retrieve a specific company by its ID.
+    """
     permission_classes = [IsAuthenticated]
 
     def retrieve(self, request, pk):
@@ -54,6 +55,9 @@ class CompanyRetrieveViewSet(CustomViewSet):
 
 
 class CompanyCreateViewSet(CustomViewSet):
+    """
+    ViewSet to create a new company with the current user as owner.
+    """
     permission_classes = [IsAuthenticated]
 
     def create(self, request):
@@ -65,6 +69,9 @@ class CompanyCreateViewSet(CustomViewSet):
 
 
 class CompanyUpdateViewSet(CustomViewSet):
+    """
+    ViewSet to partially update a company's details by ID.
+    """
     permission_classes = [IsAuthenticated]
 
     @action(detail=True, methods=['patch'])
@@ -82,12 +89,15 @@ class CompanyUpdateViewSet(CustomViewSet):
 
 
 class CompanyDeleteViewSet(CustomViewSet):
+    """
+    ViewSet to delete a specific company by its ID.
+    """
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, pk):
         try:
             company = Company.objects.get(pk=pk)
-        except Company.DoesNotExists:
+        except Company.DoesNotExist:
             return Response({'error': 'Company not found!'})
 
         serializer = CompanyDeleteSerializer(company)

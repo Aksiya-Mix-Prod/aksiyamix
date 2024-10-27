@@ -6,6 +6,7 @@ from .views.company import (CompanyListViewSet, CompanyRetrieveViewSet, CompanyC
 
 
 urlpatterns = [
+    # =================   URLS OF USERNAME COMPANY =================
     path('check-username/', CheckUsernameViewSet.as_view({'get': 'list'}), name='check-username'),
     # =================   URLS OF COMPANY   =================
     path('company-list', CompanyListViewSet.as_view({'get': 'list'}), name='company-list'),
