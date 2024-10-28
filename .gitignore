@@ -18,7 +18,7 @@ my_creative_packets.py
 !**/apps/**/migrations/
 # Do not ignore __init__.py files inside migrations folders
 !**/apps/**/migrations/__init__.py
-
+qodana.yaml
 
 # Distribution / packaging
 .Python
