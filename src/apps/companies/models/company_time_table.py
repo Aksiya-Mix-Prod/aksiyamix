@@ -15,7 +15,7 @@ class CompanyTimeTable(AbstractBaseModel):
     company = models.ForeignKey('companies.Company', on_delete=models.PROTECT,
                                 blank=True, null=True,
                                 limit_choices_to={
-                                    'is_active': True,
+                                    # 'is_active': True,
                                     'is_verified': True,
                                     'is_deleted': False
                                 }
@@ -25,8 +25,8 @@ class CompanyTimeTable(AbstractBaseModel):
                                        blank=True,
                                        null=True,
                                        limit_choices_to={
-                                           'is_active': True,
-                                           'is_deleted': False
+                                           # 'is_active': True,
+                                           # 'is_deleted': False
                                        })
 
     id_company_time_table = models.PositiveSmallIntegerField(unique=True, editable=False)
@@ -42,13 +42,15 @@ class CompanyTimeTable(AbstractBaseModel):
             UniqueConstraint(fields=['branch_company', 'week_day'], name='unique_branch_company_week_day'),
         ]
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         """
-        Generate a unique advertisement ID for new instances before saving
+        Generate a unique CompanyTimeTable ID for new instances before saving
         """
         if self.pk is None:
             self.id_company_time_table = self.generate_company_time_table_id()
-        super().save(*args, **kwargs)
+
+        if self.start_time > self.end_time:
+            raise CustomExceptionError(_(code=400, detail='start_time must be lower than end_time!'))
 
     def generate_company_time_table_id(self):
         """
@@ -62,6 +64,3 @@ class CompanyTimeTable(AbstractBaseModel):
             if not CompanyTimeTable.objects.filter(id_company_time_table=new_id).exists():
                 return new_id
 
-    def clean(self):
-        if self.start_time > self.end_time:
-            raise CustomExceptionError(_(code=400, detail='start_time must be lower than end_time!'))

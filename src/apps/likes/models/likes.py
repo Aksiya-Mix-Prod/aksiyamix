@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from apps.base.models import AbstractBaseModel
 from apps.discounts.models import Discount
@@ -23,6 +24,7 @@ class DiscountLike(AbstractBaseModel):
             'is_active': True,
             'is_spam':False,
         },
+        help_text=_("The user who liked this discount. Only active and non-spam users are allowed.")
     )
     discount = models.ForeignKey(
         to='discounts.Discount',
@@ -31,7 +33,8 @@ class DiscountLike(AbstractBaseModel):
         limit_choices_to={
             'is_active': True,
             'status': Discount.Status.APPROVED
-        }
+        },
+        help_text=_("The discount that was liked. Only active and approved discounts are allowed.")
     )
 
     class Meta:

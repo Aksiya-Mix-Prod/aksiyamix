@@ -42,7 +42,7 @@ class Currency(models.Model):
 
     one_usd_in_uzs = models.DecimalField(
         max_digits=30,
-        decimal_places=1,
+        decimal_places=2,
         validators=[MinValueValidator(0)],
         help_text='howmuch is one usd in one uzs'
     )
@@ -51,3 +51,6 @@ class Currency(models.Model):
 
     class Meta:
         db_table = "currency"
+
+    def __str__(self):
+        return self.date
