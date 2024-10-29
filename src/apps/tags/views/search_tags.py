@@ -9,6 +9,7 @@ class SearchTagsGenericAPIView(CustomGenericAPIView):
     This view should return a list of filter startswith the tags
     """
     queryset = Tag.objects.all()
+    serializer_class = None
 
     def get(self, request, *args, **kwargs):
         data = self.queryset.filter(name__startswith=request.query_params.get('q', '')
