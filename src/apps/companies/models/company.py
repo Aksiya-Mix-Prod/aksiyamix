@@ -117,13 +117,16 @@ class Company(AbstractBaseModel):
             'latitude': self.latitude
         }
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         """
         Generate a unique advertisement ID for new instances before saving
         """
-        if not self.pk:
-            self.id_company = self.generate_unique_id()
-        super().save(*args, **kwargs)
+        self.id_company = self.generate_unique_id()
+
+
+        if self.districts:
+            self.region = self.districts.split('X')[0]
+
 
     def generate_unique_id(self):
         """
@@ -131,15 +134,10 @@ class Company(AbstractBaseModel):
         """
         while True:
             # Generate an 8-digit number
-            new_id = random.randint(10000000, 99999999)
+            new_id = random.randint(1000, 9999)
             # Check for uniqueness
             if not Company.objects.filter(id_company=new_id).exists():
                 return new_id
-
-    def check_district(region: int, district: str):
-        """Check if the district belongs to the specified region."""
-        if district and district.split('X')[0] != str(region):
-            raise CustomExceptionError(code=400, detail='District and region do not match')
 
 
     def __str__(self):
