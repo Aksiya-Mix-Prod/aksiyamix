@@ -6,15 +6,19 @@ __pycache__/
 # C extensions
 *.so
 
+# Mukhsin
+src/apps/packets/models/my_creative_packets.py
+my_creative_packets.py
+/Users/mukhsinmukhtorov/projects/fintechhub/aksiyamix/src/apps/packets/models/my_creative_packets.py
 
-
+# Mukhsin
 # Ignore all files in apps' migrations folders
 **/apps/**/migrations/*
 # But do not ignore the migrations folder itself
 !**/apps/**/migrations/
 # Do not ignore __init__.py files inside migrations folders
 !**/apps/**/migrations/__init__.py
-
+qodana.yaml
 
 # Distribution / packaging
 .Python

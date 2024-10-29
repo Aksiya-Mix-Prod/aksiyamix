@@ -1,12 +1,8 @@
-import string
-import random
 from django.db import models
 from apps.base.models import AbstractBaseModel
+from apps.payments.utils.unique_id import generate_unique_id
 
-def generate_unique_id():
-    """ Generate a unique id for the Order model """
-    characters = string.ascii_letters + string.digits
-    return ''.join(random.choice(characters) for _ in range(8))
+
 
 
 class Order(AbstractBaseModel):
@@ -27,7 +23,7 @@ class Order(AbstractBaseModel):
         to track payment orders and their associated transactions.
     """
     # ======== Generate unique 8 char IDs for each Order ========
-    id = models.CharField(primary_key=True, max_length=8, default=generate_unique_id, editable=False)
+    _id = models.CharField(max_length=8, default=generate_unique_id, editable=False)
     company = models.ForeignKey(to='companies.Company', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     is_paid = models.BooleanField(default=False)
@@ -38,4 +34,4 @@ class Order(AbstractBaseModel):
         verbose_name_plural = 'Orders'
 
     def __str__(self):
-        return f"Order {self.id} - {self.company} - {self.amount}"
+        return self.id

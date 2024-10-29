@@ -1,6 +1,6 @@
 import os
 from django.core.validators import BaseValidator
-from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 
 # from profanity_check import predict, predict_prob
@@ -27,7 +27,7 @@ class CommentValidator(BaseValidator):
         Ensures the comment does not exceed the maximum allowed length.
         """
         if len(value) > self.limit_value:
-            raise serializers.ValidationError(f'Comment must be no longer than {self.limit_value} characters.')
+            raise ValidationError(f'Comment must be no longer than {self.limit_value} characters.')
 
     # def validate_forbidden_words(self, value):
     #     """
