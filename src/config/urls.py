@@ -24,16 +24,13 @@ urlpatterns = [
 
     # ========= Mukhsin's Apps ========
     path('api/v1/comments/', include('apps.comments.urls')),
-    path('api/v1/likes/', include('apps.likes.urls'))
-
-
-
-
-
-
+    path('api/v1/likes/', include('apps.likes.urls')),
 
 
     # ========= Mukhsin's Apps finish line ========
+
+    # ========= Oybek =========
+    path('api/v1/companies/', include('apps.companies.urls'))
 ]
 
 urlpatterns += [

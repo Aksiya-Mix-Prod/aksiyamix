@@ -15,7 +15,6 @@ __pycache__/
 # Do not ignore __init__.py files inside migrations folders
 !**/apps/**/migrations/__init__.py
 
-
 # Distribution / packaging
 .Python
 build/

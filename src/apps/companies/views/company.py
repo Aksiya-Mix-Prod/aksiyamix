@@ -14,6 +14,7 @@ class CheckUsernameViewSet(CustomViewSet):
     ViewSet to check if a given username is available.
     """
 
+    @action(detail=False, methods=['get'])
     def list(self, request):
         username = request.query_params.get('username', None)
 
@@ -32,6 +33,7 @@ class CompanyListViewSet(CustomViewSet):
     """
     permission_classes = [IsAuthenticated]
 
+    @action(detail=False, methods=['get'])
     def list(self, request):
         queryset = Company.objects.all()
         serializer = CompanyListSerializer(queryset, many=True)
@@ -44,6 +46,7 @@ class CompanyRetrieveViewSet(CustomViewSet):
     """
     permission_classes = [IsAuthenticated]
 
+    @action(detail=True, methods=['get'])
     def retrieve(self, request, pk):
         try:
             company = Company.objects.get(pk=pk)
@@ -60,6 +63,7 @@ class CompanyCreateViewSet(CustomViewSet):
     """
     permission_classes = [IsAuthenticated]
 
+    @action(detail=False, methods=['post'])
     def create(self, request):
         serializer = CompanyCreateUpdateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -94,6 +98,7 @@ class CompanyDeleteViewSet(CustomViewSet):
     """
     permission_classes = [IsAuthenticated]
 
+    @action(detail=True, methods=['delete'])
     def delete(self, request, pk):
         try:
             company = Company.objects.get(pk=pk)

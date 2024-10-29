@@ -95,5 +95,4 @@ class BranchUpdateSerializer(CustomModelSerializer):
         def validate(self, attrs):
             if attrs.get('phone_number1') == attrs.get('phone_number2'):
                 raise CustomExceptionError(code=400, detail='Phone numbers must be different.')
-
             return attrs

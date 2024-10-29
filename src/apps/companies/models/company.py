@@ -20,9 +20,9 @@ class Company(AbstractBaseModel):
                               on_delete=models.PROTECT,
                               limit_choices_to={
                                   'is_active': True,
-                                  'is_deleted': False
                             }
     )
+
     categories = models.ManyToManyField('categories.Category', blank=True, related_name='companies')
 
     #   BIO FOR CREATE COMPANY ------ Here create of Owner
@@ -70,11 +70,11 @@ class Company(AbstractBaseModel):
 
     id_company = models.PositiveSmallIntegerField(unique=True, editable=False)
 
-    follower_counts = models.CharField(max_length=40, default='0')
-    like_counts = models.CharField(max_length=40, default='0')
-    dislike_counts = models.CharField(max_length=40, default='0')
-    comment_counts = models.CharField(max_length=40, default='0')
-    view_counts = models.CharField(max_length=50, default='0')
+    follower_counts = models.CharField(max_length=40, default='0') # Follower counts as integer
+    like_counts = models.CharField(max_length=40, default='0') # Likes counts as integer
+    dislike_counts = models.CharField(max_length=40, default='0') # Dislikes counts as integer
+    comment_counts = models.CharField(max_length=40, default='0') # Comments counts as integer
+    view_counts = models.CharField(max_length=50, default='0') # Views counts as integer
 
     spam_counts = models.CharField(max_length=40, default='0')  # Spam counts as integer
     branch_counts = models.CharField(max_length=40, default='0')  # Branches companies counts as integer
@@ -101,6 +101,7 @@ class Company(AbstractBaseModel):
     balance = models.DecimalField(max_digits=30, decimal_places=1, default=0)
 
     #   Rating fields of Company
+    total_ratings = models.FloatField(default=0.0)
     rating5 = models.CharField(max_length=50, default='0')
     rating4 = models.CharField(max_length=50, default='0')
     rating3 = models.CharField(max_length=50, default='0')
@@ -120,7 +121,7 @@ class Company(AbstractBaseModel):
         """
         Generate a unique advertisement ID for new instances before saving
         """
-        if self.pk is None:
+        if not self.pk:
             self.id_company = self.generate_unique_id()
         super().save(*args, **kwargs)
 
@@ -132,7 +133,7 @@ class Company(AbstractBaseModel):
             # Generate an 8-digit number
             new_id = random.randint(10000000, 99999999)
             # Check for uniqueness
-            if not Company.objects.filter(id_company=new_id).exitsts():
+            if not Company.objects.filter(id_company=new_id).exists():
                 return new_id
 
     def check_district(region: int, district: str):
