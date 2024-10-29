@@ -29,7 +29,7 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    username = models.CharField(_("username"), max_length=150, unique=True)
+    username = models.CharField(_("username"), max_length=150, unique=True, blank=True)
     fullname = models.CharField(_("full name"), max_length=150)
 
     phone_number = models.CharField(max_length=13, blank=True, null=True, validators=[
@@ -66,9 +66,6 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
     spam_counts = models.PositiveIntegerField(default=0)
 
     def clean(self):
-        pass
-
-    def save(self, *args, **kwargs):
         """Check email or phone number"""
         if not self.email and not self.phone_number:
             raise CustomExceptionError(code=400, detail='Email or phone number is required')
@@ -80,8 +77,6 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
         """Saving region if exist district"""
         if self.district:
             self.region = self.district.split('X')[0]
-
-        super().save(*args, **kwargs)
     
     class Meta:
         db_table = "user"

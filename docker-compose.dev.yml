@@ -34,6 +34,7 @@ services:
     container_name: redis_db
     ports:
       - "6378:6379"
+    restart: always
     volumes:
       - redis_data:/data
 

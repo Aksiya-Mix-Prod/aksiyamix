@@ -19,8 +19,28 @@ urlpatterns = [
 
     # ========= user =========
     path('api/v1/users/', include('apps.users.urls')),
+    # ========= tags =========
+    path('api/v1/tags/', include('apps.tags.urls')),
+    # ========= services =========
+    path('api/v1/services/', include('apps.services.urls')),
 
+
+    # ========= Mukhsin's Apps ========
+    path('api/v1/comments/', include('apps.comments.urls')),
+    path('api/v1/likes/', include('apps.likes.urls')),
+    path('api/v1/packages/', include('apps.packets.urls')),
+
+
+
+
+
+
+
+
+
+    # ========= Mukhsin's Apps finish line ========
 ]
+
 urlpatterns += [
     # ========= categories ================
     path('api/v1/categories/', include('apps.categories.urls')),
