@@ -21,5 +21,5 @@ class IsAdminOrCommentOwner(permissions.BasePermission):
         if request.method == 'DELETE':
             return obj.user == request.user
 
-        # ======== Allow GET requests ========
+        # ======== Allow GET, HEAD, OPTIONS requests ========
         return request.method in permissions.SAFE_METHODS
