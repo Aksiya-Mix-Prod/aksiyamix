@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/v1/comments/', include('apps.comments.urls')),
     path('api/v1/likes/', include('apps.likes.urls')),
     path('api/v1/packages/', include('apps.packets.urls')),
+    path('api/v1/payments/', include('apps.payments.urls')),
 
 
 
