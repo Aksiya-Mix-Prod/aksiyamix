@@ -2,8 +2,7 @@ import random
 
 from django.db import models
 
-from apps.companies.choice.country import Country
-from apps.companies.choice.disctrict import District
+from apps.base.utils.region_choices import Regions, District
 from apps.base.models.base import AbstractBaseModel
 from apps.users.validators.phone_number import phone_validate
 
@@ -26,7 +25,7 @@ class BranchCompany(AbstractBaseModel):
     phone_number2 = models.CharField(max_length=13, validators=[phone_validate])
     address = models.CharField(max_length=255)
 
-    country = models.PositiveSmallIntegerField(choices=Country.choices)
+    region = models.PositiveSmallIntegerField(choices=Regions.choices)
     district = models.PositiveSmallIntegerField(choices=District.choices)
 
     delivery = models.BooleanField(default=False)
@@ -46,6 +45,9 @@ class BranchCompany(AbstractBaseModel):
         Generate a unique ID for new instances before saving
         """
         self.id_branch = self.generate_branch_id()
+
+        if self.district:
+            self.region = self.district.split('X')[0]
 
     def generate_branch_id(self):
         while True:

@@ -28,28 +28,27 @@ class Advertisement(AbstractBaseModel):
     end_date = models.DateField()
 
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         """
         Generate a unique advertisement ID for new instances before saving
         """
         if self.pk is None:
             self.id_advertisement = self.generate_advertisement_id()
-        super().save(*args, **kwargs)
-    
+
+        if self.start_date > self.end_date:
+            raise CustomExceptionError(_(code=400, detail='start_date must be lower that end_date!!!'))
+
     def generate_advertisement_id(self):
         """
         Generate a unique 8-digit advertisement ID.
         """
         while True:
             # Generate 8-digit number
-            new_id = random.randint(10000000, 99999999)
+            new_id = random.randint(1000, 9999)
             # Check for uniqueness
             if not Advertisement.objects.filter(id_advertisement=new_id).exists():
                 return new_id
 
-    def clean(self):
-        if self.start_date > self.end_date:
-            raise CustomExceptionError(_(code=400, detail='start_date must be lower that end_date!!!'))
 
     def __str__(self):
         return self.title
