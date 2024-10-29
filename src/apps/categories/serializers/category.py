@@ -1,21 +1,13 @@
-from rest_framework import serializers
+from apps.categories.models.category import Category
+from apps.base.serializers import CustomModelSerializer
 
-from ..models.category import Category
 
-
-class CategorySerializer(serializers.ModelSerializer):
-    """ Use teh same serializer for children serialization """
-
-    children = serializers.SerializerMethodField()
+class CategorySerializer(CustomModelSerializer):
+    """
+    Category Serializer
+    """
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'icon', 'parent', 'created_at', 'children']
+        fields = ['id', 'name', 'slug', 'icon', 'parent', 'created_at']
 
-    def get_children(self, obj):
-        """ Get category children """
-
-        children = obj.children.all()
-        if children.exists():
-            return CategorySerializer(children, many=True).data
-        return None
