@@ -100,7 +100,7 @@ class PaymeGenericViewSet(CustomGenericViewSet, PaymeErrorResponse):
             if existing_transaction:
                 return self.get_success_response({
                     "create_time": int(existing_transaction.date_time.timestamp() * 1000),
-                    "transaction_id": str(existing_transaction.id),
+                    "transaction": str(existing_transaction.id),
                     "state": 1 if not existing_transaction.state else 2,
                 }, request_id)
 
@@ -113,7 +113,7 @@ class PaymeGenericViewSet(CustomGenericViewSet, PaymeErrorResponse):
 
             return self.get_success_response({
                 "create_time": int(transaction.date_time.timestamp() * 1000),
-                "transaction_id": str(transaction.id),
+                "transaction": str(transaction.id),
                 "state": 1
             }, request_id)
 
@@ -143,7 +143,7 @@ class PaymeGenericViewSet(CustomGenericViewSet, PaymeErrorResponse):
             if transaction.status:
                 return self.get_success_response({
                     "perform_time":int(transaction.date_time.timestamp() * 1000),
-                    "transaction_id": str(transaction.id),
+                    "transaction": str(transaction.id),
                     "state": 2
                 }, request_id)
 
@@ -156,7 +156,7 @@ class PaymeGenericViewSet(CustomGenericViewSet, PaymeErrorResponse):
 
             return self.get_success_response({
                 "perform_time": int(timezone.now().timestamp() * 1000),
-                "transaction_id": str(transaction.id),
+                "transaction": str(transaction.id),
                 "state": 2
             }, request_id)
 
@@ -189,7 +189,7 @@ class PaymeGenericViewSet(CustomGenericViewSet, PaymeErrorResponse):
 
             return self.get_success_response({
                 "cancel_time": int(timezone.now().timestamp() * 1000),
-                "transaction_id": str(transaction.id),
+                "transaction": str(transaction.id),
                 "state": -1
             }, request_id)
 
@@ -220,7 +220,7 @@ class PaymeGenericViewSet(CustomGenericViewSet, PaymeErrorResponse):
                 "create_time": int(transaction.date_time.timestamp() * 1000),
                 "perform_time": int(timezone.datetime.timestamp() * 1000) if transaction.status else 0,
                 "cancel_time": 0,
-                "transaction_id": str(transaction.id),
+                "transaction": str(transaction.id),
                 "state": 2 if transaction.status else 1,
                 "reason": None
             }
