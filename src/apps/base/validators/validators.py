@@ -5,11 +5,14 @@ from django.core.validators import validate_image_file_extension
 
 import re
 
+from apps.base.exceptions import CustomExceptionError
+
+
 def validate_image_size(image, max_width, max_height, error_message):
     """ Validate image size """
 
     if not image:
-        raise ValidationError("Provided file is not an image.")
+        raise CustomExceptionError(code=400, detail="Provided file is not an image.")
 
     try:
         validate_image_file_extension(image)
@@ -19,7 +22,7 @@ def validate_image_size(image, max_width, max_height, error_message):
             raise ValidationError(error_message)
 
     except (AttributeError, IOError):
-        raise ValidationError("Invalid image file. Could not open the image.")
+        raise CustomExceptionError(code=400, detail="Invalid image file. Could not open the image.")
 
 
 

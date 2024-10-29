@@ -3,7 +3,7 @@ from django.utils.text import slugify
 
 from apps.base.models import AbstractBaseModel
 from apps.base.exceptions import CustomExceptionError
-from apps.base.validators.validators import validate_image_size
+
 
 class Category(AbstractBaseModel):
     """
@@ -24,21 +24,9 @@ class Category(AbstractBaseModel):
 
     icon = models.ImageField(
         upload_to='categories/icons/%Y/%m/%d',
-        validators=[validate_image_size],
         blank=True,
         null=True
     )
-
-
-    def clean(self):
-        self.slug = slugify(self.name)
-        if Category.objects.filter(parent_id=self.parent.pk, slug=self.slug).exists():
-            raise CustomExceptionError(code=400, detail={'name': 'this category has already exists'})
-    
-    class Meta:
-        db_table = "category"
-        verbose_name_plural = "Categories"
-        unique_together = (('parent', 'slug'),)
 
     def clean(self):
         """
@@ -56,7 +44,18 @@ class Category(AbstractBaseModel):
         # ========== CHECK IF 1 DEGREE CATEGORY HAVE AN ICON ==========
 
         if not self.parent and not self.icon:
-            raise CustomExceptionError(code=400, detail={'icon': '1-level degree category must have an icon !'})
+            raise CustomExceptionError(code=400, detail='1-level degree category must have an icon !')
+
+
+        self.slug = slugify(self.name)
+        if Category.objects.filter(parent=self.parent, slug=self.slug).exists():
+            raise CustomExceptionError(code=400, detail={'name': 'this category has already exists'})
+
+    class Meta:
+        db_table = "category"
+        verbose_name_plural = "Categories"
+        unique_together = (('parent', 'slug'),)
+
 
     def __str__(self):
         return self.name

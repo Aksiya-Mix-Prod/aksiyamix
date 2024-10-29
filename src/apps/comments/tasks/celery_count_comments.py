@@ -14,9 +14,6 @@ def update_discount_comment_count(discount_id, action):
         discount_id (int): The ID of the discount whose comment count needs to be updated.
         action (str): The action to perform, either 'increment' to increase the count
                       or 'decrement' to decrease the count.
-        self: The task instance (provided when bind=True). Allows access to task-specific
-              methods like `self.retry()` for retrying the task in case of failure.
-
     Logic:
         - If action is 'increment', the comment count will be increased by 1.
         - If action is 'decrement', the comment count will be decreased by 1.
