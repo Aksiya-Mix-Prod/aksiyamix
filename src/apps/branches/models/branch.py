@@ -41,16 +41,17 @@ class BranchCompany(AbstractBaseModel):
             'latitude': self.latitude
         }
 
-    def save(self, *args, **kwargs):
-        if self.pk is None:
-            self.id_branch = self.generate_branch_id()
-        super().save(*args, **kwargs)
+    def clean(self):
+        """
+        Generate a unique ID for new instances before saving
+        """
+        self.id_branch = self.generate_branch_id()
 
     def generate_branch_id(self):
         while True:
             # Generate an 8-digit number
 
-            new_id = random.randint(10000000, 99999999)
+            new_id = random.randint(1000, 9999)
 
             # Check for uniqueness
 
