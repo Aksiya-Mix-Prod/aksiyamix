@@ -39,6 +39,9 @@ urlpatterns = [
 
 
     # ========= Mukhsin's Apps finish line ========
+
+    # ========= Oybek =========
+    path('api/v1/companies/', include('apps.companies.urls'))
 ]
 
 urlpatterns += [

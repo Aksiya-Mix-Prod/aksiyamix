@@ -54,7 +54,7 @@ class BranchCompany(AbstractBaseModel):
 
             # Check for uniqueness
 
-            if not BranchCompany.objects.filter(id_branch=new_id).exitsts():
+            if not BranchCompany.objects.filter(id_branch=new_id).exists():
                 return new_id
 
     def __str__(self):
