@@ -16,6 +16,6 @@ CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_BEAT_SCHEDULE = {
     'run-task-every-midnight': {
         'task': 'apps.general.tasks.get_currency',
-        'schedule': crontab(hour=0, minute=0),
+        'schedule': crontab(hour='0', minute='0'),
     },
 }

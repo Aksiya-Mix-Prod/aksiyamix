@@ -15,6 +15,7 @@ class AbstractBaseModel(models.Model):
         to=settings.AUTH_USER_MODEL, 
         on_delete=models.PROTECT, 
         null=True,
+        blank=True,
         related_name='+'
     )
     updated_at = models.DateTimeField(auto_now=True)
@@ -22,6 +23,7 @@ class AbstractBaseModel(models.Model):
         to=settings.AUTH_USER_MODEL, 
         on_delete=models.PROTECT, 
         null=True,
+        blank=True,
         related_name='+'
     )
 
