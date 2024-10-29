@@ -21,7 +21,6 @@ class DiscountAdmin(admin.ModelAdmin):
     )
 
 
-    autocomplete_fields = ('company', 'category')
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
