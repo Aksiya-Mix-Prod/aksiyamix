@@ -1,5 +1,7 @@
 from django.db import models
 from apps.base.models import AbstractBaseModel
+from apps.payments.utils.unique_id import generate_unique_id
+
 
 class Transaction(AbstractBaseModel):
     """
@@ -18,11 +20,6 @@ class Transaction(AbstractBaseModel):
         error_message (CharField): Optional field to store any error message if the transaction fails.
         amount (DecimalField): The monetary amount of the transaction.
 
-    Meta:
-        ordering: Transactions are ordered by date_time in descending order (newest first).
-        verbose_name: 'Transaction'
-        verbose_name_plural: 'Transactions'
-
     Usage:
         This model is used to keep a detailed record of all payment transactions,
         providing a comprehensive view of the payment history for each order.
@@ -33,12 +30,14 @@ class Transaction(AbstractBaseModel):
         ('Uzum', 'Uzum'),
         ('Click', 'Click'),
     )
+
     order = models.ForeignKey(
         to='payments.Order',
         on_delete=models.SET_NULL,
         related_name='transactions',
         null=True,
     )
+    _id = models.CharField(max_length=10, default=generate_unique_id, editable=False)
     payment_system = models.CharField(choices=PAYMENT_SYSTEM_CHOICES, max_length=10)
     date_time = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)
