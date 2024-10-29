@@ -20,6 +20,7 @@ class Appeal(AbstractBaseModel):
     company = models.ForeignKey(
         to='companies.Company',
         on_delete=models.CASCADE,
+        limit_choices_to={'is_active': True, 'is_verified': True, 'is_deleted': False},
         help_text='appeal for which company'
     )
 

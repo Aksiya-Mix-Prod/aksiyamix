@@ -47,6 +47,9 @@ urlpatterns += [
 
     # ========= ratings ================
     path('api/v1/ratings/', include('apps.ratings.urls')),
+
+    # ========= appeals ================
+    path('api/v1/appeals/', include('apps.appeals.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
