@@ -20,7 +20,7 @@ class FollowerSerializer(CustomModelSerializer):
     def create(self, validate_data):
         user = self.context['request'].user
         company_ids = validate_data.pop('company_ids', [])
-        follower = Follower.objects.all(user=user)
+        follower = Follower(user=user)
 
         #Add companies to the follower
         follower.company.set(company_ids)
