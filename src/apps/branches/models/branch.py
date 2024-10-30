@@ -25,8 +25,8 @@ class BranchCompany(AbstractBaseModel):
     phone_number2 = models.CharField(max_length=13, validators=[phone_validate])
     address = models.CharField(max_length=255)
 
-    region = models.PositiveSmallIntegerField(choices=Regions.choices)
-    district = models.PositiveSmallIntegerField(choices=District.choices)
+    region = models.PositiveSmallIntegerField(choices=Regions.choices, blank=True, null=True)
+    district = models.CharField(choices=District.choices)
 
     delivery = models.BooleanField(default=False)
 
@@ -52,11 +52,9 @@ class BranchCompany(AbstractBaseModel):
     def generate_branch_id(self):
         while True:
             # Generate an 8-digit number
-
             new_id = random.randint(1000, 9999)
 
             # Check for uniqueness
-
             if not BranchCompany.objects.filter(id_branch=new_id).exists():
                 return new_id
 
