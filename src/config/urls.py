@@ -42,7 +42,9 @@ urlpatterns = [
     # ========= Mukhsin's Apps finish line ========
 
     # ========= Oybek =========
-    path('api/v1/companies/', include('apps.companies.urls'))
+    path('api/v1/companies/', include('apps.companies.urls')),
+    path('api/v1/branches/', include('apps.branches.urls')),
+    path('api/v1/followers/', include('apps.followers.urls')),
 ]
 
 urlpatterns += [
