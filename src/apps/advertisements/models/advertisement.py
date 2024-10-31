@@ -36,7 +36,7 @@ class Advertisement(AbstractBaseModel):
             self.id_advertisement = self.generate_advertisement_id()
 
         if self.start_date > self.end_date:
-            raise CustomExceptionError(_(code=400, detail='start_date must be lower that end_date!!!'))
+            raise CustomExceptionError(_(code=400, detail='start_date must be lower that end_date!'))
 
     def generate_advertisement_id(self):
         """
