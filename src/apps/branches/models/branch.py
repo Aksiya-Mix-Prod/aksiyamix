@@ -21,8 +21,13 @@ class BranchCompany(AbstractBaseModel):
 
     id_branch = models.PositiveSmallIntegerField(unique=True, editable=False)
     title = models.CharField(max_length=255)
+
     phone_number1 = models.CharField(max_length=13, validators=[phone_validate])
-    phone_number2 = models.CharField(max_length=13, validators=[phone_validate])
+    phone_number2 = models.CharField(max_length=13, validators=[phone_validate],
+                                     blank=True,
+                                     null=True
+                                     )
+
     address = models.CharField(max_length=255)
 
     region = models.PositiveSmallIntegerField(choices=Regions.choices, blank=True, null=True)
