@@ -1,10 +1,12 @@
 from django.urls import path
-from apps.products.views import ProductViewSet
-
-product_list = ProductViewSet.as_view({'get': 'list', 'post': 'create'})
-product_detail = ProductViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'})
+from apps.products.views import ProductCreateListViewSet, ProductRetrieveUpdateDestroyViewSet
 
 urlpatterns = [
-    path('products/', product_list, name='product-list'),
-    path('products/<int:pk>/', product_detail, name='product-detail'),
+    path('', ProductCreateListViewSet.as_view({'get': 'list', 'post': 'create'}), name='product-list-create'),
+    path('<int:pk>/', ProductRetrieveUpdateDestroyViewSet.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'patch': 'partial_update',
+        'delete': 'destroy'
+    }), name='product-detail'),
 ]
