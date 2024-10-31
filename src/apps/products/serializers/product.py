@@ -1,8 +1,8 @@
-from rest_framework import serializers
 from apps.base.exceptions import CustomExceptionError
+from apps.base.serializers import CustomModelSerializer
 from apps.products.models import Product
 
-class ProductSerializer(serializers.ModelSerializer):
+class ProductSerializer(CustomModelSerializer):
     class Meta:
         model = Product
         fields = ['id', 'company', 'category', 'title', 'image', 'created_at', 'updated_at']

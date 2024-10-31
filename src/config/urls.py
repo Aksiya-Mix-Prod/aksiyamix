@@ -56,4 +56,15 @@ urlpatterns += [
     path('api/v1/appeals/', include('apps.appeals.urls')),
 ]
 
+    # ========== Iskandar ============
+
+urlpatterns += [
+    # ========= products ================
+    path('api/v1/products/', include('apps.products.urls')),
+
+    # ========= discount ============
+    path('api/v1/discounts/', include('apps.discounts.urls')),
+
+]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
