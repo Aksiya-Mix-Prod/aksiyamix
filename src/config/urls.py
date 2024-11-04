@@ -14,15 +14,21 @@ urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
+
     # ========= auth =========
     path('api/v1/auth/', include('apps.authentication.urls')),
-
     # ========= user =========
     path('api/v1/users/', include('apps.users.urls')),
     # ========= tags =========
     path('api/v1/tags/', include('apps.tags.urls')),
     # ========= services =========
     path('api/v1/services/', include('apps.services.urls')),
+    # ========= wishlists =========
+    path('api/v1/wishlists/', include('apps.wishlists.urls')),
+    # ========= tops =========
+    # path('api/v1/tops/', include('apps.tops.urls')),
+    # ========= notifications =========
+    # path('api/v1/notifications/', include('apps.notifications.urls')),
 
 
     # ========= Mukhsin's Apps ========
