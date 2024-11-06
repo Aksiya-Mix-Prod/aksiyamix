@@ -7,7 +7,7 @@ from apps.companies.models.company import Company
 
 class CompanyBaseSerializer(CustomModelSerializer):
     """
-    Base Serializer for Company mode.
+    Base Serializer for Company model.
     """
     class Meta:
         model = Company
