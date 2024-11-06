@@ -4,12 +4,8 @@ from django.core.validators import URLValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-<<<<<<< HEAD
 from apps.advertisements.validators.validate_image_size import (validate_image_size_of_advertisements,
                                                                 validate_image_resize_of_advertisements)
-from apps.base.models import AbstractBaseModel
-=======
->>>>>>> 3b3e1be4f5f24ff0cf98aca5480a35c567612966
 from apps.base.exceptions import CustomExceptionError
 from apps.base.models import AbstractBaseModel
 

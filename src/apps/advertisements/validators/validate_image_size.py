@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-=======
-from django.core.exceptions import ValidationError
->>>>>>> 3b3e1be4f5f24ff0cf98aca5480a35c567612966
 from django.utils.translation import gettext_lazy as _
-from PIL import Image
 
 from PIL import Image
 
