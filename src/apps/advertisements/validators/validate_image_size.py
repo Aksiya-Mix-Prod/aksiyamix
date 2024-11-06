@@ -16,4 +16,6 @@ def validate_image_resize_of_advertisements(image):
     img = Image.open(image)
     max_width, max_height = 1000, 500
     if img.width > max_width or img.height > max_height:
-        raise CustomExceptionError(_("The image dimensions must be less than or equal to 1000x500 pixels."))
+        raise CustomExceptionError(
+            _("The image dimensions must be less than or equal to 1000x500 pixels.")
+        )

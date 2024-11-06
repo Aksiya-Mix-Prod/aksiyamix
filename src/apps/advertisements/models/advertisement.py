@@ -4,8 +4,10 @@ from django.core.validators import URLValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.advertisements.validators.validate_image_size import (validate_image_size_of_advertisements,
-                                                                validate_image_resize_of_advertisements)
+from apps.advertisements.validators.validate_image_size import (
+    validate_image_size_of_advertisements,
+    validate_image_resize_of_advertisements
+)
 from apps.base.exceptions import CustomExceptionError
 from apps.base.models import AbstractBaseModel
 
@@ -16,9 +18,9 @@ class Advertisement(AbstractBaseModel):
     """
 
     class PaymentStatusChoices(models.IntegerChoices):
-        PENDING = 0, _('Pending')
-        PAID = 1, _('Paid')
-        DECLINED = 3, _('Declined')
+        PENDING = 0, _("Pending")
+        PAID = 1, _("Paid")
+        DECLINED = 2, _("Declined")
 
     id_advertisement = models.PositiveSmallIntegerField(unique=True, editable=False)
 
