@@ -1,6 +1,7 @@
+# AKSIYAMIX.GIT 
+
 <div align="left" style="position: relative;">
 <img src="https://img.icons8.com/?size=512&id=55494&format=png" align="right" width="30%" style="margin: -20px 0 0 20px;">
-<h1>AKSIYAMIX.GIT</h1>
 <p align="left">
 	<em>Empower Your Projects with Aksiyamix!</em>
 </p>
