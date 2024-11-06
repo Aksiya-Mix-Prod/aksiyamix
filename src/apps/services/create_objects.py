@@ -1,6 +1,5 @@
 from apps.services.models import Service
 
-
 services_name = [
     'delivery',
     'installation',

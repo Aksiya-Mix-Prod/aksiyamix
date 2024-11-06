@@ -1,7 +1,9 @@
 from rest_framework.response import Response
 
+from apps.authentication.serializers import (RegisterSerializer,
+                                             SendCodeSerializer,
+                                             VerifyCodeSerializer)
 from apps.base.views import CustomGenericAPIView
-from apps.authentication.serializers import RegisterSerializer, SendCodeSerializer, VerifyCodeSerializer
 
 
 class SendCodeAPIView(CustomGenericAPIView):

@@ -1,7 +1,8 @@
 from django.db import models
+from django.utils import timezone
+
 from apps.base.models import AbstractBaseModel
 from apps.payments.utils.unique_id import generate_unique_id
-from django.utils import timezone
 
 
 class Transaction(AbstractBaseModel):

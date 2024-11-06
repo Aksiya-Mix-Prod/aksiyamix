@@ -1,14 +1,13 @@
-from django.core.cache import cache
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
+from django.core.cache import cache
 from django.db.models import Q
-
 from rest_framework import serializers
 
 from apps.authentication.services.username_type import check_username_type
-from apps.base.serializers import CustomSerializer
-from apps.base.exceptions import CustomExceptionError
 from apps.authentication.utils import generate_jwt_tokens
+from apps.base.exceptions import CustomExceptionError
+from apps.base.serializers import CustomSerializer
 from apps.users.utils.sms_providers import EskizUz
 
 

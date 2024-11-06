@@ -1,8 +1,11 @@
+from decimal import Decimal
+
 from django.core.validators import MinValueValidator
 from django.db import models
-from decimal import Decimal
 from django.utils.translation import gettext_lazy as _
+
 from apps.base.models import AbstractBaseModel
+
 
 class Packet(AbstractBaseModel):
     """

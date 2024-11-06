@@ -1,6 +1,6 @@
-from PIL import Image
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from PIL import Image
 
 
 def validate_image_size(image):

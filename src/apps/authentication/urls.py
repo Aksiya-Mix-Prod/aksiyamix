@@ -1,10 +1,8 @@
 from django.urls import path
-
 from rest_framework_simplejwt.views import TokenRefreshView
-from apps.base.authenticate import CustomTokenObtainPairView
 
 from apps.authentication import views
-
+from apps.base.authenticate import CustomTokenObtainPairView
 
 urlpatterns = [
     # ========== Jwt Authentication ========== #

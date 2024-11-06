@@ -1,8 +1,7 @@
 from django.db import models
+
 from apps.base.models import AbstractBaseModel
 from apps.payments.utils.unique_id import generate_unique_id
-
-
 
 
 class Order(AbstractBaseModel):

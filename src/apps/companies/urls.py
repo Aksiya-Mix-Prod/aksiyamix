@@ -1,10 +1,13 @@
 from django.urls import path
 
 from .views import CheckUsernameViewSet
-from .views.company import (CompanyListViewSet, CompanyRetrieveViewSet, CompanyCreateViewSet, CompanyUpdateViewSet,
-                            CompanyDeleteViewSet)
-from .views.company_time_table import (CompanyTimeTableListViewSet, CompanyTimeTableRetrieveViewSet,
-                                       CompanyTimeTableCreateViewSet, CompanyTimeTableDeleteViewSet,
+from .views.company import (CompanyCreateViewSet, CompanyDeleteViewSet,
+                            CompanyListViewSet, CompanyRetrieveViewSet,
+                            CompanyUpdateViewSet)
+from .views.company_time_table import (CompanyTimeTableCreateViewSet,
+                                       CompanyTimeTableDeleteViewSet,
+                                       CompanyTimeTableListViewSet,
+                                       CompanyTimeTableRetrieveViewSet,
                                        CompanyTimeTableUpdateViewSet)
 from .views.ratings import CompanyRatingViewSet
 

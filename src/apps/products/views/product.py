@@ -1,11 +1,12 @@
-from rest_framework import viewsets, status
+from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from apps.base.exceptions import CustomExceptionError
 from apps.products.models import Product
 from apps.products.permissions import CustomIsCompanyOwnerOrReadOnlyPermission
 from apps.products.serializers import ProductSerializer
-from apps.base.exceptions import CustomExceptionError
+
 
 class ProductViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated, CustomIsCompanyOwnerOrReadOnlyPermission]

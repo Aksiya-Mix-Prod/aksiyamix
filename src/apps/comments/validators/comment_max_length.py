@@ -1,7 +1,8 @@
 import os
+
 from django.core.validators import BaseValidator
-from rest_framework.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
+from rest_framework.exceptions import ValidationError
 
 # from profanity_check import predict, predict_prob
 

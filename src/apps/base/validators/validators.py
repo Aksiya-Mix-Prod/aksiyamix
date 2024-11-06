@@ -1,9 +1,8 @@
-from PIL import Image
+import re
 
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_image_file_extension
-
-import re
+from PIL import Image
 
 from apps.base.exceptions import CustomExceptionError
 

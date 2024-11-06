@@ -1,6 +1,5 @@
 from apps.tags.models import Tag
 
-
 tags_name = [
     'technic',
     'home',

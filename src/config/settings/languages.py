@@ -1,6 +1,5 @@
 from django.conf import settings
 
-
 LANGUAGE_CODE = 'uz'
 
 LANGUAGES = [

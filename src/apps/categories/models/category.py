@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 
-from apps.base.models import AbstractBaseModel
 from apps.base.exceptions import CustomExceptionError
+from apps.base.models import AbstractBaseModel
 from apps.base.validators.validators import validate_image_size
 
 

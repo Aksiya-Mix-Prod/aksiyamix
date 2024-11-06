@@ -1,9 +1,10 @@
 import base64
 import binascii
+
 from django.conf import settings
 from rest_framework.permissions import BasePermission
-from apps.payments.exceptions import PermissionDenied
 
+from apps.payments.exceptions import PermissionDenied
 
 
 class PaymeAuthPermission(BasePermission):

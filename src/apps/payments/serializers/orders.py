@@ -1,5 +1,5 @@
-from apps.payments.models import Order
 from apps.base.serializers import CustomModelSerializer
+from apps.payments.models import Order
 
 
 class OrderSerializer(CustomModelSerializer):

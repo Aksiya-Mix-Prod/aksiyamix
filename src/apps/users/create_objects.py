@@ -1,6 +1,5 @@
 from apps.users.models import CustomUser
 
-
 usernames = [
     '+998999999998',
     '+998999999997',

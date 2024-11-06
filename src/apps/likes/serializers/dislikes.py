@@ -1,6 +1,7 @@
 from apps.base.serializers.model_serializer import CustomModelSerializer
 from apps.likes.models.dislikes import DiscountDislike
 
+
 class DiscountDislikeSerializer(CustomModelSerializer):
     class Meta:
         model = DiscountDislike
