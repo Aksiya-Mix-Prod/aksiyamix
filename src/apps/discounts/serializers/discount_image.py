@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from apps.discounts.models import DiscountImage
 
+from apps.discounts.models import DiscountImage
 
 
 class DiscountImageSerializer(serializers.ModelSerializer):

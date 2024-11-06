@@ -1,12 +1,8 @@
 from django.urls import path
 
-from .views.branches import (
-    BranchListViewSet,
-    BranchDetailViewSet,
-    BranchCreateViewSet,
-    BranchUpdateViewSet,
-    BranchDeleteViewSet
-)
+from .views.branches import (BranchCreateViewSet, BranchDeleteViewSet,
+                             BranchDetailViewSet, BranchListViewSet,
+                             BranchUpdateViewSet)
 
 urlpatterns = [
     # =================   URLS OF BRANCH COMPANY   =================

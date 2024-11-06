@@ -1,5 +1,6 @@
 from apps.base.pagination import CustomPageNumberPagination
 
+
 class CommentReplyPagination(CustomPageNumberPagination):
     page_size = 5
     page_query_param = 'child_page'

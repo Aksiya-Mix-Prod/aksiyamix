@@ -1,15 +1,16 @@
-from rest_framework import status
 from django.db.models import QuerySet
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 
-from apps.comments.models import Comment
-from apps.discounts.models import Discount
-from apps.base.views.viewsets import CustomGenericViewSet
 from apps.base.pagination import CustomPageNumberPagination
+from apps.base.views.viewsets import CustomGenericViewSet
+from apps.comments.models import Comment
 from apps.comments.permissions.permissions import IsAdminOrCommentOwner
-from apps.comments.serializers.comments import CommentSerializer, CommentReplySerializer
+from apps.comments.serializers.comments import (CommentReplySerializer,
+                                                CommentSerializer)
+from apps.discounts.models import Discount
 
 
 class DiscountCommentViewSet(CustomGenericViewSet):

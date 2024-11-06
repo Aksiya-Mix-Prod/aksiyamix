@@ -1,22 +1,44 @@
-from base64 import b64decode
+import base64
+import binascii
+
 from django.conf import settings
 from rest_framework.permissions import BasePermission
 
+from apps.payments.exceptions import PermissionDenied
 
 
-class PaymePermission(BasePermission):
-    """
-    Custom permission class for Payme merchant API authentication
-    """
+class PaymeAuthPermission(BasePermission):
+
     def has_permission(self, request, view):
-        auth_header = request.META.get('HTTP_AUTHORIZATION', '')
-        if not auth_header.startswith('Basic '):
-            return False
+        is_payme = False
+        password = request.META.get('HTTP_AUTHORIZATION')
+        if not isinstance(password, str):
+            error_message = "Request from an unauthorized source!"
+            raise PermissionDenied(error_message=error_message)
+
+        password = password.split()[-1]
 
         try:
-            auth_decoded = b64decode(auth_header[6:]).decode('utf-8')
-            username, password = auth_decoded.split(':')
-            return username == settings.PAYME_USERNAME and password == settings.PAYME_PASSWORD
-        except:
-            return False
+            password = base64.b64decode(password).decode('utf-8')
+        except (binascii.Error, UnicodeDecodeError) as error:
+            error_message = "Error when authorize request to merchant!"
 
+            raise PermissionDenied(error_message=error_message) from error
+
+        merchant_key = password.split(':')[-1]
+
+        if merchant_key == settings.PAYME_PASSWORD:
+            is_payme = True
+
+        if merchant_key != settings.PAYME_PASSWORD:
+            pass
+
+        print(merchant_key)
+        print(settings.PAYME_PASSWORD)
+        print(is_payme)
+        if is_payme is False:
+            raise PermissionDenied(
+                error_message="Unavailable data for unauthorized users!"
+            )
+
+        return True

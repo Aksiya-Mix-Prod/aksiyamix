@@ -1,6 +1,7 @@
 from apps.base.serializers.model_serializer import CustomModelSerializer
 from apps.packets.models import Packet
 
+
 class PacketSerializer(CustomModelSerializer):
     class Meta:
         model = Packet

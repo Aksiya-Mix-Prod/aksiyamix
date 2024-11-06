@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 
-from apps.tags.models import Tag
 from apps.base.views.generics import CustomGenericAPIView
+from apps.tags.models import Tag
 
 
 class SearchTagsGenericAPIView(CustomGenericAPIView):

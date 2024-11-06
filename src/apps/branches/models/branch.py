@@ -2,8 +2,8 @@ import random
 
 from django.db import models
 
-from apps.base.utils.region_choices import Regions, District
 from apps.base.models.base import AbstractBaseModel
+from apps.base.utils.region_choices import District, Regions
 from apps.users.validators.phone_number import phone_validate
 
 

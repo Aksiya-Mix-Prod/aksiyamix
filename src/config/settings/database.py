@@ -1,6 +1,6 @@
 import os
-from django.conf import settings
 
+from django.conf import settings
 
 POSTGRES = True
 
@@ -22,7 +22,6 @@ else:
             'NAME': settings.BASE_DIR / 'db.sqlite3',
         }
     }
-
 
 CACHES = {
     'default': {

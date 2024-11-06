@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class CommentManager(models.Manager):
     def get_queryset(self):
         """

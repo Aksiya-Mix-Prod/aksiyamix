@@ -1,5 +1,4 @@
 import requests
-
 from celery import shared_task
 
 # from apps.general.models.general import Currency

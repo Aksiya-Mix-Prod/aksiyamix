@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 
-from apps.comments.models import Comment
 from apps.base.serializers.model_serializer import CustomModelSerializer
+from apps.comments.models import Comment
 from apps.comments.paginations.paginations import CommentReplyPagination
+
 
 class UserSerializer(CustomModelSerializer):
     """

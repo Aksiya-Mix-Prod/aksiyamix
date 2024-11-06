@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 from apps.base.models import AbstractBaseModel
 from apps.payments.utils.unique_id import generate_unique_id
 
@@ -7,42 +9,39 @@ class Transaction(AbstractBaseModel):
     """
     Transaction model for recording payment transactions.
 
-    This model represents individual payment transactions in the system. It is
-    associated with a specific Order and tracks details such as the payment system used,
-    transaction status, amount, and any error messages.
-
     Attributes:
-        order (ForeignKey): Reference to the Order model. Set to NULL if the order is deleted.
+        order (ForeignKey): Reference to the Order model.
         payment_system (CharField): The payment system used for the transaction.
-            Choices are 'Payme', 'Uzum', or 'Click'.
         date_time (DateTimeField): Timestamp of when the transaction was created.
         status (BooleanField): Indicates whether the transaction was successful (True) or not (False).
         error_message (CharField): Optional field to store any error message if the transaction fails.
         amount (DecimalField): The monetary amount of the transaction.
-
-    Usage:
-        This model is used to keep a detailed record of all payment transactions,
-        providing a comprehensive view of the payment history for each order.
+        payme_transaction_id (CharField): The transaction ID provided by Payme.
+        perform_time (DateTimeField): Timestamp when the transaction was performed.
+        cancel_time (DateTimeField): Timestamp when the transaction was canceled.
+        reason (IntegerField): Reason code for cancellation, if applicable.
+        state (IntegerField): Current state of the transaction as per Payme's specification.
     """
 
-    PAYMENT_SYSTEM_CHOICES = (
-        ('Payme', 'Payme'),
-        ('Uzum', 'Uzum'),
-        ('Click', 'Click'),
-    )
+    PAYMENT_SYSTEM_CHOICES = (('Payme', 'Payme'), ('Uzum', 'Uzum'), ('Click', 'Click'),)
 
     order = models.ForeignKey(
-        to='payments.Order',
-        on_delete=models.SET_NULL,
-        related_name='transactions',
-        null=True,
-    )
+        to='payments.Order', on_delete=models.SET_NULL, related_name='transactions', null=True, )
     _id = models.CharField(max_length=10, default=generate_unique_id, editable=False)
     payment_system = models.CharField(choices=PAYMENT_SYSTEM_CHOICES, max_length=10)
     date_time = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)
     error_message = models.CharField(blank=True, max_length=100, null=True)
     amount = models.DecimalField(decimal_places=2, max_digits=20)
+
+    # ========= New fields added for Payme integration =========
+    payme_transaction_id = models.CharField(max_length=64, unique=True, null=True, blank=True)
+    perform_time = models.DateTimeField(null=True, blank=True)
+    cancel_time = models.DateTimeField(null=True, blank=True)
+    reason = models.IntegerField(null=True, blank=True)
+
+    # ==== State as per Payme's specification (e.g., 1 for pending, 2 for completed, -1 or -2 for canceled). =====
+    state = models.IntegerField(default=1)
 
     class Meta:
         ordering = ['-date_time']

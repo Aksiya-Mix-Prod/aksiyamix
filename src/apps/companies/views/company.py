@@ -1,12 +1,14 @@
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from apps.base.views import CustomViewSet
 from apps.companies.models.company import Company
-from apps.companies.serializers.company import (CompanyListSerializer, CompanyCreateUpdateSerializer,
-                                                CompanyRetrieveSerializer, CompanyDeleteSerializer)
+from apps.companies.serializers.company import (CompanyCreateUpdateSerializer,
+                                                CompanyDeleteSerializer,
+                                                CompanyListSerializer,
+                                                CompanyRetrieveSerializer)
 
 
 class CheckUsernameViewSet(CustomViewSet):

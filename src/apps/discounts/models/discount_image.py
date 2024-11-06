@@ -1,4 +1,5 @@
 from django.db import models
+
 from apps.base.models.base import AbstractBaseModel
 from apps.discounts.models import Discount
 from apps.discounts.validators.image_size import discount_image_size

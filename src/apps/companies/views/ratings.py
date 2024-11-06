@@ -1,6 +1,5 @@
-from rest_framework.response import Response
-
 from django.db.models import F
+from rest_framework.response import Response
 
 from apps.base.views.viewsets import CustomModelViewSet
 from apps.companies.models import Company

@@ -1,12 +1,11 @@
-from rest_framework import status
 from kombu.asynchronous.http import Response
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from apps.payments.models import Order
 from apps.base.views.viewsets import CustomGenericViewSet
-from apps.payments.serializers import PaymentInitSerializer
+from apps.payments.models import Order
 from apps.payments.permissions import IsAdminOrIsCompanyOwner
-
+from apps.payments.views.payment_url import GeneratePayLink
 
 
 class PaymeInitGenericViewSet(CustomGenericViewSet):
@@ -20,7 +19,7 @@ class PaymeInitGenericViewSet(CustomGenericViewSet):
             - Generates the necessary Payme parameters (merchant ID, amount in tiyin, etc.)
             - Provides the frontend with data needed to redirect to Payme's payment page
     """
-    serializer_class = PaymentInitSerializer
+    # serializer_class = PaymentInitSerializer # don't serialize anything from Payme
     permission_classes = [IsAuthenticated, IsAdminOrIsCompanyOwner]
 
     def create(self, request):
@@ -30,11 +29,19 @@ class PaymeInitGenericViewSet(CustomGenericViewSet):
             amount=request.data['amount'],
             is_paid=False
         )
+        url = GeneratePayLink(
+            order_id=order.id,
+            amount=order.amount
+        ).generate_link()
 
         # ======== Serialize order with Payme data ========
         serializer = self.get_serializer(order)
 
         # ======== Return the data needed for frontend to redirect to Payme ========
-        return Response(serializer.data, code=status.HTTP_201_CREATED)
+        # data = serializer.data
+        # data.update(url=url)
+        return Response({
+            'url': url,
+        }, code=status.HTTP_201_CREATED)
 
 

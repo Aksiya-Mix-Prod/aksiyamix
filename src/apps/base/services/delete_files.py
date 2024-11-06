@@ -1,5 +1,5 @@
-from django.db.models import FileField, ImageField, Model
 from django.core.files.storage import default_storage
+from django.db.models import FileField, ImageField, Model
 
 
 def delete_file_after_delete_obj(instance: Model):

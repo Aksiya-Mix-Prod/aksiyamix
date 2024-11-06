@@ -1,8 +1,6 @@
-from PIL import Image
-
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-
+from PIL import Image
 
 COMPANY_BANNER_MAX_SIZE = 1024 * 1024 * 30
 

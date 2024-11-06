@@ -1,2 +1,2 @@
-from .payments import *
 from .initialization import *
+from .payments import *

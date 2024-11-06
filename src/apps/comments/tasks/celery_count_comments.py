@@ -4,7 +4,6 @@ from django.db.models import F
 from apps.discounts.models import Discount
 
 
-
 @shared_task(bind=True, max_retries=3)
 def update_discount_comment_count(discount_id, action):
     """

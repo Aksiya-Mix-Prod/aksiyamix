@@ -1,6 +1,8 @@
 import random
 from datetime import timedelta
+
 from django.utils import timezone
+
 from apps.advertisements.models import Advertisement
 
 

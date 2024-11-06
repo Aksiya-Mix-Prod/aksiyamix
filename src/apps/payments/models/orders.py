@@ -1,8 +1,7 @@
 from django.db import models
+
 from apps.base.models import AbstractBaseModel
 from apps.payments.utils.unique_id import generate_unique_id
-
-
 
 
 class Order(AbstractBaseModel):
@@ -34,4 +33,8 @@ class Order(AbstractBaseModel):
         verbose_name_plural = 'Orders'
 
     def __str__(self):
-        return self.id
+        return str(self.id)
+
+    def save(self, *args, **kwargs):
+        print(self._id)
+        super().save(*args, **kwargs)
