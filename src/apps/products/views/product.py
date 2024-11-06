@@ -8,7 +8,6 @@ from apps.products.permissions import CustomIsCompanyOwnerOrReadOnlyPermission
 from apps.products.serializers import ProductSerializer
 
 
-
 class ProductCreateListViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated, CustomIsCompanyOwnerOrReadOnlyPermission]
 

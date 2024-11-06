@@ -1,15 +1,15 @@
 import random
 
+from django.core.validators import URLValidator
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
 from apps.advertisements.validators.validate_image_size import (
     validate_image_resize_of_advertisements,
     validate_image_size_of_advertisements,
 )
 from apps.base.exceptions import CustomExceptionError
 from apps.base.models import AbstractBaseModel
-
-from django.core.validators import URLValidator
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class Advertisement(AbstractBaseModel):
@@ -53,7 +53,7 @@ class Advertisement(AbstractBaseModel):
     ordering = models.PositiveSmallIntegerField()
 
     payment_status = models.PositiveSmallIntegerField(
-        PaymentStatusChoices.choices,
+        choices=PaymentStatusChoices.choices,
         blank=True,
         null=True,
         help_text="Status of the payment for the advertisement",
@@ -76,7 +76,7 @@ class Advertisement(AbstractBaseModel):
 
         if self.start_date > self.end_date:
             raise CustomExceptionError(
-                _(code=400, detail="start_date must be lower that end_date!")
+                _(code=400, detail="start_date must be lower than end_date!")
             )
 
     def generate_advertisement_id(self):
@@ -89,7 +89,6 @@ class Advertisement(AbstractBaseModel):
             # Check for uniqueness
             if not Advertisement.objects.filter(id_advertisement=new_id).exists():
                 return new_id
-
 
     def __str__(self):
         return self.title

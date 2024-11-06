@@ -1,6 +1,7 @@
-from apps.base.exceptions import CustomExceptionError
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
+
+from apps.base.exceptions import CustomExceptionError
 
 
 def validate_image_size_of_advertisements(image):

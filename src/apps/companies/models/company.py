@@ -8,22 +8,30 @@ from apps.base.models.base import AbstractBaseModel
 from apps.base.utils.region_choices import District, Regions
 from apps.base.validators.validators import validate_youtube_url
 from apps.companies.validators.company_banner_size import (
-    validate_banner_size, validate_company_banner_size)
+    validate_banner_size,
+    validate_company_banner_size,
+)
 from apps.companies.validators.company_logo_size import (
-    validate_company_logo_size, validate_logo_size)
+    validate_company_logo_size,
+    validate_logo_size,
+)
 from apps.users.validators.phone_number import phone_validate
 
 
 class Company(AbstractBaseModel):
     """Company model"""
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-                              on_delete=models.PROTECT,
-                              limit_choices_to={
-                                  'is_active': True,
-                            }
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        limit_choices_to={
+            "is_active": True,
+        },
     )
 
-    categories = models.ManyToManyField('categories.Category', blank=True, related_name='companies')
+    categories = models.ManyToManyField(
+        "categories.Category", blank=True, related_name="companies"
+    )
 
     #   BIO FOR CREATE COMPANY ------ Here create of Owner
 
@@ -31,26 +39,29 @@ class Company(AbstractBaseModel):
     owner_first_name = models.CharField(max_length=120)
     owner_father_name = models.CharField(max_length=120)
     owner_phone_number1 = models.CharField(max_length=13, validators=[phone_validate])
-    owner_phone_number2 = models.CharField(max_length=13, validators=[phone_validate],
-                                           blank=True, null=True)
+    owner_phone_number2 = models.CharField(
+        max_length=13, validators=[phone_validate], blank=True, null=True
+    )
 
     #   CREATE COMPANY ------- Here files of Company
 
-    logo = models.ImageField(upload_to='companies/logos/%Y/%m/%d/',
-                             validators=[validate_company_logo_size,
-                                         validate_logo_size],
-                             blank=True, null=True)
-
-    video_url = models.URLField(
-        validators=[validate_youtube_url],
+    logo = models.ImageField(
+        upload_to="companies/logos/%Y/%m/%d/",
+        validators=[validate_company_logo_size, validate_logo_size],
         blank=True,
-        null=True
+        null=True,
     )
 
-    banner = models.ImageField(upload_to='companies/banners/%Y/%m/%d/',
-                               validators=[validate_company_banner_size,
-                                           validate_banner_size],
-                               blank=True, null=True)
+    video_url = models.URLField(
+        validators=[validate_youtube_url], blank=True, null=True
+    )
+
+    banner = models.ImageField(
+        upload_to="companies/banners/%Y/%m/%d/",
+        validators=[validate_company_banner_size, validate_banner_size],
+        blank=True,
+        null=True,
+    )
 
     #   CREATE COMPANY ---------- Here all need things of Company
 
@@ -70,22 +81,48 @@ class Company(AbstractBaseModel):
 
     id_company = models.PositiveSmallIntegerField(unique=True, editable=False)
 
-    follower_counts = models.CharField(max_length=40, default='0') # Follower counts as integer
-    like_counts = models.CharField(max_length=40, default='0') # Likes counts as integer
-    dislike_counts = models.CharField(max_length=40, default='0') # Dislikes counts as integer
-    comment_counts = models.CharField(max_length=40, default='0') # Comments counts as integer
-    view_counts = models.CharField(max_length=50, default='0') # Views counts as integer
+    follower_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Follower counts as integer
+    like_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Likes counts as integer
+    dislike_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Dislikes counts as integer
+    comment_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Comments counts as integer
+    view_counts = models.CharField(
+        max_length=50, default="0"
+    )  # Views counts as integer
 
-    spam_counts = models.CharField(max_length=40, default='0')  # Spam counts as integer
-    branch_counts = models.CharField(max_length=40, default='0')  # Branches companies counts as integer
-    product_counts = models.CharField(max_length=40, default='0')  # Product counts as integer
-    rating_counts = models.CharField(max_length=40, default='0')  # Rating counts as integer
-    active_discount_counts = models.CharField(max_length=40, default='0')  # Active discount counts
-    finished_discount_counts = models.CharField(max_length=40, default='0')  # Finished discount counts
+    spam_counts = models.CharField(max_length=40, default="0")  # Spam counts as integer
+    branch_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Branches companies counts as integer
+    product_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Product counts as integer
+    rating_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Rating counts as integer
+    active_discount_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Active discount counts
+    finished_discount_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Finished discount counts
 
-    top_tariff_counts = models.CharField(max_length=40, default='0') # Top tariff counts of integer
-    boost_tariff_counts = models.CharField(max_length=40, default='0') # Boost tariff counts of integer
-    discount_tariff_counts = models.CharField(max_length=40, default='0') # discount tariff counts of integer
+    top_tariff_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Top tariff counts of integer
+    boost_tariff_counts = models.CharField(
+        max_length=40, default="0"
+    )  # Boost tariff counts of integer
+    discount_tariff_counts = models.CharField(
+        max_length=40, default="0"
+    )  # discount tariff counts of integer
 
     delivery = models.BooleanField(default=False)
     installment = models.BooleanField(default=False)
@@ -102,19 +139,19 @@ class Company(AbstractBaseModel):
 
     #   Rating fields of Company
     total_ratings = models.FloatField(default=0.0)
-    rating5 = models.CharField(max_length=50, default='0')
-    rating4 = models.CharField(max_length=50, default='0')
-    rating3 = models.CharField(max_length=50, default='0')
-    rating2 = models.CharField(max_length=50, default='0')
-    rating1 = models.CharField(max_length=50, default='0')
+    rating5 = models.CharField(max_length=50, default="0")
+    rating4 = models.CharField(max_length=50, default="0")
+    rating3 = models.CharField(max_length=50, default="0")
+    rating2 = models.CharField(max_length=50, default="0")
+    rating1 = models.CharField(max_length=50, default="0")
 
     def get_address(self):
         return {
-            'country': self.regions,
-            'district': self.districts,
-            'address': self.address,
-            'longitude': self.longitude,
-            'latitude': self.latitude
+            "country": self.regions,
+            "district": self.districts,
+            "address": self.address,
+            "longitude": self.longitude,
+            "latitude": self.latitude,
         }
 
     def clean(self):
@@ -123,9 +160,8 @@ class Company(AbstractBaseModel):
         """
         self.id_company = self.generate_unique_id()
 
-
         if self.districts:
-            self.regions = self.districts.split('X')[0]
+            self.regions = self.districts.split("X")[0]
 
     def generate_unique_id(self):
         """
@@ -137,7 +173,6 @@ class Company(AbstractBaseModel):
             # Check for uniqueness
             if not Company.objects.filter(id_company=new_id).exists():
                 return new_id
-
 
     def __str__(self):
         return self.name

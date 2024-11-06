@@ -2,14 +2,9 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
-<<<<<<< HEAD
 
 COMPANY_LOGO_MAX_SIZE = 1024 * 1024 * 30
 COMPANY_ICON_MAX_SIZE = 1024 * 1024 * 20
-=======
-COMPANY_LOGO_MAX_SIZE = 1024 * 1024 * 10
-COMPANY_ICON_MAX_SIZE = 1024 * 1024 * 5
->>>>>>> 3b3e1be4f5f24ff0cf98aca5480a35c567612966
 
 
 def validate_company_logo_size(value):
