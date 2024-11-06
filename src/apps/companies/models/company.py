@@ -4,7 +4,6 @@ from django.db import models
 from django.conf import settings
 from django.db.models import TextField
 
-from apps.base.exceptions import CustomExceptionError
 from apps.base.models.base import AbstractBaseModel
 from apps.base.utils.region_choices import District, Regions
 from apps.users.validators.phone_number import phone_validate
@@ -125,16 +124,7 @@ class Company(AbstractBaseModel):
 
 
         if self.districts:
-            self.region = self.districts.split('X')[0]
-
-        if self.districts:
-            # Extract region code from district code
-            try:
-                district_region_code = int(self.districts.split('X')[0])
-                if self.regions != district_region_code:
-                    raise CustomExceptionError(code=400, detail={"district": "The selected district does not match to the selected region"})
-            except (ValueError, IndexError):
-                raise CustomExceptionError(code=400, detail={"district": "Mistake format code of district"})
+            self.regions = self.districts.split('X')[0]
 
     def generate_unique_id(self):
         """
