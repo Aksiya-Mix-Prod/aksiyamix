@@ -24,6 +24,10 @@ class CompanyTimeTable(AbstractBaseModel):
                                        on_delete=models.PROTECT,
                                        blank=True,
                                        null=True,
+                                       limit_choices_to={
+                                           # 'is_active': True,
+                                           # 'is_deleted': False
+                                       })
 
     id_company_time_table = models.PositiveSmallIntegerField(unique=True, editable=False)
 
