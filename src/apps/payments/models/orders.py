@@ -34,4 +34,8 @@ class Order(AbstractBaseModel):
         verbose_name_plural = 'Orders'
 
     def __str__(self):
-        return self.id
+        return str(self.id)
+
+    def save(self, *args, **kwargs):
+        print(self._id)
+        super().save(*args, **kwargs)
