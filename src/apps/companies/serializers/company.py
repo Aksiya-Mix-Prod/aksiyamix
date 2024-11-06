@@ -5,9 +5,9 @@ from apps.categories.models import Category
 from apps.companies.models.company import Company
 
 
-class CompanyListSerializer(CustomModelSerializer):
+class CompanyBaseSerializer(CustomModelSerializer):
     """
-    Here we are getting list view
+    Base Serializer for Company mode.
     """
     class Meta:
         model = Company
@@ -22,7 +22,22 @@ class CompanyListSerializer(CustomModelSerializer):
                   'rating1']
 
 
-class CompanyCreateUpdateSerializer(CustomModelSerializer):
+class CompanyListSerializer(CompanyBaseSerializer):
+    """
+    List serializer for Company,
+    Inherited from CompanyBaseSerializer.
+    """
+    class Meta:
+        model = Company
+        fields = [
+            'id_company', 'name', 'username', 'logo', 'banner',
+            'regions', 'districts', 'short_description', 'rating_counts',
+            'view_counts', 'follower_counts', 'like_counts', 'is_verified'
+        ]
+
+
+
+class CompanyCreateUpdateSerializer(CompanyBaseSerializer):
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(),
                                                   many=True,
                                                   required=False)
@@ -59,7 +74,7 @@ class CompanyCreateUpdateSerializer(CustomModelSerializer):
             return attrs
 
 
-class CompanyDeleteSerializer(CustomModelSerializer):
+class CompanyDeleteSerializer(CompanyBaseSerializer):
     class Meta:
         model = Company
         fields = ['id_company']
@@ -71,7 +86,7 @@ class CompanyDeleteSerializer(CustomModelSerializer):
 
 
 
-class CompanyRetrieveSerializer(CustomModelSerializer):
+class CompanyRetrieveSerializer(CompanyBaseSerializer):
     """
      Serializer for detailed company information.
 
@@ -84,23 +99,12 @@ class CompanyRetrieveSerializer(CustomModelSerializer):
          - `model`: Company
          - `fields`: Includes various company attributes (owner, contacts, ratings, and location details).
      """
-    categories = serializers.StringRelatedField(many=True)
-    owner = serializers.StringRelatedField()
     address_details = serializers.SerializerMethodField()
 
     class Meta:
         model = Company
-        fields = [
-            'owner', 'categories', 'owner_last_name', 'owner_first_name', 'owner_father_name',
-            'owner_phone_number1', 'owner_phone_number2', 'logo', 'video_url', 'banner', 'regions',
-            'districts', 'name', 'username', 'email', 'address', 'phone_number', 'is_verified',
-            'is_active', 'is_deleted', 'is_spammed', 'id_company', 'follower_counts', 'like_counts',
-            'dislike_counts', 'comment_counts', 'view_counts', 'spam_counts', 'branch_counts',
-            'product_counts', 'rating_counts', 'active_discount_counts', 'finished_discount_counts',
-            'top_tariff_counts', 'boost_tariff_counts', 'discount_tariff_counts', 'delivery',
-            'installment', 'short_description', 'long_description', 'web_site_url', 'longitude',
-            'latitude', 'balance', 'rating5', 'rating4', 'rating3', 'rating2', 'rating1', 'address_details'
-        ]
+        fields = CompanyBaseSerializer.Meta.fields + ['address_details']
+
 
     def get_address_details(self, obj):
         return obj.get_address()

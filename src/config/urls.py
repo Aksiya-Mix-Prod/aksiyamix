@@ -14,15 +14,21 @@ urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
+
     # ========= auth =========
     path('api/v1/auth/', include('apps.authentication.urls')),
-
     # ========= user =========
     path('api/v1/users/', include('apps.users.urls')),
     # ========= tags =========
     path('api/v1/tags/', include('apps.tags.urls')),
     # ========= services =========
     path('api/v1/services/', include('apps.services.urls')),
+    # ========= wishlists =========
+    path('api/v1/wishlists/', include('apps.wishlists.urls')),
+    # ========= tops =========
+    # path('api/v1/tops/', include('apps.tops.urls')),
+    # ========= notifications =========
+    # path('api/v1/notifications/', include('apps.notifications.urls')),
 
 
     # ========= Mukhsin's Apps ========
@@ -42,7 +48,10 @@ urlpatterns = [
     # ========= Mukhsin's Apps finish line ========
 
     # ========= Oybek =========
-    path('api/v1/companies/', include('apps.companies.urls'))
+    path('api/v1/companies/', include('apps.companies.urls')),
+    path('api/v1/branches/', include('apps.branches.urls')),
+    path('api/v1/followers/', include('apps.followers.urls')),
+    path('api/v1/complaints/', include('apps.complaints.urls')),
 ]
 
 urlpatterns += [
@@ -54,6 +63,17 @@ urlpatterns += [
 
     # ========= appeals ================
     path('api/v1/appeals/', include('apps.appeals.urls')),
+]
+
+    # ========== Iskandar ============
+
+urlpatterns += [
+    # ========= products ================
+    path('api/v1/products/', include('apps.products.urls')),
+
+    # ========= discount ============
+    path('api/v1/discounts/', include('apps.discounts.urls')),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

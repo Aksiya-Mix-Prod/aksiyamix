@@ -8,14 +8,9 @@ from apps.products.permissions import CustomIsCompanyOwnerOrReadOnlyPermission
 from apps.products.serializers import ProductSerializer
 
 
-class ProductViewSet(viewsets.ViewSet):
-    permission_classes = [IsAuthenticated, CustomIsCompanyOwnerOrReadOnlyPermission]
 
-    def get_product(self, pk):
-        try:
-            return Product.objects.get(pk=pk)
-        except Product.DoesNotExist:
-            raise CustomExceptionError(code=404, detail="Product not found.")
+class ProductCreateListViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated, CustomIsCompanyOwnerOrReadOnlyPermission]
 
     def list(self, request):
         products = Product.objects.all()
@@ -28,6 +23,16 @@ class ProductViewSet(viewsets.ViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         raise CustomExceptionError(code=400, detail=serializer.errors)
+
+
+class ProductRetrieveUpdateDestroyViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated, CustomIsCompanyOwnerOrReadOnlyPermission]
+
+    def get_product(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise CustomExceptionError(code=404, detail="Product not found.")
 
     def retrieve(self, request, pk=None):
         product = self.get_product(pk)

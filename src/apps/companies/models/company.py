@@ -125,8 +125,7 @@ class Company(AbstractBaseModel):
 
 
         if self.districts:
-            self.region = self.districts.split('X')[0]
-
+            self.regions = self.districts.split('X')[0]
 
     def generate_unique_id(self):
         """

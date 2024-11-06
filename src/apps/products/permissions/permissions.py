@@ -12,5 +12,6 @@ class CustomIsCompanyOwnerOrReadOnlyPermission(BasePermission):
         if request.method in ['GET', 'HEAD', 'OPTIONS']:
             return True
 
+
         # Write permissions are only allowed to the owner of the company or staff
         return request.user == obj.company.owner or request.user.is_staff

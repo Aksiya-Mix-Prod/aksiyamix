@@ -5,7 +5,7 @@ from apps.base.models import AbstractBaseModel
 from apps.discounts.models.discount import Discount
 
 
-class WishList(AbstractBaseModel):
+class Wishlist(AbstractBaseModel):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     discount = models.ForeignKey(to='discounts.Discount', 
                                  on_delete=models.CASCADE,
