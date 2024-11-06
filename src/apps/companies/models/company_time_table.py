@@ -23,11 +23,8 @@ class CompanyTimeTable(AbstractBaseModel):
     branch_company = models.ForeignKey('branches.BranchCompany',
                                        on_delete=models.PROTECT,
                                        blank=True,
-                                       null=True,
-                                       limit_choices_to={
-                                           # 'is_active': True,
-                                           # 'is_deleted': False
-                                       })
+                                       null=True
+                                       )
 
     id_company_time_table = models.PositiveSmallIntegerField(unique=True, editable=False)
 
