@@ -1,5 +1,6 @@
 from rest_framework import permissions
 
+
 class IsAdminOrLikeOrDislikeOwner(permissions.BasePermission):
     """
     Permission to check if a user is an admin or Like/Dislike owner

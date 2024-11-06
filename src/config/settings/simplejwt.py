@@ -2,7 +2,6 @@ from datetime import timedelta
 
 from django.conf import settings
 
-
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),

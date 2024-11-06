@@ -1,11 +1,12 @@
 import random
+
 from django.db import models
 from django.db.models import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
-from apps.companies.enums.week_day import WeekDay
-from apps.base.models.base import AbstractBaseModel
 from apps.base.exceptions import CustomExceptionError
+from apps.base.models.base import AbstractBaseModel
+from apps.companies.enums.week_day import WeekDay
 
 
 class CompanyTimeTable(AbstractBaseModel):

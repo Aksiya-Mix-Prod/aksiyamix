@@ -1,5 +1,5 @@
-from apps.categories.models.category import Category
 from apps.base.serializers import CustomModelSerializer
+from apps.categories.models.category import Category
 
 
 class CategorySerializer(CustomModelSerializer):

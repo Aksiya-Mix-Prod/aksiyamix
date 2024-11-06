@@ -1,8 +1,8 @@
 import os
 import subprocess
-from moviepy.editor import VideoFileClip
-from django.core.exceptions import ValidationError
 
+from django.core.exceptions import ValidationError
+from moviepy.editor import VideoFileClip
 
 
 def discount_video_format(video):

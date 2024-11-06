@@ -1,6 +1,6 @@
-from apps.categories.serializers.category import CategorySerializer
-from apps.categories.models.category import Category
 from apps.base.views import CustomReadOnlyModelViewSet
+from apps.categories.models.category import Category
+from apps.categories.serializers.category import CategorySerializer
 
 
 class CategoryListViewSet(CustomReadOnlyModelViewSet):

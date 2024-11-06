@@ -1,5 +1,5 @@
-from apps.payments.models import Transaction
 from apps.base.serializers import CustomModelSerializer
+from apps.payments.models import Transaction
 
 
 class TransactionSerializer(CustomModelSerializer):

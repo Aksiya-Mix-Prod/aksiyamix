@@ -1,8 +1,8 @@
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
-from apps.tags.serializers import TagsBulkCreateSerializer
 from apps.base.views.generics import CustomGenericAPIView
+from apps.tags.serializers import TagsBulkCreateSerializer
 
 
 class TagsCreateAPIView(CustomGenericAPIView):

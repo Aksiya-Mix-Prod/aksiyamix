@@ -1,7 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-
 COMPANY_VIDEO_MAX_SIZE = 1024 * 1024 * 15
 
 

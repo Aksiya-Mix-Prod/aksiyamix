@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-
 from rest_framework.permissions import IsAuthenticated
 
 from apps.base.views import CustomRetrieveUpdateAPIView

@@ -1,7 +1,7 @@
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from apps.payments.views import PaymeGenericAPIView, PaymeInitGenericViewSet
 
+from apps.payments.views import PaymeGenericAPIView, PaymeInitGenericViewSet
 
 # router = DefaultRouter()
 # router.register('payme', PaymeGenericViewSet, basename='payme')

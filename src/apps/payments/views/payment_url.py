@@ -1,6 +1,6 @@
 import base64
-from decimal import Decimal
 from dataclasses import dataclass
+from decimal import Decimal
 
 from django.conf import settings
 

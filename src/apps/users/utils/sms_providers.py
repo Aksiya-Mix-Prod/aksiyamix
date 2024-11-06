@@ -1,8 +1,8 @@
-import requests
+import random
 
+import requests
 from django.conf import settings
 from django.core.cache import cache
-import random
 
 
 class EskizUz:

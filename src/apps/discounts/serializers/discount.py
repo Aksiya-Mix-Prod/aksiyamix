@@ -2,8 +2,7 @@ from django.db import transaction
 from rest_framework import serializers
 
 from apps.base.exceptions import CustomExceptionError
-from apps.discounts.models import Discount, DiscountFeature
-from apps.discounts.models import DiscountImage
+from apps.discounts.models import Discount, DiscountFeature, DiscountImage
 from apps.discounts.serializers import DiscountFeatureReceiveSerializer
 
 

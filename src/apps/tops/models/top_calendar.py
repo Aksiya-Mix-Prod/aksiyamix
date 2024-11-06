@@ -1,6 +1,6 @@
-from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 
 from apps.base.models import AbstractBaseModel
 

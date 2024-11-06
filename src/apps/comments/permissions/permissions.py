@@ -1,5 +1,6 @@
 from rest_framework import permissions
 
+
 class IsAdminOrCommentOwner(permissions.BasePermission):
     """
     Permission to check if a user is an admin or comment owner

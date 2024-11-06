@@ -1,5 +1,4 @@
 from apps.base.serializers import CustomModelSerializer
-
 from apps.companies.models.company_time_table import CompanyTimeTable
 
 

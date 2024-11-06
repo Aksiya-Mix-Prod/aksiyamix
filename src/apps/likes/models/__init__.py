@@ -1,2 +1,2 @@
-from .likes import *
 from .dislikes import *
+from .likes import *

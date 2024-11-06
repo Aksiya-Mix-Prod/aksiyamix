@@ -1,11 +1,11 @@
 from django.db.models import QuerySet
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
-from apps.packets.models import Packet
 from apps.base.views import CustomGenericViewSet
+from apps.packets.models import Packet
 from apps.packets.permissions.permissions import IsAdminOrIsCompanyOwner
 from apps.packets.serializers.packets import PacketSerializer
 

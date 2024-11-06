@@ -2,7 +2,6 @@ from django.urls import path
 
 from apps.users import views
 
-
 urlpatterns = [
     # ========== Forgot Password ========== #
     path('forgot_password/', views.ForgotPasswordAPIView.as_view(), name='forgot_password'),

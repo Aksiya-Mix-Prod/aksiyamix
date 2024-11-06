@@ -1,18 +1,18 @@
-from rest_framework import status
 from django.db.models import QuerySet
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 
-from apps.discounts.models import Discount
-from apps.likes.models.likes import DiscountLike
-from apps.likes.models.dislikes import DiscountDislike
 from apps.base.views.viewsets import CustomGenericViewSet
-from apps.likes.serializers.likes import DiscountLikeSerializer
-from apps.likes.serializers.dislikes import DiscountDislikeSerializer
+from apps.discounts.models import Discount
+from apps.likes.models.dislikes import DiscountDislike
+from apps.likes.models.likes import DiscountLike
 from apps.likes.permissions.permissions import IsAdminOrLikeOrDislikeOwner
-from apps.likes.serializers.stats import DiscountLikesDislikesStatisticsSerializer
-
+from apps.likes.serializers.dislikes import DiscountDislikeSerializer
+from apps.likes.serializers.likes import DiscountLikeSerializer
+from apps.likes.serializers.stats import \
+    DiscountLikesDislikesStatisticsSerializer
 
 
 class DiscountReactionViewSet(CustomGenericViewSet):

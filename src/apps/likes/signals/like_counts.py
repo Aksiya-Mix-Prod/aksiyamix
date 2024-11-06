@@ -1,9 +1,10 @@
+from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
-from django.db.models.signals import post_save, post_delete
 
-from apps.likes.models.likes import DiscountLike
 from apps.likes.models.dislikes import DiscountDislike
-from apps.likes.tasks.update_discount_likes_count import update_discount_likes_count
+from apps.likes.models.likes import DiscountLike
+from apps.likes.tasks.update_discount_likes_count import \
+    update_discount_likes_count
 
 
 @receiver(post_save, sender=DiscountLike)

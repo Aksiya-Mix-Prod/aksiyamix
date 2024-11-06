@@ -1,4 +1,4 @@
-from django.db.models import CharField, TextField, Model
+from django.db.models import CharField, Model, TextField
 
 
 def normalize_txt(obj: Model):

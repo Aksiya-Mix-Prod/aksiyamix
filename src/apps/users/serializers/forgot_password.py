@@ -1,16 +1,15 @@
-from django.core.cache import cache
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.password_validation import validate_password
-
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.core.cache import cache
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
-from apps.base.serializers import CustomSerializer
-from apps.base.exceptions import CustomExceptionError
-from apps.authentication.utils import generate_jwt_tokens
-from apps.users.utils import EskizUz
 from apps.authentication.services import check_username_type
+from apps.authentication.utils import generate_jwt_tokens
+from apps.base.exceptions import CustomExceptionError
+from apps.base.serializers import CustomSerializer
+from apps.users.utils import EskizUz
 
 
 class ForgotPasswordSerializer(CustomSerializer):

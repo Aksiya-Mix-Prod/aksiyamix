@@ -1,9 +1,9 @@
 from django.core.cache import cache
-
 from rest_framework.response import Response
 
-from apps.base.views import CustomGenericAPIView, CustomCreateAPIView
-from apps.users.serializers import ForgotPasswordSerializer, NewPasswordSerializer
+from apps.base.views import CustomCreateAPIView, CustomGenericAPIView
+from apps.users.serializers import (ForgotPasswordSerializer,
+                                    NewPasswordSerializer)
 from apps.users.utils import EskizUz
 
 

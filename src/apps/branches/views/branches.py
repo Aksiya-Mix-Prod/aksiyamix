@@ -6,9 +6,10 @@ from rest_framework.status import HTTP_404_NOT_FOUND
 
 from apps.base.views.viewsets import CustomViewSet
 from apps.branches.models.branch import BranchCompany
-from apps.branches.serializers.branches import (BranchListSerializer, BranchCreateSerializer, BranchDetailSerializer,
+from apps.branches.serializers.branches import (BranchCreateSerializer,
+                                                BranchDetailSerializer,
+                                                BranchListSerializer,
                                                 BranchUpdateSerializer)
-
 
 
 class BranchListViewSet(CustomViewSet):

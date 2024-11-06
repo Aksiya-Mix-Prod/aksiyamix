@@ -1,8 +1,8 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 
-from apps.base.models import AbstractBaseModel
 from apps.base.exceptions import CustomExceptionError
+from apps.base.models import AbstractBaseModel
 
 
 class Rating(AbstractBaseModel):
