@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 
 from apps.base.models import AbstractBaseModel
-from apps.discounts.models.discount import Discount
+from apps.discounts.models import Discount
 
 
 class Wishlist(AbstractBaseModel):

@@ -1,8 +1,8 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from apps.base.models import AbstractBaseModel
 from apps.base.exceptions import CustomExceptionError
+from apps.base.models import AbstractBaseModel
 
 
 class TopTariff(AbstractBaseModel):

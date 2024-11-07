@@ -1,13 +1,12 @@
 from django.shortcuts import get_object_or_404
-
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.base.views import CustomAPIView
 from apps.base.exceptions import CustomExceptionError
 from apps.base.validators import validate_uuid
-from apps.wishlists.models import Wishlist
+from apps.base.views import CustomAPIView
 from apps.discounts.models.discount import Discount
+from apps.wishlists.models import Wishlist
 
 
 class WishlistCreateAPIView(CustomAPIView):
