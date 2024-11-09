@@ -41,6 +41,3 @@ def validate_icon_size(icon):
         raise CustomExceptionError(
             _("The icon dimensions must be less than or equal to 300x150 pixels.")
         )
-
-
-

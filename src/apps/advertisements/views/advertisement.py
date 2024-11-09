@@ -1,7 +1,6 @@
 from apps.advertisements.models.advertisement import Advertisement
 from apps.advertisements.serializers.advertisement import AdvertisementSerializer
 from apps.base.views.viewsets import CustomModelViewSet
-
 from django.utils import timezone
 from rest_framework.permissions import IsAdminUser
 

@@ -12,7 +12,6 @@ from apps.companies.validators.company_logo_size import (
     validate_logo_size,
 )
 from apps.users.validators.phone_number import phone_validate
-
 from django.conf import settings
 from django.db import models
 from django.db.models import TextField
