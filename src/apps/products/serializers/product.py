@@ -1,18 +1,10 @@
-<<<<<<< HEAD
-=======
-from rest_framework import serializers
-
->>>>>>> 3b3e1be4f5f24ff0cf98aca5480a35c567612966
 from apps.base.exceptions import CustomExceptionError
 from apps.base.serializers import CustomModelSerializer
 from apps.products.models import Product
 
-<<<<<<< HEAD
-class ProductSerializer(CustomModelSerializer):
-=======
 
-class ProductSerializer(serializers.ModelSerializer):
->>>>>>> 3b3e1be4f5f24ff0cf98aca5480a35c567612966
+class ProductSerializer(CustomModelSerializer):
+
     class Meta:
         model = Product
         fields = ['id', 'company', 'category', 'title', 'image', 'created_at', 'updated_at']
@@ -32,6 +24,7 @@ class ProductSerializer(serializers.ModelSerializer):
             raise CustomExceptionError(
                 code=400,
                 detail='Maximum number of products for this company reached. Please remove a product before adding a new one.'
+
             )
 
         return attrs
