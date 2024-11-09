@@ -26,6 +26,7 @@ def validate_logo_size(logo):
     if img.width > max_width or img.height > max_height:
         raise CustomExceptionError(
             _("The logo dimensions must be less than or equal to 3000x1500 pixels.")
+
         )
 
 
@@ -40,4 +41,5 @@ def validate_icon_size(icon):
     if img.width > max_width or img.height > max_height:
         raise CustomExceptionError(
             _("The icon dimensions must be less than or equal to 300x150 pixels.")
+
         )
