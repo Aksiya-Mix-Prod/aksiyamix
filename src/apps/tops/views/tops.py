@@ -7,7 +7,7 @@
 # class TopListAPIView(CustomListAPIView):
 #     queryset = TopDiscount.objects.all()
 #     serializer_class = DiscountListSerializer
-    
+
 #     def get_queryset(self):
 #         queryset = []
 #         tops = super().get_queryset()
