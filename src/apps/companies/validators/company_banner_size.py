@@ -11,7 +11,7 @@ def validate_company_banner_size(value):
     """
 
     if value.size > COMPANY_BANNER_MAX_SIZE:
-        raise ValidationError(_('The banner size cannot be larger than 30 MB.'))
+        raise ValidationError(_("The banner size cannot be larger than 30 MB."))
 
 
 def validate_banner_size(banner):
@@ -24,4 +24,6 @@ def validate_banner_size(banner):
     max_height = 1500
 
     if poster.width > max_width or poster.height > max_height:
-        raise ValidationError(_('The banner dimensions must be less than or equal to 3000x1500 pixels.'))
+        raise ValidationError(
+            _("The banner dimensions must be less than or equal to 3000x1500 pixels.")
+        )

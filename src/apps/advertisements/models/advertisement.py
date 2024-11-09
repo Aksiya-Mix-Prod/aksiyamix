@@ -1,17 +1,16 @@
 import random
 
+from apps.advertisements.validators.validate_image_size import (
+    validate_image_resize_of_advertisements,
+    validate_image_size_of_advertisements,
+)
+from apps.base.exceptions import CustomExceptionError
+from apps.base.models import AbstractBaseModel
 from django.core.validators import URLValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-<<<<<<< HEAD
-from apps.advertisements.validators.validate_image_size import (validate_image_size_of_advertisements,
-                                                                validate_image_resize_of_advertisements)
-from apps.base.models import AbstractBaseModel
-=======
->>>>>>> 3b3e1be4f5f24ff0cf98aca5480a35c567612966
-from apps.base.exceptions import CustomExceptionError
-from apps.base.models import AbstractBaseModel
+"""Module for advertisement-related models and validation."""
 
 
 class Advertisement(AbstractBaseModel):
@@ -20,37 +19,54 @@ class Advertisement(AbstractBaseModel):
     """
 
     class PaymentStatusChoices(models.IntegerChoices):
-        PENDING = 0, _('Pending')
-        PAID = 1, _('Paid')
-        DECLINED = 3, _('Declined')
+        PENDING = 0, _("Pending")
+        PAID = 1, _("Paid")
+        DECLINED = 2, _("Declined")
 
     id_advertisement = models.PositiveSmallIntegerField(unique=True, editable=False)
 
     title = models.CharField(max_length=200, blank=True, null=True)
 
-    image = models.ImageField(upload_to='advertisements/images/%Y/%m/%d/',
-                              validators=[validate_image_size_of_advertisements, validate_image_resize_of_advertisements])
-    image2 = models.ImageField(upload_to='advertisements/images/%Y/%m/%d/',
-                               validators=[validate_image_size_of_advertisements, validate_image_resize_of_advertisements])
-    image3 = models.ImageField(upload_to='advertisements/images/%Y/%m/%d/',
-                               validators=[validate_image_size_of_advertisements, validate_image_resize_of_advertisements])
+    image = models.ImageField(
+        upload_to="advertisements/images/%Y/%m/%d/",
+        validators=[
+            validate_image_resize_of_advertisements,
+            validate_image_size_of_advertisements,
+        ],
+    )
+    image2 = models.ImageField(
+        upload_to="advertisements/images/%Y/%m/%d/",
+        validators=[
+            validate_image_resize_of_advertisements,
+            validate_image_size_of_advertisements,
+        ],
+    )
+    image3 = models.ImageField(
+        upload_to="advertisements/images/%Y/%m/%d/",
+        validators=[
+            validate_image_resize_of_advertisements,
+            validate_image_size_of_advertisements,
+        ],
+    )
 
-    url_link = models.CharField(max_length=200,
-                                validators=[URLValidator()]
-                                )
+    url_link = models.CharField(max_length=200, validators=[URLValidator()])
 
     ordering = models.PositiveSmallIntegerField()
 
-    payment_status = models.PositiveSmallIntegerField(PaymentStatusChoices.choices,
-                                                      blank=True,
-                                                      null=True,
-                                                      help_text='Status of the payment for the advertisement')
+    payment_status = models.PositiveSmallIntegerField(
+        choices=PaymentStatusChoices.choices,
+        blank=True,
+        null=True,
+        help_text="Status of the payment for the advertisement",
+    )
 
-    is_active = models.BooleanField(default=True, help_text='Indicates if the advertisement is active')
+    is_active = models.BooleanField(
+        default=True,
+        help_text="Indicates if the advertisement is active",
+    )
 
     start_date = models.DateField()
     end_date = models.DateField()
-
 
     def clean(self):
         """
@@ -60,7 +76,9 @@ class Advertisement(AbstractBaseModel):
             self.id_advertisement = self.generate_advertisement_id()
 
         if self.start_date > self.end_date:
-            raise CustomExceptionError(_(code=400, detail='start_date must be lower that end_date!'))
+            raise CustomExceptionError(
+                _(code=400, detail="start_date must be lower than end_date!")
+            )
 
     def generate_advertisement_id(self):
         """
@@ -72,7 +90,6 @@ class Advertisement(AbstractBaseModel):
             # Check for uniqueness
             if not Advertisement.objects.filter(id_advertisement=new_id).exists():
                 return new_id
-
 
     def __str__(self):
         return self.title

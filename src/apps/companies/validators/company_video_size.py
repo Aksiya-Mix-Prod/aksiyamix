@@ -10,5 +10,4 @@ def validate_company_video_size(value):
     """
 
     if value.size > COMPANY_VIDEO_MAX_SIZE:
-        raise ValidationError(_('The video size cannot be larger than 15 MB.'))
-
+        raise ValidationError(_("The video size cannot be larger than 15 MB."))

@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-=======
-from django.core.exceptions import ValidationError
->>>>>>> 3b3e1be4f5f24ff0cf98aca5480a35c567612966
+from apps.base.exceptions import CustomExceptionError
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
-
-from PIL import Image
-
-from apps.base.exceptions import CustomExceptionError
 
 
 def validate_image_size_of_advertisements(image):
@@ -21,4 +14,6 @@ def validate_image_resize_of_advertisements(image):
     img = Image.open(image)
     max_width, max_height = 1000, 500
     if img.width > max_width or img.height > max_height:
-        raise CustomExceptionError(_("The image dimensions must be less than or equal to 1000x500 pixels."))
+        raise CustomExceptionError(
+            _("The image dimensions must be less than or equal to 1000x500 pixels.")
+        )

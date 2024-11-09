@@ -1,15 +1,9 @@
-from django.core.exceptions import ValidationError
+from apps.base.exceptions import CustomExceptionError
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
-<<<<<<< HEAD
-
 COMPANY_LOGO_MAX_SIZE = 1024 * 1024 * 30
 COMPANY_ICON_MAX_SIZE = 1024 * 1024 * 20
-=======
-COMPANY_LOGO_MAX_SIZE = 1024 * 1024 * 10
-COMPANY_ICON_MAX_SIZE = 1024 * 1024 * 5
->>>>>>> 3b3e1be4f5f24ff0cf98aca5480a35c567612966
 
 
 def validate_company_logo_size(value):
@@ -18,7 +12,7 @@ def validate_company_logo_size(value):
     """
 
     if value.size > COMPANY_LOGO_MAX_SIZE:
-        raise ValidationError(_('The logo size cannot be larger than 30 MB.'))
+        raise CustomExceptionError(_("The logo size cannot be larger than 30 MB."))
 
 
 def validate_logo_size(logo):
@@ -30,7 +24,9 @@ def validate_logo_size(logo):
     max_height = 1500
 
     if img.width > max_width or img.height > max_height:
-        raise ValidationError(_('The logo dimensions must be less than or equal to 3000x1500 pixels.'))
+        raise CustomExceptionError(
+            _("The logo dimensions must be less than or equal to 3000x1500 pixels.")
+        )
 
 
 def validate_icon_size(icon):
@@ -42,7 +38,6 @@ def validate_icon_size(icon):
     max_height = 150
 
     if img.width > max_width or img.height > max_height:
-        raise ValidationError(_('The icon dimensions must be less than or equal to 300x150 pixels.'))
-
-
-
+        raise CustomExceptionError(
+            _("The icon dimensions must be less than or equal to 300x150 pixels.")
+        )

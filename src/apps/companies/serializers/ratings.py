@@ -7,5 +7,10 @@ class CompanyRatingSerializer(CustomModelSerializer):
     class Meta:
         model = Company
         fields = [
-            'rating5', 'rating4', 'rating3', 'rating2', 'rating1', 'rating_counts'
+            "rating5",
+            "rating4",
+            "rating3",
+            "rating2",
+            "rating1",
+            "rating_counts",
         ]

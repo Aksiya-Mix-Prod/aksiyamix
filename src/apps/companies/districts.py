@@ -206,6 +206,14 @@
     {"id": "220", "region_id": "7", "name_uz": "Davlatobod tumani"},
     {"id": "221", "region_id": "6", "name_uz": "G‘ozg‘on shahri"},
     {"id": "222", "region_id": "1", "name_uz": "Bo‘zatov tumani"},
-    {"id": "224", "region_id": "5", "name_uz": "Shahrisabz shahri", },
-    {"id": "225", "region_id": "5", "name_uz": "Ko‘kdala tumani", }
+    {
+        "id": "224",
+        "region_id": "5",
+        "name_uz": "Shahrisabz shahri",
+    },
+    {
+        "id": "225",
+        "region_id": "5",
+        "name_uz": "Ko‘kdala tumani",
+    },
 ]
