@@ -8,7 +8,7 @@ urlpatterns = [
     path(
         "",
          ProductCreateListViewSet.as_view({"get": "list", "post": "create"}),
-         name="product-list-create"
+         name="product-list-create",
     ),
     path(
         "<int:pk>/",
@@ -18,7 +18,6 @@ urlpatterns = [
                 "put": "update",
                 "patch": "partial_update",
                 "delete": "destroy",
-
             }
         ),
         name="product-detail",
