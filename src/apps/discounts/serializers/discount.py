@@ -1,13 +1,8 @@
 from django.db import transaction
 from apps.base.exceptions import CustomExceptionError
-<<<<<<< HEAD
 from apps.base.serializers import CustomModelSerializer
 from apps.discounts.models import Discount, DiscountFeature, DiscountImage
-from apps.discounts.serializers.discount_feature import DiscountFeatureReceiveSerializer
-=======
-from apps.discounts.models import Discount, DiscountFeature, DiscountImage
 from apps.discounts.serializers import DiscountFeatureReceiveSerializer
->>>>>>> 3b3e1be4f5f24ff0cf98aca5480a35c567612966
 
 
 class ProductImageSerializer(CustomModelSerializer):
