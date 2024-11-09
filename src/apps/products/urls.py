@@ -7,8 +7,8 @@ from django.urls import path
 urlpatterns = [
     path(
         "",
-         ProductCreateListViewSet.as_view({"get": "list", "post": "create"}),
-         name="product-list-create",
+        ProductCreateListViewSet.as_view({"get": "list", "post": "create"}),
+        name="product-list-create",
     ),
     path(
         "<int:pk>/",
