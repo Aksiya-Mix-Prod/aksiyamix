@@ -1,8 +1,7 @@
-from rest_framework import serializers
-
 from apps.base.serializers import CustomModelSerializer
 from apps.categories.models import Category
 from apps.companies.models.company import Company
+from rest_framework import serializers
 
 
 class CompanyBaseSerializer(CustomModelSerializer):

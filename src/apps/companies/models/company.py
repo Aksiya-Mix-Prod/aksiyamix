@@ -1,9 +1,5 @@
 import random
 
-from django.conf import settings
-from django.db import models
-from django.db.models import TextField
-
 from apps.base.models.base import AbstractBaseModel
 from apps.base.utils.region_choices import District, Regions
 from apps.base.validators.validators import validate_youtube_url
@@ -16,6 +12,10 @@ from apps.companies.validators.company_logo_size import (
     validate_logo_size,
 )
 from apps.users.validators.phone_number import phone_validate
+
+from django.conf import settings
+from django.db import models
+from django.db.models import TextField
 
 
 class Company(AbstractBaseModel):

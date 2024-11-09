@@ -3,7 +3,6 @@ from apps.companies.models.company_time_table import CompanyTimeTable
 
 
 class CompanyTimeTableListSerializer(CustomModelSerializer):
-
     class Meta:
         model = CompanyTimeTable
         fields = (
@@ -18,7 +17,6 @@ class CompanyTimeTableListSerializer(CustomModelSerializer):
 
 
 class CompanyTimeTableCreateUpdateSerializer(CustomModelSerializer):
-
     class Meta:
         model = CompanyTimeTable
         fields = (
