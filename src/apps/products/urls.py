@@ -1,12 +1,12 @@
 from apps.products.views import (
     ProductCreateListViewSet,
-
     ProductRetrieveUpdateDestroyViewSet,
 )
 from django.urls import path
 
 urlpatterns = [
-    path("",
+    path(
+        "",
          ProductCreateListViewSet.as_view({"get": "list", "post": "create"}),
          name="product-list-create"
     ),
@@ -18,7 +18,8 @@ urlpatterns = [
                 "put": "update",
                 "patch": "partial_update",
                 "delete": "destroy",
-        }
+
+            }
         ),
         name="product-detail",
     ),
