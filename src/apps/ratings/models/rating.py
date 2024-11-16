@@ -25,7 +25,7 @@ class Rating(AbstractBaseModel):
         help_text='which user is rating'
     )
 
-    rating_value = models.PositiveSmallIntegerField(editable=False, help_text='rating of user')
+    rating_value = models.PositiveSmallIntegerField(help_text='rating of user')
 
     def clean(self, *args, **kwargs):
         if self.rating_value < 1 or self.rating_value > 5:

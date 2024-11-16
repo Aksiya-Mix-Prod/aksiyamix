@@ -1,8 +1,7 @@
-from django.urls import include, path
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from apps.categories.views.category import (CategoryListViewSet,
-                                            ChildrenCategoryViewSet)
+from apps.categories.views.categories import (CategoryListViewSet,
+                                              ChildrenCategoryViewSet)
 
 urlpatterns = [
     path('', CategoryListViewSet.as_view({'get': 'list'}), name='category-list'),

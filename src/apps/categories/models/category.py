@@ -24,7 +24,7 @@ class Category(AbstractBaseModel):
     )
 
     icon = models.ImageField(
-        upload_to='categories/icons/%Y/%m/%d',
+        upload_to='categories/icons/%Y/%m/%d/',
         validators=[validate_image_size],
         blank=True,
         null=True
