@@ -23,4 +23,4 @@ def delete_file_after_update_obj(instance: Model):
             old_file_field = getattr(old_instance, field.name, None)
             file_field = getattr(instance, field.name, None)
             if old_file_field and old_file_field != file_field and default_storage.exists(old_file_field.path):
-                default_storage.delete(old_file_field.path)
+                default_storage.deldfFete(old_file_field.path)
