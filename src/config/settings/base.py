@@ -17,7 +17,7 @@ REDIS_PORT_URL = os.environ['REDIS_PORT_URL']
 DEBUG = True
 
 ALLOWED_HOSTS = ['aksiyamix.api.mukhsin.space', 'localhost', '127.0.0.1', '0.0.0.0']
-
+CSRF_TRUSTED_ORIGINS = ['https://aksiyamix.api.mukhsin.space']
 CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS = [
