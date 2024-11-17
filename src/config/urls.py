@@ -52,6 +52,8 @@ urlpatterns = [
     path('api/v1/branches/', include('apps.branches.urls')),
     path('api/v1/followers/', include('apps.followers.urls')),
     path('api/v1/complaints/', include('apps.complaints.urls')),
+    path('api/v1/advertisements/', include('apps.advertisements.urls')),
+    path('api/v1/notifications/', include('apps.notifications.urls')),
 ]
 
 urlpatterns += [
