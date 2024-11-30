@@ -83,6 +83,13 @@ Aksiyamix.git is an open-source project solving seamless Docker service orchestr
         └── manage.py
 ```
 
+## 👥 Contributors
+
+We believe in the power of collaboration. Below are some of our amazing contributors:
+
+| Name                                                | LinkedIn                                                             | Project Spent Time                                                                                                                       |
+|-----------------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------| 
+| [Mukhsin Mukhtorov](https://github.com/Mukhsin0508) | [LinkedIn](https://www.linkedin.com/in/mukhsin-mukhtorov-58b26221b/) | ![Wakatime Badge](https://wakatime.com/badge/user/60731bfe-5801-4003-b6ab-b7db12ed73d0/project/495ef6bb-f174-454b-852e-cf0b55b19a4c.svg) |
 
 ### 📂 Project Index
 <details open>
