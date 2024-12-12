@@ -3,13 +3,14 @@ from rest_framework.response import Response
 
 from apps.base.views.generics import CustomGenericAPIView
 from apps.tags.serializers import TagsBulkCreateSerializer
+from apps.tops.permissions import IsCompanyOwner
 
 
 class TagsCreateAPIView(CustomGenericAPIView):
     """
     Create tags for the current discount.
     """
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated, IsCompanyOwner]
     queryset = []
     serializer_class = TagsBulkCreateSerializer
 

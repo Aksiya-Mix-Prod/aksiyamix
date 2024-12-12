@@ -10,7 +10,7 @@ class CompanyTopTariff(AbstractBaseModel):
                                 related_name='top_tariffs', 
                                 null=True,
                                 limit_choices_to={
-                                    'is_delete': False,
+                                    'is_deleted': False,
                                     'is_active': True
                                 })
 
@@ -23,6 +23,12 @@ class CompanyTopTariff(AbstractBaseModel):
 
     class Meta:
         db_table = 'company_top_tariff'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        company_tops = self.company.top_tariff_counts
+        self.company.top_tariff_counts = str(int(company_tops) + self.quantity)
+        self.company.save()
 
     def __str__(self):
         return f"{self.quantity}-{self.price}"

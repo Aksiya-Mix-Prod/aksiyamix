@@ -26,7 +26,7 @@ urlpatterns = [
     # ========= wishlists =========
     path('api/v1/wishlists/', include('apps.wishlists.urls')),
     # ========= tops =========
-    # path('api/v1/tops/', include('apps.tops.urls')),
+    path('api/v1/tops/', include('apps.tops.urls')),
     # ========= notifications =========
     # path('api/v1/notifications/', include('apps.notifications.urls')),
 

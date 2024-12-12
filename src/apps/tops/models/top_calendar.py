@@ -17,9 +17,9 @@ class TopCalendar(AbstractBaseModel):
 
     year = models.PositiveSmallIntegerField()
     month = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(12)])
-    days = ArrayField(
+    days = ArrayField(default=list,
         base_field=ArrayField(
-            base_field=models.BooleanField(default=False)))
+            base_field=models.BooleanField(default=False), size=3))
 
     class Meta:
         db_table = 'top_calendar'

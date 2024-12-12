@@ -77,7 +77,11 @@ class CustomUser(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
         """Saving region if exist district"""
         if self.district:
             self.region = self.district.split('X')[0]
-    
+        
+        """Check spams count"""
+        if self.spam_counts >= 30:
+            self.is_spam = True
+
     class Meta:
         db_table = "user"
         verbose_name = _("user")
