@@ -6,9 +6,9 @@ from rest_framework.permissions import IsAdminUser
 
 
 class AdvertisementViewSet(CustomModelViewSet):
+    permission_classes = [IsAdminUser]
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
-    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         """To get active ads only from ads that collide with the current date"""

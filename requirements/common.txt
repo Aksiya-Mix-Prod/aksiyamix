@@ -21,3 +21,4 @@ profanity-check==1.0.3
 joblib==1.4.2
 moviepy==1.0.3
 setuptools==68.1.2
+fcm_django==2.2.1

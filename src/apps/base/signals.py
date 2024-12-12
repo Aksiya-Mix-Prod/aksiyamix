@@ -15,4 +15,4 @@ def base_post_delete(instance, *args, **kwargs):
 def base_pre_save(instance, *args, **kwargs):
     """Deleting file after by object"""
     delete_file_after_update_obj(instance)
-    
+
