@@ -18,10 +18,10 @@ class DiscountCreateUpdateSerializer(CustomModelSerializer):
     class Meta:
         model = Discount
         fields = [
-            'id', 'features', 'company', 'category', 'branch_company', 'tags', 'discount_type', 'currency',
+            'id', 'features', 'company', 'category', 'branches', 'tags', 'discount_type', 'currency',
             'is_active', 'is_deleted', 'title', 'description', 'video_url', 'image', 'start_date', 'end_date',
             'delivery', 'installment', 'discount_value', 'discount_value_is_percent', 'min_quantity', 'free_product',
-            'bonus_quantity', 'service'
+            'bonus_quantity', 'service', 'images',
         ]
         read_only_fields = ['created_at']
 

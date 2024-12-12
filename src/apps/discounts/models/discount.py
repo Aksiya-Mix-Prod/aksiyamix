@@ -42,7 +42,7 @@ class Discount(AbstractBaseModel):
         on_delete=models.PROTECT,
         related_name='discount_category',
         limit_choices_to={
-            "parent__parent_is_null": False
+            "parent__parent__isnull": False
         }
     )
     branches = models.ManyToManyField(to='branches.BranchCompany', related_name='discounts', blank=True)

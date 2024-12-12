@@ -22,7 +22,7 @@ class Product(AbstractBaseModel):
         on_delete=models.CASCADE,
         related_name='products',
         limit_choices_to={
-            "parent__is_null": False,
+            "parent__isnull": False,
         }
     )
 
