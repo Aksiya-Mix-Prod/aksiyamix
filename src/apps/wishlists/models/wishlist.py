@@ -10,10 +10,11 @@ class Wishlist(AbstractBaseModel):
         to="discounts.Discount",
         on_delete=models.CASCADE,
         limit_choices_to={
-            "is_delete": False,
+            "is_deleted": False,
             "is_active": True,
             "status": Discount.Status.APPROVED,
         },
+        related_name="wishlists",
     )
 
     class Meta:
